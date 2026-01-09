@@ -1,196 +1,191 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>ABS Ventures – Data Bundles</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ABS Ventures | Data Bundles</title>
 
 <style>
-:root{
-  --bg:#0b0b0b;
-  --card:#161616;
-  --accent:#f5c400;
-  --text:#ffffff;
-  --muted:#9a9a9a;
-  --success:#00e676;
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #0d0d0d;
+  color: #fff;
 }
 
-*{box-sizing:border-box;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto}
-
-body{
-  margin:0;
-  background:var(--bg);
-  color:var(--text);
-  padding:20px;
+header {
+  padding: 20px;
+  text-align: center;
+  background: linear-gradient(135deg, #111, #1a1a1a);
+  border-bottom: 2px solid #f5c400;
 }
 
-header{
-  text-align:center;
-  margin-bottom:25px;
+header h1 {
+  margin: 0;
+  color: #f5c400;
+  font-size: 28px;
 }
 
-.logo{
-  width:90px;
-  height:90px;
-  margin:auto;
-  border-radius:20px;
-  background:linear-gradient(135deg,#f5c400,#ff9100);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-weight:900;
-  font-size:22px;
-  color:#000;
+header p {
+  margin-top: 5px;
+  font-size: 14px;
+  color: #ccc;
 }
 
-header h1{
-  margin:12px 0 5px;
+.container {
+  padding: 20px;
 }
 
-header p{
-  color:var(--muted);
-  font-size:14px;
+.network {
+  background: #151515;
+  border-radius: 16px;
+  padding: 20px;
+  margin-bottom: 25px;
+  border: 1px solid #222;
 }
 
-.section{
-  background:var(--card);
-  border-radius:18px;
-  padding:16px;
-  margin-bottom:20px;
+.network h2 {
+  margin-top: 0;
+  color: #f5c400;
+  text-align: center;
 }
 
-.section h2{
-  margin:0 0 14px;
-  font-size:18px;
-  color:var(--accent);
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
 }
 
-.bundle{
-  background:#1f1f1f;
-  border-radius:14px;
-  padding:14px;
-  margin-bottom:10px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  border:2px solid transparent;
-  cursor:pointer;
+.bundle {
+  background: #1f1f1f;
+  border-radius: 14px;
+  padding: 18px;
+  text-align: center;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: 0.3s;
 }
 
-.bundle.active{
-  border-color:var(--accent);
-  background:#222;
+.bundle:hover {
+  border-color: #f5c400;
+  transform: scale(1.03);
 }
 
-.bundle span{
-  font-size:15px;
+.bundle strong {
+  display: block;
+  font-size: 20px;
+  color: #f5c400;
 }
 
-input,button{
-  width:100%;
-  padding:14px;
-  border-radius:14px;
-  border:none;
-  outline:none;
-  margin-top:10px;
-  font-size:15px;
+.bundle span {
+  font-size: 14px;
+  color: #ccc;
 }
 
-input{
-  background:#1f1f1f;
-  color:white;
+.actions {
+  margin-top: 30px;
+  text-align: center;
 }
 
-button{
-  background:var(--accent);
-  color:#000;
-  font-weight:700;
-  cursor:pointer;
+button {
+  width: 100%;
+  max-width: 350px;
+  padding: 14px;
+  margin: 10px auto;
+  border-radius: 12px;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
 }
 
-.copy{
-  background:#222;
-  color:white;
-  border:1px solid #333;
+.buy {
+  background: #f5c400;
+  color: #000;
+  font-weight: bold;
 }
 
-.success{
-  color:var(--success);
-  text-align:center;
-  margin-top:12px;
-  display:none;
+.copy {
+  background: #222;
+  color: #fff;
+  border: 1px solid #444;
 }
 
-footer{
-  text-align:center;
-  font-size:13px;
-  color:var(--muted);
-  margin-top:25px;
+.whatsapp {
+  background: #25d366;
+  color: #000;
+  font-weight: bold;
+}
+
+footer {
+  text-align: center;
+  padding: 20px;
+  font-size: 12px;
+  color: #888;
 }
 </style>
+
+<script>
+function buyNow() {
+  window.open("https://wa.me/233202111485?text=Hello%20ABS%20Ventures,%20I%20want%20to%20buy%20data", "_blank");
+}
+
+function copyMoMo() {
+  navigator.clipboard.writeText("0202111485");
+  alert("MoMo number copied!");
+}
+</script>
 </head>
 
 <body>
 
 <header>
-  <div class="logo">ABS</div>
   <h1>ABS Ventures</h1>
-  <p>Fast • Reliable • Affordable Data</p>
+  <p>Fast • Reliable • Affordable Data Bundles</p>
 </header>
 
-<div class="section">
-  <h2>MTN Bundles</h2>
-  <div class="bundle"><span>1GB</span><span>GHS 6</span></div>
-  <div class="bundle"><span>2GB</span><span>GHS 11</span></div>
-  <div class="bundle"><span>3GB</span><span>GHS 17</span></div>
-  <div class="bundle"><span>4GB</span><span>GHS 23</span></div>
-  <div class="bundle"><span>5GB</span><span>GHS 27</span></div>
-</div>
+<div class="container">
 
-<div class="section">
-  <h2>Telecel Bundles</h2>
-  <div class="bundle"><span>5GB</span><span>GHS 28</span></div>
-  <div class="bundle"><span>10GB</span><span>GHS 46</span></div>
-</div>
+  <!-- MTN -->
+  <div class="network">
+    <h2>MTN Bundles</h2>
+    <div class="grid">
+      <div class="bundle"><strong>1GB</strong><span>GHS 6</span></div>
+      <div class="bundle"><strong>2GB</strong><span>GHS 11</span></div>
+      <div class="bundle"><strong>3GB</strong><span>GHS 17</span></div>
+      <div class="bundle"><strong>4GB</strong><span>GHS 23</span></div>
+      <div class="bundle"><strong>5GB</strong><span>GHS 27</span></div>
+    </div>
+  </div>
 
-<div class="section">
-  <h2>AirtelTigo Bundles</h2>
-  <div class="bundle"><span>1GB</span><span>GHS 6</span></div>
-  <div class="bundle"><span>2GB</span><span>GHS 12</span></div>
-</div>
+  <!-- Telecel -->
+  <div class="network">
+    <h2>Telecel Bundles</h2>
+    <div class="grid">
+      <div class="bundle"><strong>5GB</strong><span>GHS 28</span></div>
+      <div class="bundle"><strong>10GB</strong><span>GHS 46</span></div>
+    </div>
+  </div>
 
-<div class="section">
-  <h2>Payment</h2>
-  <input type="text" placeholder="Recipient Number" />
-  <button class="copy" onclick="copyMoMo()">Copy MoMo Number</button>
-  <input type="file" />
-  <button onclick="approve()">Submit Payment</button>
-  <div class="success" id="success">✅ Payment submitted. Awaiting approval.</div>
+  <!-- AirtelTigo -->
+  <div class="network">
+    <h2>AirtelTigo Bundles</h2>
+    <div class="grid">
+      <div class="bundle"><strong>1GB</strong><span>GHS 6</span></div>
+      <div class="bundle"><strong>2GB</strong><span>GHS 12</span></div>
+    </div>
+  </div>
+
+  <div class="actions">
+    <button class="buy" onclick="buyNow()">Buy Now</button>
+    <button class="copy" onclick="copyMoMo()">Copy MoMo Number</button>
+    <button class="whatsapp" onclick="buyNow()">Chat on WhatsApp</button>
+  </div>
+
 </div>
 
 <footer>
-  WhatsApp Support: +233 202 111 485<br/>
-  © 2026 ABS Ventures
+  © 2026 ABS Ventures • Trusted Data Plug 🇬🇭
 </footer>
-
-<script>
-const bundles=document.querySelectorAll('.bundle');
-bundles.forEach(b=>{
-  b.onclick=()=>{
-    bundles.forEach(x=>x.classList.remove('active'));
-    b.classList.add('active');
-  }
-});
-
-function copyMoMo(){
-  navigator.clipboard.writeText("0202111485");
-  alert("MoMo number copied");
-}
-
-function approve(){
-  document.getElementById("success").style.display="block";
-}
-</script>
 
 </body>
 </html>

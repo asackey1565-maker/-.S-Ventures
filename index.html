@@ -8,86 +8,78 @@
 <style>
 body {
   margin: 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
   background: #0d0d0d;
   color: #fff;
 }
 
 header {
-  padding: 30px 20px;
+  padding: 20px;
   text-align: center;
-  background: linear-gradient(180deg, #1a1a1a 0%, #0d0d0d 100%);
-  border-bottom: 3px solid #f5c400;
+  background: linear-gradient(135deg, #111, #1a1a1a);
+  border-bottom: 2px solid #f5c400;
 }
 
 header h1 {
   margin: 0;
   color: #f5c400;
-  font-size: 32px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
+  font-size: 28px;
+}
+
+header p {
+  margin-top: 5px;
+  font-size: 14px;
+  color: #ccc;
 }
 
 .container {
   padding: 20px;
-  max-width: 500px;
-  margin: auto;
 }
 
 .network {
   background: #151515;
-  border-radius: 20px;
+  border-radius: 16px;
   padding: 20px;
   margin-bottom: 25px;
-  border: 1px solid #333;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+  border: 1px solid #222;
 }
 
 .network h2 {
   margin-top: 0;
+  color: #f5c400;
   text-align: center;
-  font-size: 22px;
 }
-
-/* Specific Network Header Colors */
-.mtn-h2 { color: #FFCC00; }
-.telecel-h2 { color: #EF0000; }
-.at-h2 { color: #00AEEF; }
 
 .grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 12px;
+  gap: 15px;
 }
 
 .bundle {
   background: #1f1f1f;
-  border-radius: 12px;
-  padding: 15px;
+  border-radius: 14px;
+  padding: 18px;
   text-align: center;
-  border: 1px solid #333;
+  border: 2px solid transparent;
+  cursor: pointer;
   transition: 0.3s;
 }
 
-/* Border Glow on Hover */
-.mtn-card:hover { border-color: #FFCC00; transform: translateY(-3px); }
-.telecel-card:hover { border-color: #EF0000; transform: translateY(-3px); }
-.at-card:hover { border-color: #00AEEF; transform: translateY(-3px); }
+.bundle:hover {
+  border-color: #f5c400;
+  transform: scale(1.03);
+}
 
 .bundle strong {
   display: block;
-  font-size: 18px;
-  margin-bottom: 5px;
+  font-size: 20px;
+  color: #f5c400;
 }
-
-/* Price Colors */
-.mtn-card strong { color: #FFCC00; }
-.telecel-card strong { color: #EF0000; }
-.at-card strong { color: #00AEEF; }
 
 .bundle span {
   font-size: 14px;
-  color: #bbb;
+  color: #ccc;
 }
 
 .actions {
@@ -95,47 +87,49 @@ header h1 {
   text-align: center;
 }
 
+/* New style for your payment instruction box */
 .payment-instruction {
   background: #f5c400;
   color: #000;
-  font-weight: 800;
-  padding: 18px;
-  border-radius: 15px;
+  font-weight: bold;
+  padding: 20px;
+  border-radius: 12px;
   margin-bottom: 15px;
-  font-size: 16px;
-  line-height: 1.5;
-  border: 2px solid #fff;
-  box-shadow: 0 0 15px rgba(245, 196, 0, 0.4);
+  font-size: 18px;
+  line-height: 1.4;
+  max-width: 350px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 button {
   width: 100%;
-  padding: 16px;
-  margin: 8px 0;
+  max-width: 350px;
+  padding: 14px;
+  margin: 10px auto;
   border-radius: 12px;
   border: none;
   font-size: 16px;
-  font-weight: bold;
   cursor: pointer;
-  transition: 0.2s;
 }
 
 .copy {
-  background: #2a2a2a;
+  background: #222;
   color: #fff;
   border: 1px solid #444;
 }
 
 .whatsapp {
   background: #25d366;
-  color: #fff;
+  color: #000;
+  font-weight: bold;
 }
 
 footer {
   text-align: center;
-  padding: 30px;
+  padding: 20px;
   font-size: 12px;
-  color: #666;
+  color: #888;
 }
 </style>
 
@@ -146,7 +140,7 @@ function buyNow() {
 
 function copyMoMo() {
   navigator.clipboard.writeText("0202111485");
-  alert("MoMo number copied: 0202111485");
+  alert("MoMo number copied!");
 }
 </script>
 </head>
@@ -155,46 +149,47 @@ function copyMoMo() {
 
 <header>
   <h1>ABS Ventures</h1>
-  <p>Premium HD Data Bundles ⚡</p>
+  <p>Fast • Reliable • Affordable Data Bundles</p>
 </header>
 
 <div class="container">
 
   <div class="network">
-    <h2 class="mtn-h2">MTN Bundles</h2>
+    <h2>MTN Bundles</h2>
     <div class="grid">
-      <div class="bundle mtn-card"><strong>1GB</strong><span>GHS 6</span></div>
-      <div class="bundle mtn-card"><strong>2GB</strong><span>GHS 11</span></div>
-      <div class="bundle mtn-card"><strong>3GB</strong><span>GHS 17</span></div>
-      <div class="bundle mtn-card"><strong>5GB</strong><span>GHS 27</span></div>
+      <div class="bundle"><strong>1GB</strong><span>GHS 6</span></div>
+      <div class="bundle"><strong>2GB</strong><span>GHS 11</span></div>
+      <div class="bundle"><strong>3GB</strong><span>GHS 17</span></div>
+      <div class="bundle"><strong>4GB</strong><span>GHS 23</span></div>
+      <div class="bundle"><strong>5GB</strong><span>GHS 27</span></div>
     </div>
   </div>
 
   <div class="network">
-    <h2 class="telecel-h2">Telecel Bundles</h2>
+    <h2>Telecel Bundles</h2>
     <div class="grid">
-      <div class="bundle telecel-card"><strong>5GB</strong><span>GHS 28</span></div>
-      <div class="bundle telecel-card"><strong>10GB</strong><span>GHS 46</span></div>
+      <div class="bundle"><strong>5GB</strong><span>GHS 28</span></div>
+      <div class="bundle"><strong>10GB</strong><span>GHS 46</span></div>
     </div>
   </div>
 
   <div class="network">
-    <h2 class="at-h2">AT (AirtelTigo)</h2>
+    <h2>AirtelTigo Bundles</h2>
     <div class="grid">
-      <div class="bundle at-card"><strong>1GB</strong><span>GHS 6</span></div>
-      <div class="bundle at-card"><strong>2GB</strong><span>GHS 12</span></div>
+      <div class="bundle"><strong>1GB</strong><span>GHS 6</span></div>
+      <div class="bundle"><strong>2GB</strong><span>GHS 12</span></div>
     </div>
   </div>
 
   <div class="actions">
     <div class="payment-instruction">
-      📢 TO PURCHASE:<br>
-      Send Money / Call: 0202111485<br>
-      (Telecel - ABS Ventures)
+      Send your money to / Call<br>
+      0202111485 - Telecel<br>
+      to purchase
     </div>
     
-    <button class="copy" onclick="copyMoMo()">📋 Copy MoMo Number</button>
-    <button class="whatsapp" onclick="buyNow()">💬 Chat on WhatsApp</button>
+    <button class="copy" onclick="copyMoMo()">Copy MoMo Number</button>
+    <button class="whatsapp" onclick="buyNow()">Chat on WhatsApp</button>
   </div>
 
 </div>

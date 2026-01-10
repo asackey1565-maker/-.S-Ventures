@@ -23,11 +23,9 @@ header {
 header h1 {
   margin: 0;
   color: #f5c400;
-  font-size: 28px;
 }
 
 header p {
-  margin-top: 5px;
   font-size: 14px;
   color: #ccc;
 }
@@ -45,7 +43,6 @@ header p {
 }
 
 .network h2 {
-  margin-top: 0;
   color: #f5c400;
   text-align: center;
 }
@@ -61,18 +58,16 @@ header p {
   border-radius: 14px;
   padding: 18px;
   text-align: center;
-  border: 2px solid transparent;
   cursor: pointer;
   transition: 0.3s;
 }
 
 .bundle:hover {
-  border-color: #f5c400;
-  transform: scale(1.03);
+  border: 2px solid #f5c400;
+  transform: scale(1.04);
 }
 
 .bundle strong {
-  display: block;
   font-size: 20px;
   color: #f5c400;
 }
@@ -82,65 +77,115 @@ header p {
   color: #ccc;
 }
 
+/* Actions */
 .actions {
-  margin-top: 30px;
   text-align: center;
+  margin-top: 30px;
 }
 
-/* New style for your payment instruction box */
 .payment-instruction {
   background: #f5c400;
   color: #000;
-  font-weight: bold;
-  padding: 20px;
+  padding: 18px;
   border-radius: 12px;
-  margin-bottom: 15px;
-  font-size: 18px;
-  line-height: 1.4;
+  font-weight: bold;
   max-width: 350px;
-  margin-left: auto;
-  margin-right: auto;
+  margin: auto;
 }
 
 button {
   width: 100%;
   max-width: 350px;
   padding: 14px;
-  margin: 10px auto;
+  margin-top: 12px;
   border-radius: 12px;
   border: none;
-  font-size: 16px;
   cursor: pointer;
 }
 
 .copy {
   background: #222;
   color: #fff;
-  border: 1px solid #444;
 }
 
 .whatsapp {
   background: #25d366;
-  color: #000;
   font-weight: bold;
 }
 
+/* Testimonials */
+.testimonials {
+  padding: 30px 20px;
+}
+
+.testimonial-card {
+  background: #1f1f1f;
+  padding: 15px;
+  border-radius: 12px;
+  margin: 15px auto;
+  max-width: 400px;
+  border-left: 4px solid #f5c400;
+}
+
+.testimonial-author {
+  color: #f5c400;
+  text-align: right;
+}
+
+/* Footer */
 footer {
   text-align: center;
   padding: 20px;
-  font-size: 12px;
+  font-size: 13px;
   color: #888;
+}
+
+.footer-links span {
+  cursor: pointer;
+  color: #f5c400;
+}
+
+/* Modal */
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.8);
+}
+
+.modal-content {
+  background: #1a1a1a;
+  padding: 20px;
+  border-radius: 14px;
+  max-width: 400px;
+  margin: 10% auto;
+}
+
+.close-btn {
+  float: right;
+  font-size: 22px;
+  cursor: pointer;
+  color: #f5c400;
 }
 </style>
 
 <script>
-function buyNow() {
-  window.open("https://wa.me/233202111485?text=Hello%20ABS%20Ventures,%20I%20want%20to%20buy%20data", "_blank");
+function buyBundle(network, size, price) {
+  const msg = `Hello ABS Ventures, I want to buy ${size} ${network} bundle for GHS ${price}`;
+  window.open(`https://wa.me/233202111485?text=${encodeURIComponent(msg)}`, "_blank");
 }
 
 function copyMoMo() {
   navigator.clipboard.writeText("0202111485");
   alert("MoMo number copied!");
+}
+
+function openModal(id) {
+  document.getElementById(id).style.display = "block";
+}
+
+function closeModal(id) {
+  document.getElementById(id).style.display = "none";
 }
 </script>
 </head>
@@ -149,7 +194,7 @@ function copyMoMo() {
 
 <header>
   <h1>ABS Ventures</h1>
-  <p>Fast • Reliable • Affordable Data Bundles</p>
+  <p>100% Legit • Instant Delivery • MoMo Accepted</p>
 </header>
 
 <div class="container">
@@ -157,84 +202,81 @@ function copyMoMo() {
   <div class="network">
     <h2>MTN Bundles</h2>
     <div class="grid">
-      <div class="bundle"><strong>1GB</strong><span>GHS 6</span></div>
-      <div class="bundle"><strong>2GB</strong><span>GHS 11</span></div>
-      <div class="bundle"><strong>3GB</strong><span>GHS 17</span></div>
-      <div class="bundle"><strong>4GB</strong><span>GHS 23</span></div>
-      <div class="bundle"><strong>5GB</strong><span>GHS 27</span></div>
+      <div class="bundle" onclick="buyBundle('MTN','1GB','6')"><strong>1GB</strong><span>GHS 6</span></div>
+      <div class="bundle" onclick="buyBundle('MTN','2GB','11')"><strong>2GB</strong><span>GHS 11</span></div>
+      <div class="bundle" onclick="buyBundle('MTN','3GB','17')"><strong>3GB</strong><span>GHS 17</span></div>
+      <div class="bundle" onclick="buyBundle('MTN','4GB','23')"><strong>4GB</strong><span>GHS 23</span></div>
+      <div class="bundle" onclick="buyBundle('MTN','5GB','27')"><strong>5GB</strong><span>GHS 27</span></div>
     </div>
   </div>
 
   <div class="network">
     <h2>Telecel Bundles</h2>
     <div class="grid">
-      <div class="bundle"><strong>5GB</strong><span>GHS 28</span></div>
-      <div class="bundle"><strong>10GB</strong><span>GHS 46</span></div>
+      <div class="bundle" onclick="buyBundle('Telecel','5GB','28')"><strong>5GB</strong><span>GHS 28</span></div>
+      <div class="bundle" onclick="buyBundle('Telecel','10GB','46')"><strong>10GB</strong><span>GHS 46</span></div>
     </div>
   </div>
 
   <div class="network">
     <h2>AirtelTigo Bundles</h2>
     <div class="grid">
-      <div class="bundle"><strong>1GB</strong><span>GHS 6</span></div>
-      <div class="bundle"><strong>2GB</strong><span>GHS 12</span></div>
+      <div class="bundle" onclick="buyBundle('AirtelTigo','1GB','6')"><strong>1GB</strong><span>GHS 6</span></div>
+      <div class="bundle" onclick="buyBundle('AirtelTigo','2GB','12')"><strong>2GB</strong><span>GHS 12</span></div>
     </div>
   </div>
 
   <div class="actions">
     <div class="payment-instruction">
-      Send your money to / Call<br>
-      0202111485 - Telecel<br>
-      to purchase
+      Send payment to / Call<br>
+      0202111485 (Telecel)
     </div>
-    
     <button class="copy" onclick="copyMoMo()">Copy MoMo Number</button>
-    <button class="whatsapp" onclick="buyNow()">Chat on WhatsApp</button>
+    <button class="whatsapp" onclick="buyBundle('','data bundle','')">Chat on WhatsApp</button>
   </div>
 
 </div>
 
-<footer>
-  © 2026 ABS Ventures • Trusted Data Plug 🇬🇭
-</footer>
- <div class="testimonials">
-    <h3 style="text-align:center; color:#f5c400;">What Our Clients Say</h3>
-    <div class="testimonial-card">
-      <p class="testimonial-text">"The data is so cheap and delivery is very fast. Highly recommended!"</p>
-      <p class="testimonial-author">- Kwesi A.</p>
-    </div>
-    <div class="testimonial-card">
-      <p class="testimonial-text">"Legit plug! Saved me a lot on my MTN bundles this month."</p>
-      <p class="testimonial-author">- Sarah O.</p>
-    </div>
+<div class="testimonials">
+  <h3 style="text-align:center; color:#f5c400;">What Our Clients Say</h3>
+  <div class="testimonial-card">
+    <p>"Fast delivery and cheap bundles. Legit plug!"</p>
+    <p class="testimonial-author">— Kwesi A.</p>
   </div>
-
+  <div class="testimonial-card">
+    <p>"Saved me a lot on MTN data. Highly recommended."</p>
+    <p class="testimonial-author">— Sarah O.</p>
+  </div>
 </div>
 
 <footer>
   <div class="footer-links">
-    <span onclick="openModal('privacyModal')">Privacy Policy</span> | 
+    <span onclick="openModal('privacyModal')">Privacy Policy</span> |
     <span onclick="openModal('termsModal')">Terms & Conditions</span>
   </div>
   © 2026 ABS Ventures • Trusted Data Plug 🇬🇭
 </footer>
 
+<!-- Modals -->
 <div id="privacyModal" class="modal">
   <div class="modal-content">
     <span class="close-btn" onclick="closeModal('privacyModal')">&times;</span>
-    <h2 style="color:#f5c400">Privacy Policy</h2>
-    <p>At ABS Ventures, we value your privacy. We only collect the phone number you provide to facilitate data transfers. We do not sell your data to third parties. Your payment information is processed through secure mobile money channels.</p>
+    <h3 style="color:#f5c400">Privacy Policy</h3>
+    <p>Your info is used only to deliver data. No third-party sharing.</p>
   </div>
 </div>
 
 <div id="termsModal" class="modal">
   <div class="modal-content">
     <span class="close-btn" onclick="closeModal('termsModal')">&times;</span>
-    <h2 style="color:#f5c400">Terms & Conditions</h2>
-    <p>1. Payments must be made before data is sent.<br>
-       2. Please ensure you provide the correct phone number. Data sent to a wrong number provided by the user cannot be reversed.<br>
-       3. Data delivery usually takes 5-45 minutes after payment verification.</p>
+    <h3 style="color:#f5c400">Terms & Conditions</h3>
+    <p>
+      • Payment first<br>
+      • Wrong number = user responsibility<br>
+      • Delivery: 5–45 minutes
+    </p>
   </div>
 </div>
+
 </body>
 </html>

@@ -1351,8 +1351,8 @@
                         <div class="method-name">Telecel Money</div>
                         <p>Send payment to our Telecel Money number</p>
                         <div class="method-number">020 211 1485</div>
-                        <p><strong>Name:</strong> ABS Ventures</p>
-                        <button class="copy-btn" onclick="copyToClipboard('0202111485')">
+                        <p><strong>Name:</strong> <span style="color: var(--primary);">SAMUEL Q. SACKEY</span></p>
+                        <button class="copy-btn" onclick="copyToClipboard('0202111485', 'Telecel Money')">
                             <i class="far fa-copy"></i> COPY NUMBER
                         </button>
                     </div>
@@ -1364,8 +1364,8 @@
                         <div class="method-name">MTN Mobile Money</div>
                         <p>Send payment to our MTN MoMo number</p>
                         <div class="method-number">024 456 7890</div>
-                        <p><strong>Name:</strong> ABS Ventures</p>
-                        <button class="copy-btn" onclick="copyToClipboard('0244567890')">
+                        <p><strong>Name:</strong> <span style="color: var(--primary);">SAMUEL Q. SACKEY</span></p>
+                        <button class="copy-btn" onclick="copyToClipboard('0244567890', 'MTN MoMo')">
                             <i class="far fa-copy"></i> COPY NUMBER
                         </button>
                     </div>
@@ -1424,7 +1424,7 @@
             <div class="fab-item" onclick="openWhatsApp()">
                 <i class="fab fa-whatsapp"></i> WhatsApp Support
             </div>
-            <div class="fab-item" onclick="copyToClipboard('0202111485')">
+            <div class="fab-item" onclick="copyToClipboard('0202111485', 'Telecel Money')">
                 <i class="far fa-copy"></i> Copy MoMo Number
             </div>
             <div class="fab-item" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
@@ -1534,23 +1534,32 @@
             setInterval(updateTimer, 1000);
         }
         
-        // Open Payment Guide
+        // Open Payment Guide - FIXED VERSION
         function openPaymentGuide(network, size, price) {
-            const paymentPage = `
+            const paymentPageContent = `
                 <!DOCTYPE html>
                 <html lang="en">
                 <head>
                     <meta charset="UTF-8">
                     <meta name="viewport" content="width=device-width, initial-scale=1.0">
                     <title>Payment Guide - ABS Ventures</title>
+                    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
                     <style>
+                        * {
+                            margin: 0;
+                            padding: 0;
+                            box-sizing: border-box;
+                        }
+                        
                         body {
-                            font-family: 'Poppins', sans-serif;
+                            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
                             background: linear-gradient(135deg, #0A0A0F 0%, #1A1A2E 100%);
                             color: white;
                             min-height: 100vh;
                             padding: 40px 20px;
+                            line-height: 1.6;
                         }
+                        
                         .payment-container {
                             max-width: 800px;
                             margin: 0 auto;
@@ -1562,6 +1571,7 @@
                             position: relative;
                             overflow: hidden;
                         }
+                        
                         .payment-container::before {
                             content: '';
                             position: absolute;
@@ -1571,18 +1581,21 @@
                             height: 200%;
                             background: radial-gradient(circle, rgba(255, 215, 0, 0.1) 0%, transparent 70%);
                         }
+                        
                         .header {
                             text-align: center;
                             margin-bottom: 40px;
                             position: relative;
                             z-index: 1;
                         }
+                        
                         .header h1 {
                             color: #FFD700;
                             font-size: 2.8rem;
                             margin-bottom: 15px;
                             text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
                         }
+                        
                         .order-summary {
                             background: rgba(255, 215, 0, 0.1);
                             padding: 30px;
@@ -1591,71 +1604,149 @@
                             border: 2px dashed #FFD700;
                             text-align: center;
                         }
+                        
                         .order-summary h2 {
                             color: white;
                             margin-bottom: 15px;
                         }
+                        
                         .order-amount {
                             font-size: 3.5rem;
                             color: #FFD700;
                             font-weight: 800;
                             margin: 20px 0;
                         }
+                        
+                        .payment-methods {
+                            margin: 40px 0;
+                        }
+                        
+                        .method-card {
+                            background: rgba(255, 215, 0, 0.1);
+                            padding: 30px;
+                            border-radius: 16px;
+                            margin-bottom: 25px;
+                            border: 2px solid rgba(255, 215, 0, 0.3);
+                        }
+                        
+                        .method-header {
+                            display: flex;
+                            align-items: center;
+                            gap: 15px;
+                            margin-bottom: 20px;
+                        }
+                        
+                        .method-icon {
+                            width: 60px;
+                            height: 60px;
+                            background: rgba(255, 215, 0, 0.2);
+                            border-radius: 50%;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            font-size: 1.8rem;
+                            color: #FFD700;
+                        }
+                        
+                        .method-title {
+                            font-size: 1.8rem;
+                            color: #FFD700;
+                        }
+                        
+                        .number-display {
+                            text-align: center;
+                            margin: 25px 0;
+                        }
+                        
+                        .number-large {
+                            font-size: 3rem;
+                            font-weight: 800;
+                            color: #FFD700;
+                            letter-spacing: 3px;
+                            margin: 15px 0;
+                            font-family: 'Courier New', monospace;
+                        }
+                        
+                        .name-display {
+                            font-size: 1.3rem;
+                            margin: 15px 0;
+                            text-align: center;
+                        }
+                        
+                        .copy-btn {
+                            width: 100%;
+                            padding: 18px;
+                            background: rgba(255, 215, 0, 0.1);
+                            border: 2px solid #FFD700;
+                            border-radius: 12px;
+                            color: #FFD700;
+                            font-weight: 700;
+                            font-size: 1.1rem;
+                            cursor: pointer;
+                            margin-top: 20px;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            gap: 12px;
+                            transition: all 0.3s ease;
+                        }
+                        
+                        .copy-btn:hover {
+                            background: #FFD700;
+                            color: #0A0A0F;
+                            transform: translateY(-3px);
+                        }
+                        
                         .payment-steps {
                             margin: 50px 0;
                         }
+                        
                         .step {
                             display: flex;
                             align-items: flex-start;
-                            margin-bottom: 30px;
-                            padding: 25px;
+                            margin-bottom: 25px;
+                            padding: 20px;
                             background: rgba(255, 255, 255, 0.05);
-                            border-radius: 16px;
+                            border-radius: 12px;
                             border-left: 5px solid #FFD700;
-                            transition: transform 0.3s ease;
                         }
-                        .step:hover {
-                            transform: translateX(10px);
-                        }
+                        
                         .step-number {
-                            width: 50px;
-                            height: 50px;
+                            width: 40px;
+                            height: 40px;
                             background: #FFD700;
-                            color: black;
+                            color: #0A0A0F;
                             border-radius: 50%;
                             display: flex;
                             align-items: center;
                             justify-content: center;
                             font-weight: 800;
-                            font-size: 1.5rem;
-                            margin-right: 25px;
+                            font-size: 1.2rem;
+                            margin-right: 20px;
                             flex-shrink: 0;
                         }
-                        .payment-numbers {
-                            display: grid;
-                            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-                            gap: 25px;
-                            margin: 40px 0;
+                        
+                        .step-content h3 {
+                            color: #FFD700;
+                            margin-bottom: 10px;
                         }
-                        .number-card {
-                            background: rgba(255, 215, 0, 0.1);
+                        
+                        .important-notes {
+                            background: rgba(229, 25, 55, 0.1);
                             padding: 25px;
                             border-radius: 16px;
-                            text-align: center;
-                            border: 2px solid rgba(255, 215, 0, 0.3);
+                            border: 2px dashed #E51937;
+                            margin-top: 40px;
                         }
-                        .number-card h3 {
-                            color: #FFD700;
+                        
+                        .important-notes h3 {
+                            color: #E51937;
                             margin-bottom: 15px;
+                            display: flex;
+                            align-items: center;
+                            gap: 10px;
                         }
-                        .number {
-                            font-size: 2.2rem;
-                            font-weight: 800;
-                            color: white;
-                            margin: 15px 0;
-                            font-family: 'Courier New', monospace;
-                            letter-spacing: 2px;
-                        }
+                        
                         .whatsapp-btn {
                             background: #25D366;
                             color: white;
@@ -1667,109 +1758,250 @@
                             cursor: pointer;
                             display: block;
                             margin: 40px auto;
-                            transition: transform 0.3s ease, box-shadow 0.3s ease;
+                            transition: all 0.3s ease;
+                            text-align: center;
+                            width: 100%;
+                            max-width: 400px;
                         }
+                        
                         .whatsapp-btn:hover {
                             transform: translateY(-5px);
                             box-shadow: 0 15px 40px rgba(37, 211, 102, 0.4);
                         }
-                        .terms-note {
-                            background: rgba(229, 25, 55, 0.1);
-                            padding: 25px;
-                            border-radius: 16px;
-                            border: 2px dashed #E51937;
-                            margin-top: 40px;
+                        
+                        .notification {
+                            position: fixed;
+                            top: 20px;
+                            right: 20px;
+                            background: #FFD700;
+                            color: #0A0A0F;
+                            padding: 15px 25px;
+                            border-radius: 10px;
+                            font-weight: 600;
+                            z-index: 1000;
+                            display: flex;
+                            align-items: center;
+                            gap: 10px;
+                            animation: slideIn 0.3s ease, fadeOut 0.3s ease 2.7s forwards;
+                        }
+                        
+                        @keyframes slideIn {
+                            from { transform: translateX(100%); opacity: 0; }
+                            to { transform: translateX(0); opacity: 1; }
+                        }
+                        
+                        @keyframes fadeOut {
+                            to { opacity: 0; transform: translateX(100%); }
                         }
                     </style>
                 </head>
                 <body>
                     <div class="payment-container">
                         <div class="header">
-                            <h1>💳 Payment Guide</h1>
+                            <h1><i class="fas fa-credit-card"></i> Payment Guide</h1>
                             <p>Follow these steps to complete your purchase</p>
                         </div>
                         
                         <div class="order-summary">
-                            <h2>Your Order</h2>
-                            <p>${size} ${network} Data Bundle</p>
+                            <h2>Your Order Details</h2>
+                            <p><strong>Network:</strong> ${network}</p>
+                            <p><strong>Bundle Size:</strong> ${size}</p>
                             <div class="order-amount">GHS ${price}</div>
-                            <p><i class="fas fa-clock"></i> Delivery: 5-45 minutes after payment</p>
+                            <p><i class="fas fa-clock"></i> Delivery Time: 5-45 minutes after payment confirmation</p>
                         </div>
                         
-                        <div class="payment-numbers">
-                            <div class="number-card">
-                                <h3><i class="fas fa-mobile-alt"></i> Telecel Money</h3>
-                                <div class="number">020 211 1485</div>
-                                <p>Name: <strong>SAMUEL Q. SACKEY</strong></p>
-                                <button onclick="navigator.clipboard.writeText('0202111485').then(() => alert('Number copied!'))" style="background:#333;color:white;border:none;padding:10px 20px;border-radius:8px;margin-top:15px;cursor:pointer">
-                                    <i class="far fa-copy"></i> Copy Number
+                        <div class="payment-methods">
+                            <!-- Telecel Money Card -->
+                            <div class="method-card">
+                                <div class="method-header">
+                                    <div class="method-icon">
+                                        <i class="fas fa-mobile-alt"></i>
+                                    </div>
+                                    <div class="method-title">Telecel Money</div>
+                                </div>
+                                
+                                <div class="number-display">
+                                    <p>Send payment to:</p>
+                                    <div class="number-large" id="telecelNumber">020 211 1485</div>
+                                    <div class="name-display">
+                                        <strong>Name:</strong> <span style="color: #FFD700;">SAMUEL Q. SACKEY</span>
+                                    </div>
+                                </div>
+                                
+                                <button class="copy-btn" onclick="copyNumber('0202111485', 'Telecel Money')">
+                                    <i class="far fa-copy"></i> COPY TELEcel NUMBER
+                                </button>
+                            </div>
+                            
+                            <!-- MTN MoMo Card -->
+                            <div class="method-card">
+                                <div class="method-header">
+                                    <div class="method-icon">
+                                        <i class="fas fa-wallet"></i>
+                                    </div>
+                                    <div class="method-title">MTN Mobile Money</div>
+                                </div>
+                                
+                                <div class="number-display">
+                                    <p>Send payment to:</p>
+                                    <div class="number-large" id="mtnNumber">024 456 7890</div>
+                                    <div class="name-display">
+                                        <strong>Name:</strong> <span style="color: #FFD700;">SAMUEL Q. SACKEY</span>
+                                    </div>
+                                </div>
+                                
+                                <button class="copy-btn" onclick="copyNumber('0244567890', 'MTN MoMo')">
+                                    <i class="far fa-copy"></i> COPY MTN NUMBER
                                 </button>
                             </div>
                         </div>
                         
                         <div class="payment-steps">
-                            <h2 style="color:#FFD700;margin-bottom:30px;"><i class="fas fa-list-ol"></i> Payment Steps</h2>
+                            <h2 style="color: #FFD700; margin-bottom: 30px; text-align: center;">
+                                <i class="fas fa-list-ol"></i> Payment Steps
+                            </h2>
                             
                             <div class="step">
                                 <div class="step-number">1</div>
-                                <div>
-                                    <h3 style="color:#FFD700;margin-bottom:10px;">Dial *170#</h3>
+                                <div class="step-content">
+                                    <h3>Dial *170#</h3>
                                     <p>On your mobile phone, dial *170# to access Mobile Money menu</p>
                                 </div>
                             </div>
                             
                             <div class="step">
                                 <div class="step-number">2</div>
-                                <div>
-                                    <h3 style="color:#FFD700;margin-bottom:10px;">Select "Transfer Money"</h3>
+                                <div class="step-content">
+                                    <h3>Select "Transfer Money"</h3>
                                     <p>Choose option 1 for transferring money to another number</p>
                                 </div>
                             </div>
                             
                             <div class="step">
                                 <div class="step-number">3</div>
-                                <div>
-                                    <h3 style="color:#FFD700;margin-bottom:10px;">Select "Other Networks"</h3>
+                                <div class="step-content">
+                                    <h3>Select "Other Networks"</h3>
                                     <p>Choose option 5 to send to other mobile money networks</p>
                                 </div>
                             </div>
                             
                             <div class="step">
                                 <div class="step-number">4</div>
-                                <div>
-                                    <h3 style="color:#FFD700;margin-bottom:10px;">Choose Recipient Network</h3>
+                                <div class="step-content">
+                                    <h3>Choose Recipient Network</h3>
                                     <p>Select the network of the recipient number (Telecel or MTN)</p>
                                 </div>
                             </div>
                             
                             <div class="step">
                                 <div class="step-number">5</div>
-                                <div>
-                                    <h3 style="color:#FFD700;margin-bottom:10px;">Enter Amount</h3>
-                                    <p>Enter the exact amount: <strong>GHS ${price}</strong></p>
+                                <div class="step-content">
+                                    <h3>Enter Recipient Number</h3>
+                                    <p>Enter the number: <strong style="color: #FFD700;">0202111485</strong> for Telecel Money</p>
+                                </div>
+                            </div>
+                            
+                            <div class="step">
+                                <div class="step-number">6</div>
+                                <div class="step-content">
+                                    <h3>Enter Amount</h3>
+                                    <p>Enter the exact amount: <strong style="color: #FFD700;">GHS ${price}</strong></p>
+                                </div>
+                            </div>
+                            
+                            <div class="step">
+                                <div class="step-number">7</div>
+                                <div class="step-content">
+                                    <h3>Complete Payment</h3>
+                                    <p>Enter your <strong>MoMo PIN</strong> to complete the transaction</p>
                                 </div>
                             </div>
                         </div>
                         
-                        <div class="terms-note">
-                            <h3 style="color:#E51937;margin-bottom:15px;"><i class="fas fa-exclamation-triangle"></i> Important Notes</h3>
-                            <p>• Delivery takes 5-45 minutes after payment confirmation<br>
-                               • Provide correct phone number for data delivery<br>
-                               • Keep payment confirmation message as proof<br>
-                               • Contact us immediately if delivery is delayed</p>
+                        <div class="important-notes">
+                            <h3><i class="fas fa-exclamation-triangle"></i> Important Notes</h3>
+                            <div style="line-height: 1.8;">
+                                <p>• Delivery takes 5-45 minutes after payment confirmation</p>
+                                <p>• Provide correct phone number for data delivery</p>
+                                <p>• Keep payment confirmation message as proof</p>
+                                <p>• Contact us immediately if delivery is delayed</p>
+                            </div>
                         </div>
                         
-                        <button class="whatsapp-btn" onclick="window.open('https://wa.me/233202111485?text=Hi%20ABS%20Ventures,%20I%20have%20paid%20for%20${size}%20${network}%20bundle%20(GHS%20${price}).%20Please%20send%20to%20my%20number.', '_blank')">
+                        <button class="whatsapp-btn" id="whatsappBtn">
                             <i class="fab fa-whatsapp"></i> CLICK HERE AFTER PAYMENT
                         </button>
+                        
+                        <p style="text-align: center; color: #A0A0B8; margin-top: 30px;">
+                            After completing payment, click the WhatsApp button above to send us your payment details for instant delivery.
+                        </p>
                     </div>
+                    
+                    <script>
+                        // Copy number function for new tab
+                        function copyNumber(number, type) {
+                            navigator.clipboard.writeText(number.replace(/\s/g, '')).then(() => {
+                                showNotification(\`\${type} number copied: \${number}\`);
+                            }).catch(err => {
+                                // Fallback for older browsers
+                                const textArea = document.createElement('textarea');
+                                textArea.value = number.replace(/\\s/g, '');
+                                document.body.appendChild(textArea);
+                                textArea.select();
+                                document.execCommand('copy');
+                                document.body.removeChild(textArea);
+                                showNotification(\`\${type} number copied: \${number}\`);
+                            });
+                        }
+                        
+                        // Show notification
+                        function showNotification(message) {
+                            const existing = document.querySelector('.notification');
+                            if (existing) existing.remove();
+                            
+                            const notification = document.createElement('div');
+                            notification.className = 'notification';
+                            notification.innerHTML = \`
+                                <i class="fas fa-check-circle"></i>
+                                <span>\${message}</span>
+                            \`;
+                            document.body.appendChild(notification);
+                            
+                            setTimeout(() => {
+                                if (notification.parentNode) {
+                                    notification.parentNode.removeChild(notification);
+                                }
+                            }, 3000);
+                        }
+                        
+                        // WhatsApp button functionality
+                        document.getElementById('whatsappBtn').addEventListener('click', function() {
+                            const message = \`Hi ABS Ventures, I have paid for \${'${size}'} \${'${network}'} bundle (GHS \${'${price}'}). Please send to my number.\`;
+                            const whatsappUrl = \`https://wa.me/233202111485?text=\${encodeURIComponent(message)}\`;
+                            window.open(whatsappUrl, '_blank');
+                        });
+                        
+                        // Initialize when page loads
+                        document.addEventListener('DOMContentLoaded', function() {
+                            console.log('Payment guide loaded successfully');
+                        });
+                    <\/script>
                 </body>
                 </html>
             `;
             
-            const newTab = window.open('', '_blank');
-            newTab.document.write(paymentPage);
-            newTab.document.close();
+            // Create a new blob with the HTML content
+            const blob = new Blob([paymentPageContent], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            
+            // Open in new tab
+            const newTab = window.open(url, '_blank', 'noopener,noreferrer');
+            
+            // Clean up the URL object after the window loads
+            if (newTab) {
+                newTab.focus();
+                URL.revokeObjectURL(url); // Clean up memory
+            }
         }
         
         // Filter and Search Functions
@@ -1796,17 +2028,24 @@
         }
         
         // Clipboard Functions
-        function copyToClipboard(text) {
+        function copyToClipboard(text, type) {
             navigator.clipboard.writeText(text).then(() => {
-                showNotification(`Copied: ${text}`);
+                showNotification(`${type} number copied: ${text}`);
             }).catch(err => {
-                console.error('Failed to copy: ', err);
+                // Fallback for older browsers
+                const textArea = document.createElement('textarea');
+                textArea.value = text;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                showNotification(`${type} number copied: ${text}`);
             });
         }
         
         // WhatsApp Function
         function openWhatsApp() {
-            const message = "Hello ABS Ventures, I'd like to purchase a data bundle.";
+            const message = "Hello ABS Ventures, I'd like to purchase a data bundle. Can you assist me?";
             window.open(`https://wa.me/233202111485?text=${encodeURIComponent(message)}`, '_blank');
         }
         
@@ -1835,54 +2074,53 @@
             fabMenu.classList.toggle('active');
         }
         
+        // Close FAB menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const fabMenu = document.getElementById('fabMenu');
+            const fabButton = document.querySelector('.fab-main');
+            
+            if (!fabButton.contains(event.target) && !fabMenu.contains(event.target)) {
+                fabMenu.classList.remove('active');
+            }
+        });
+        
         // Notification System
         function showNotification(message) {
-            const notification = document.createElement('div');
-            notification.style.cssText = `
-                position: fixed;
-                bottom: 100px;
-                right: 40px;
-                background: linear-gradient(135deg, #FFD700, #FFAA00);
-                color: #0A0A0F;
-                padding: 18px 30px;
-                border-radius: 16px;
-                font-weight: 600;
-                box-shadow: 0 10px 30px rgba(255, 215, 0, 0.4);
-                z-index: 2000;
-                display: flex;
-                align-items: center;
-                gap: 12px;
-                animation: slideIn 0.3s ease, fadeOut 0.3s ease 2.7s forwards;
-                max-width: 350px;
-            `;
+            // Remove existing notification
+            const existingNotif = document.querySelector('.notification');
+            if (existingNotif) existingNotif.remove();
             
-            notification.innerHTML = `
-                <i class="fas fa-check-circle"></i>
-                <span>${message}</span>
+            // Create notification
+            const notif = document.createElement('div');
+            notif.className = 'notification';
+            notif.innerHTML = `
+                <div style="position:fixed; bottom:100px; right:40px; background:linear-gradient(135deg, #FFD700, #FFAA00); color:#0A0A0F; padding:18px 30px; border-radius:16px; font-weight:600; z-index:2000; display:flex; align-items:center; gap:12px; box-shadow:0 10px 30px rgba(255, 215, 0, 0.4); animation:slideIn 0.3s ease, fadeOut 0.3s ease 2.7s forwards; max-width:350px;">
+                    <i class="fas fa-check-circle"></i>
+                    <span>${message}</span>
+                </div>
             `;
+            document.body.appendChild(notif);
             
-            document.body.appendChild(notification);
-            
-            // Add animation styles
-            const style = document.createElement('style');
-            style.textContent = `
-                @keyframes slideIn {
-                    from { transform: translateX(100%); opacity: 0; }
-                    to { transform: translateX(0); opacity: 1; }
-                }
-                @keyframes fadeOut {
-                    to { opacity: 0; transform: translateX(100%); }
-                }
-            `;
-            document.head.appendChild(style);
+            // Add animation styles if not already present
+            if (!document.querySelector('#notification-styles')) {
+                const style = document.createElement('style');
+                style.id = 'notification-styles';
+                style.textContent = `
+                    @keyframes slideIn {
+                        from { transform: translateX(100%); opacity: 0; }
+                        to { transform: translateX(0); opacity: 1; }
+                    }
+                    @keyframes fadeOut {
+                        to { opacity: 0; transform: translateX(100%); }
+                    }
+                `;
+                document.head.appendChild(style);
+            }
             
             // Remove notification after 3 seconds
             setTimeout(() => {
-                if (notification.parentNode) {
-                    notification.parentNode.removeChild(notification);
-                }
-                if (style.parentNode) {
-                    style.parentNode.removeChild(style);
+                if (notif.parentNode) {
+                    notif.parentNode.removeChild(notif);
                 }
             }, 3000);
         }

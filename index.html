@@ -1,465 +1,1222 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ABS Ventures | Data Bundles</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ABS Ventures | Data Bundles</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #f5c400;
+            --secondary: #e51937;
+            --dark: #0d0d0d;
+            --dark-gray: #1a1a1a;
+            --medium-gray: #222;
+            --light-gray: #ccc;
+            --success: #00ff6a;
+            --whatsapp: #25d366;
+            --transition: all 0.3s ease;
+        }
 
-<button onclick="toggleTheme()" style="background:#222;color:#fff;border:none;padding:8px 14px;border-radius:20px;cursor:pointer">🌙 / ☀️</button>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
 
-<style>
-body {
-  margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
-  background: #0d0d0d;
-  color: #fff;
-}
+        body {
+            background: var(--dark);
+            color: #fff;
+            line-height: 1.6;
+            transition: var(--transition);
+            min-height: 100vh;
+            position: relative;
+            padding-bottom: 100px;
+        }
 
-header {
-  padding: 20px;
-  text-align: center;
-  background: linear-gradient(135deg, #111, #1a1a1a);
-  border-bottom: 2px solid #f5c400;
-}
+        body.light {
+            background: #f5f5f5;
+            color: #333;
+        }
 
-header h1 {
-  margin: 0;
-  color: #f5c400;
-}
+        body.light .status-dot {
+            background: #00cc55;
+        }
 
-header p {
-  font-size: 14px;
-  color: #ccc;
-}
+        /* Floating Theme Toggle */
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--medium-gray);
+            color: #fff;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            transition: var(--transition);
+        }
 
-/* Status */
-.status {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
-  margin-top: 6px;
-  font-size: 13px;
-}
+        body.light .theme-toggle {
+            background: var(--primary);
+            color: #000;
+        }
 
-.status-dot {
-  width: 8px;
-  height: 8px;
-  background: #00ff6a;
-  border-radius: 50%;
-}
+        .theme-toggle:hover {
+            transform: rotate(30deg);
+        }
 
-/* Promo */
-.promo {
-  background: #1f1f1f;
-  text-align: center;
-  padding: 15px;
-  margin: 15px;
-  border-radius: 12px;
-  border: 1px dashed #f5c400;
-  font-size: 14px;
-}
+        /* Header */
+        header {
+            padding: 30px 20px 25px;
+            text-align: center;
+            background: linear-gradient(135deg, #111, var(--dark-gray));
+            border-bottom: 3px solid var(--primary);
+            position: relative;
+            overflow: hidden;
+        }
 
-/* Controls */
-.controls {
-  padding: 0 20px;
-}
+        header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary), var(--primary));
+        }
 
-.search {
-  width: 100%;
-  padding: 12px;
-  border-radius: 10px;
-  border: none;
-  margin-bottom: 10px;
-}
+        header h1 {
+            font-size: 2.8rem;
+            margin-bottom: 8px;
+            color: var(--primary);
+            text-shadow: 0 2px 10px rgba(245, 196, 0, 0.3);
+            letter-spacing: 1px;
+        }
 
-.filters {
-  display: flex;
-  gap: 10px;
-  justify-content: center;
-  margin-bottom: 20px;
-}
+        header p {
+            font-size: 1rem;
+            color: var(--light-gray);
+            max-width: 600px;
+            margin: 0 auto 15px;
+        }
 
-.filters button {
-  padding: 8px 14px;
-  border-radius: 20px;
-  border: none;
-  cursor: pointer;
-  background: #222;
-  color: #fff;
-}
+        /* Status */
+        .status {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(0, 255, 106, 0.1);
+            padding: 8px 20px;
+            border-radius: 30px;
+            margin-top: 10px;
+            border: 1px solid rgba(0, 255, 106, 0.3);
+        }
 
-.filters button.active {
-  background: #f5c400;
-  color: #000;
-}
+        .status-dot {
+            width: 12px;
+            height: 12px;
+            background: var(--success);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
 
-/* Countdown */
-.timer {
-  text-align: center;
-  margin-bottom: 20px;
-  color: #f5c400;
-  font-weight: bold;
-}
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
 
-/* Bundles */
-.container {
-  padding: 20px;
-}
+        /* Promo Banner */
+        .promo {
+            background: linear-gradient(90deg, #1f1f1f, #2a2a2a);
+            text-align: center;
+            padding: 18px;
+            margin: 25px 20px;
+            border-radius: 15px;
+            border: 2px dashed var(--primary);
+            font-size: 1.05rem;
+            position: relative;
+            overflow: hidden;
+        }
 
-.network {
-  background: #151515;
-  border-radius: 16px;
-  padding: 20px;
-  margin-bottom: 25px;
-}
+        .promo::before {
+            content: '🔥';
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.5rem;
+        }
 
-.network h2 {
-  text-align: center;
-  color: #f5c400;
-}
+        .promo b {
+            color: var(--primary);
+            font-size: 1.1rem;
+        }
 
-.grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 15px;
-}
+        /* Controls */
+        .controls {
+            padding: 0 20px;
+            margin-bottom: 25px;
+        }
 
-.bundle {
-  background: #1f1f1f;
-  padding: 18px;
-  border-radius: 14px;
-  text-align: center;
-  cursor: pointer;
-  transition: 0.3s;
-}
+        .search-container {
+            position: relative;
+            margin-bottom: 20px;
+        }
 
-.bundle:hover {
-  border: 2px solid #f5c400;
-  transform: scale(1.04);
-}
+        .search {
+            width: 100%;
+            padding: 16px 20px 16px 50px;
+            border-radius: 15px;
+            border: 2px solid var(--medium-gray);
+            background: var(--dark-gray);
+            color: #fff;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
 
-.bundle strong {
-  color: #f5c400;
-  font-size: 20px;
-}
+        body.light .search {
+            background: #fff;
+            color: #333;
+            border-color: #ddd;
+        }
 
-.bundle span {
-  font-size: 14px;
-  color: #ccc;
-}
+        .search:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(245, 196, 0, 0.2);
+        }
 
-/* Actions */
-.actions {
-  text-align: center;
-}
+        .search-icon {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--light-gray);
+        }
 
-.payment-instruction {
-  background: #f5c400;
-  color: #000;
-  padding: 18px;
-  border-radius: 12px;
-  max-width: 350px;
-  margin: auto;
-  font-weight: bold;
-}
+        .filters {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
 
-button.main {
-  margin-top: 12px;
-  padding: 14px;
-  width: 100%;
-  max-width: 350px;
-  border-radius: 12px;
-  border: none;
-  cursor: pointer;
-}
+        .filters button {
+            padding: 12px 24px;
+            border-radius: 30px;
+            border: 2px solid var(--medium-gray);
+            cursor: pointer;
+            background: var(--dark-gray);
+            color: #fff;
+            font-weight: 600;
+            transition: var(--transition);
+            flex: 1;
+            min-width: 120px;
+            max-width: 200px;
+        }
 
-.copy { background: #222; color: #fff; }
-.whatsapp { background: #25d366; font-weight: bold; }
+        .filters button:hover {
+            border-color: var(--primary);
+            transform: translateY(-3px);
+        }
 
-/* Footer */
-footer {
-  text-align: center;
-  padding: 20px;
-  font-size: 13px;
-  color: #888;
-}
-</style>
+        .filters button.active {
+            background: var(--primary);
+            color: #000;
+            border-color: var(--primary);
+            box-shadow: 0 5px 15px rgba(245, 196, 0, 0.3);
+        }
 
-<script>
-function buyBundle(network, size, price) {
-  const msg = `Hello ABS Ventures, I want to buy ${size} ${network} bundle for GHS ${price}`;
-  window.open(`https://wa.me/233202111485?text=${encodeURIComponent(msg)}`, "_blank");
-}
+        /* Countdown */
+        .timer {
+            text-align: center;
+            margin: 30px 20px;
+            padding: 18px;
+            background: linear-gradient(90deg, #1a1a1a, #222);
+            border-radius: 15px;
+            border: 2px solid var(--secondary);
+            position: relative;
+            overflow: hidden;
+        }
 
-function filterNetwork(net) {
-  document.querySelectorAll(".network").forEach(n => {
-    n.style.display = net === "all" || n.dataset.net === net ? "block" : "none";
-  });
-  document.querySelectorAll(".filters button").forEach(b => b.classList.remove("active"));
-  event.target.classList.add("active");
-}
+        .timer::before {
+            content: '⏰';
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.5rem;
+        }
 
-function searchBundles(val) {
-  val = val.toLowerCase();
-  document.querySelectorAll(".bundle").forEach(b => {
-    b.style.display = b.innerText.toLowerCase().includes(val) ? "block" : "none";
-  });
-}
+        .timer span {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--primary);
+            text-shadow: 0 0 10px rgba(245, 196, 0, 0.5);
+            font-family: 'Courier New', monospace;
+            letter-spacing: 2px;
+        }
 
-/* Countdown */
-let time = 9900;
-setInterval(() => {
-  let h = Math.floor(time / 3600);
-  let m = Math.floor((time % 3600) / 60);
-  let s = time % 60;
-  document.getElementById("countdown").innerText =
-    `${h.toString().padStart(2,0)}:${m.toString().padStart(2,0)}:${s.toString().padStart(2,0)}`;
-  time--;
-}, 1000);
-</script>
+        /* Bundles */
+        .container {
+            padding: 0 20px 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .network {
+            background: linear-gradient(145deg, #151515, #1a1a1a);
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 35px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            border: 1px solid #333;
+            transition: var(--transition);
+        }
+
+        .network:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+        }
+
+        .network h2 {
+            text-align: center;
+            color: var(--primary);
+            margin-bottom: 25px;
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .network h2 i {
+            font-size: 1.5rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .bundle {
+            background: linear-gradient(145deg, #1f1f1f, #252525);
+            padding: 25px 20px;
+            border-radius: 18px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            border: 2px solid transparent;
+        }
+
+        .bundle::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--primary);
+        }
+
+        .bundle:hover {
+            border-color: var(--primary);
+            transform: translateY(-8px);
+            box-shadow: 0 10px 25px rgba(245, 196, 0, 0.2);
+        }
+
+        .stock {
+            display: inline-block;
+            background: rgba(0, 255, 106, 0.15);
+            color: var(--success);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            margin-bottom: 15px;
+            border: 1px solid rgba(0, 255, 106, 0.3);
+        }
+
+        .bundle strong {
+            color: var(--primary);
+            font-size: 2.2rem;
+            display: block;
+            margin: 10px 0;
+            font-weight: 800;
+        }
+
+        .bundle span {
+            font-size: 1.3rem;
+            color: var(--light-gray);
+            font-weight: 600;
+        }
+
+        .bundle .buy-btn {
+            margin-top: 15px;
+            padding: 10px 25px;
+            background: rgba(245, 196, 0, 0.1);
+            color: var(--primary);
+            border: 1px solid var(--primary);
+            border-radius: 30px;
+            font-weight: 600;
+            transition: var(--transition);
+            opacity: 0;
+            transform: translateY(10px);
+        }
+
+        .bundle:hover .buy-btn {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Payment Section */
+        .payment-section {
+            background: linear-gradient(145deg, #1a1a1a, #222);
+            border-radius: 20px;
+            padding: 30px;
+            margin: 40px 20px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            border: 2px solid var(--primary);
+        }
+
+        .payment-instruction {
+            background: rgba(245, 196, 0, 0.15);
+            color: #fff;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            margin-bottom: 25px;
+            border: 2px dashed var(--primary);
+        }
+
+        .payment-instruction h3 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+
+        .payment-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            letter-spacing: 2px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .action-btn {
+            padding: 18px 35px;
+            border-radius: 15px;
+            border: none;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            transition: var(--transition);
+            min-width: 200px;
+        }
+
+        .action-btn.copy {
+            background: var(--medium-gray);
+            color: #fff;
+        }
+
+        .action-btn.copy:hover {
+            background: #333;
+            transform: translateY(-5px);
+        }
+
+        .action-btn.whatsapp {
+            background: var(--whatsapp);
+            color: #fff;
+        }
+
+        .action-btn.whatsapp:hover {
+            background: #1da851;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(37, 211, 102, 0.3);
+        }
+
+        /* Payment Guide Card */
+        .data-card {
+            background: linear-gradient(145deg, #1a1a1a, #222);
+            max-width: 500px;
+            margin: 40px auto;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+            border: 2px solid var(--secondary);
+        }
+
+        .card-header {
+            background: linear-gradient(90deg, var(--secondary), #c41430);
+            color: white;
+            padding: 25px;
+            text-align: center;
+        }
+
+        .card-body {
+            padding: 30px;
+        }
+
+        .instruction-step {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            font-size: 1.05rem;
+            color: #fff;
+            background: rgba(255,255,255,0.05);
+            padding: 15px;
+            border-radius: 10px;
+            transition: var(--transition);
+        }
+
+        .instruction-step:hover {
+            background: rgba(255,255,255,0.1);
+            transform: translateX(5px);
+        }
+
+        .step-num {
+            background: var(--primary);
+            color: #000;
+            font-weight: 800;
+            min-width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 20px;
+            font-size: 1.1rem;
+        }
+
+        .copy-box {
+            background: rgba(0,0,0,0.3);
+            border: 2px dashed var(--primary);
+            padding: 20px;
+            text-align: center;
+            margin: 25px 0;
+            border-radius: 12px;
+        }
+
+        .copy-btn {
+            background: var(--primary);
+            color: #000;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 700;
+            margin-top: 15px;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin: 15px auto 0;
+        }
+
+        .copy-btn:hover {
+            background: #ffd700;
+            transform: scale(1.05);
+        }
+
+        /* Testimonials */
+        .testimonials {
+            margin: 50px 20px;
+        }
+
+        .testimonials h3 {
+            text-align: center;
+            color: var(--primary);
+            font-size: 2rem;
+            margin-bottom: 30px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .testimonials h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: var(--primary);
+            border-radius: 2px;
+        }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .testimonial-card {
+            background: linear-gradient(145deg, #1a1a1a, #222);
+            padding: 25px;
+            border-radius: 15px;
+            border-left: 5px solid var(--primary);
+            transition: var(--transition);
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 15px;
+            color: var(--light-gray);
+        }
+
+        .testimonial-author {
+            font-weight: 700;
+            color: var(--primary);
+            text-align: right;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 30px 20px;
+            background: linear-gradient(135deg, #111, var(--dark-gray));
+            border-top: 3px solid var(--primary);
+            margin-top: 50px;
+        }
+
+        .footer-links {
+            margin-bottom: 20px;
+        }
+
+        .footer-links span {
+            color: var(--primary);
+            cursor: pointer;
+            margin: 0 15px;
+            font-weight: 600;
+            transition: var(--transition);
+            padding: 8px 15px;
+            border-radius: 5px;
+        }
+
+        .footer-links span:hover {
+            background: rgba(245, 196, 0, 0.1);
+            text-decoration: underline;
+        }
+
+        footer p {
+            font-size: 0.95rem;
+            color: var(--light-gray);
+            margin-top: 15px;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 1001;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal-content {
+            background: linear-gradient(145deg, #1a1a1a, #222);
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 600px;
+            width: 100%;
+            max-height: 80vh;
+            overflow-y: auto;
+            border: 3px solid var(--primary);
+            position: relative;
+            animation: modalFade 0.3s ease;
+        }
+
+        @keyframes modalFade {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 25px;
+            font-size: 2rem;
+            color: var(--primary);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .close-btn:hover {
+            color: #ffd700;
+            transform: rotate(90deg);
+        }
+
+        .modal-content h2 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+
+        .modal-content p {
+            line-height: 1.8;
+            color: var(--light-gray);
+        }
+
+        /* Floating Action Button */
+        .fab-container {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
+        }
+
+        .fab {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--primary), #ffd700);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: #000;
+            cursor: pointer;
+            box-shadow: 0 8px 25px rgba(245, 196, 0, 0.5);
+            transition: var(--transition);
+            border: none;
+        }
+
+        .fab:hover {
+            transform: scale(1.1) rotate(15deg);
+            box-shadow: 0 12px 30px rgba(245, 196, 0, 0.7);
+        }
+
+        .fab-menu {
+            position: absolute;
+            bottom: 85px;
+            right: 0;
+            background: var(--dark-gray);
+            border-radius: 15px;
+            padding: 15px;
+            min-width: 200px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            display: none;
+            flex-direction: column;
+            gap: 10px;
+            border: 1px solid #333;
+        }
+
+        .fab-menu.show {
+            display: flex;
+            animation: slideUp 0.3s ease;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fab-item {
+            padding: 15px 20px;
+            background: var(--medium-gray);
+            border-radius: 10px;
+            color: #fff;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border: none;
+            text-align: left;
+        }
+
+        .fab-item:hover {
+            background: var(--primary);
+            color: #000;
+            transform: translateX(-5px);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+            
+            .action-btn {
+                width: 100%;
+            }
+            
+            .filters button {
+                min-width: 100px;
+                padding: 10px 15px;
+            }
+            
+            header h1 {
+                font-size: 2.2rem;
+            }
+            
+            .payment-number {
+                font-size: 1.8rem;
+            }
+            
+            .fab {
+                width: 60px;
+                height: 60px;
+                font-size: 1.5rem;
+            }
+            
+            .fab-container {
+                bottom: 20px;
+                right: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .network h2 {
+                font-size: 1.5rem;
+            }
+            
+            .bundle strong {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
 </head>
-
-<script>
-function toggleTheme(){
-  const dark = document.body.classList.toggle("light");
-  localStorage.setItem("theme", dark ? "light" : "dark");
-}
-if(localStorage.getItem("theme")==="light"){
-  document.body.classList.add("light");
-}
-</script>
 <body>
 
-<header>
-  <h1>ABS Ventures</h1>
-  <p>100% Legit • Instant Delivery • MoMo Accepted</p>
-  <div class="status">
-    <div class="status-dot"></div>
-    <span>Status: Online – Instant Delivery</span>
-  </div>
-</header>
+    <!-- Theme Toggle Button -->
+    <button class="theme-toggle" onclick="toggleTheme()">
+        <i class="fas fa-moon"></i>
+    </button>
 
-<div class="promo">
- 🎁 Refer a friend & earn rewards <br>
- Buy 5 times → Get <b>500MB FREE</b>
-</div>
+    <!-- Header -->
+    <header>
+        <h1><i class="fas fa-bolt"></i> ABS Ventures</h1>
+        <p>100% Legit • Instant Delivery • MoMo Accepted • 24/7 Support</p>
+        <div class="status">
+            <div class="status-dot"></div>
+            <span>Status: Online – Instant Delivery</span>
+        </div>
+    </header>
 
-<div class="controls">
-  <input class="search" placeholder="Search bundles..." onkeyup="searchBundles(this.value)">
-  <div class="filters">
-    <button class="active" onclick="filterNetwork('all')">All</button>
-    <button onclick="filterNetwork('MTN')">MTN</button>
-    <button onclick="filterNetwork('Telecel')">Telecel</button>
-    <button onclick="filterNetwork('AirtelTigo')">AirtelTigo</button>
-  </div>
-</div>
-
-<div class="timer">
- 🔥 Daily Deal Ends In: <span id="countdown">02:45:00</span>
-</div>
-
-<div class="container">
-
-  <div class="network" data-net="MTN">
-    <h2>MTN Bundles</h2>
-    <div class="grid">
-      <div class="bundle" onclick="buyBundle('MTN','1GB','6')"><small class="stock">In Stock</small><strong>1GB</strong><span>GHS 6</span></div>
-      <div class="bundle" onclick="buyBundle('MTN','2GB','11')"><small class="stock">In Stock</small><strong>2GB</strong><span>GHS 11</span></div>
-      <div class="bundle" onclick="buyBundle('MTN','3GB','17')"><small class="stock">In Stock</small><strong>3GB</strong><span>GHS 17</span></div>
-      <div class="bundle" onclick="buyBundle('MTN','5GB','27')"><small class="stock">In Stock</small><strong>5GB</strong><span>GHS 27</span></div>
+    <!-- Promo Banner -->
+    <div class="promo">
+        🎁 <b>LIMITED OFFER:</b> Refer a friend & earn rewards | Buy 5 times → Get <b>500MB FREE</b>
     </div>
-  </div>
 
-  <div class="network" data-net="Telecel"> <h2 style="color: #e51937;">Telecel Bundles</h2>
-
-    <div class="grid">
-      <div class="bundle" onclick="buyBundle('Telecel','5GB','28')"><small class="stock">In Stock</small><strong>5GB</strong><span>GHS 28</span></div>
-      <div class="bundle" onclick="buyBundle('Telecel','10GB','46')"><small class="stock">In Stock</small><strong>10GB</strong><span>GHS 46</span></div>
+    <!-- Controls -->
+    <div class="controls">
+        <div class="search-container">
+            <i class="fas fa-search search-icon"></i>
+            <input class="search" placeholder="Search bundles by size or network..." onkeyup="searchBundles(this.value)">
+        </div>
+        <div class="filters">
+            <button class="active" onclick="filterNetwork('all')"><i class="fas fa-layer-group"></i> All Networks</button>
+            <button onclick="filterNetwork('MTN')"><i class="fas fa-signal" style="color:#ffcc00"></i> MTN</button>
+            <button onclick="filterNetwork('Telecel')"><i class="fas fa-wifi" style="color:#e51937"></i> Telecel</button>
+            <button onclick="filterNetwork('AirtelTigo')"><i class="fas fa-broadcast-tower" style="color:#0056b3"></i> AirtelTigo</button>
+        </div>
     </div>
-  </div>
 
-  <div class="network" data-net="AirtelTigo">
-    <h2><span style="color: #e51937;">Airtel</span><span style="color: #0056b3;">Tigo</span> Bundles</h2>
-
-    <div class="grid">
-      <div class="bundle" onclick="buyBundle('AirtelTigo','1GB','6')"><small class="stock">In Stock</small><strong>1GB</strong><span>GHS 6</span></div>
-      <div class="bundle" onclick="buyBundle('AirtelTigo','2GB','12')"><small class="stock">In Stock</small><strong>2GB</strong><span>GHS 12</span></div>
+    <!-- Countdown Timer -->
+    <div class="timer">
+        ⏰ <b>DAILY DEAL ENDS IN:</b> <span id="countdown">02:45:00</span>
     </div>
-  </div>
 
-  <div class="actions">
-    <div class="payment-instruction">
-      Send payment to <br> 0202111485 (Telecel)
-    </div>
-   <script>
-function copyMoMo() {
-  navigator.clipboard.writeText("0202111485").then(() => {
-    alert("Number copied!");
-  });
-}
-</script>
-<button class="main copy" onclick="copyMoMo()">Copy Number</button>
-
-<script>
-function chatWhatsApp() {
-  const msg = "Hi ABS, I want to purchase your data bundle.";
-  window.open(
-    "https://wa.me/233202111485?text=" + encodeURIComponent(msg),
-    "_blank"
-  );
-}
-</script>
-<button class="main whatsapp" onclick="chatWhatsApp()">Chat on WhatsApp</button>
-
-</div>
-
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<style>
-    .data-card {
-        font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-        max-width: 380px;
-        margin: 20px auto;
-        border-radius: 20px;
-        overflow: hidden;
-        box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-        background: #fff;
-    }
-    .card-header {
-        background: #e51937; /* Telecel Red */
-        color: white;
-        padding: 20px;
-        text-align: center;
-    }
-    .card-body {
-        padding: 20px;
-    }
-    .instruction-step {
-        display: flex;
-        align-items: flex-start;
-        margin-bottom: 12px;
-        font-size: 14px;
-        color: #333;
-    }
-    .step-num {
-        background: #ffcc00;
-        color: #000;
-        font-weight: bold;
-        min-width: 24px;
-        height: 24px;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-right: 12px;
-        font-size: 12px;
-    }
-    .copy-box {
-        background: #f4f4f4;
-        border: 1px dashed #ccc;
-        padding: 10px;
-        text-align: center;
-        margin: 15px 0;
-        border-radius: 8px;
-    }
-    .copy-btn {
-        background: #000;
-        color: #fff;
-        border: none;
-        padding: 8px 15px;
-        border-radius: 5px;
-        cursor: pointer;
-        font-weight: bold;
-        margin-top: 5px;
-    }
-    .highlight-text { font-weight: bold; color: #e51937; }
-</style>
-</head>
-<body>
-
-<div class="data-card">
-    <div class="card-header">
-        <h2 style="margin:0;">PAYMENT METHOD</h2>
-        <p style="margin:5px 0 0; font-size: 14px;">MTN MoMo Payment Guide (FOR MTN USERS ONLY)</p>
-    </div>
-    
-    <div class="card-body">
-        <div class="instruction-step"><div class="step-num">1</div><span>Dial <strong>*170#</strong></span></div>
-        <div class="instruction-step"><div class="step-num">2</div><span>Select Option 1: <strong>'Transfer Money'</strong></span></div>
-        <div class="instruction-step"><div class="step-num">3</div><span>Select 5: <strong>'Other Networks'</strong></span></div>
-        <div class="instruction-step"><div class="step-num">4</div><span>Select <strong>'Telecel'</strong> (Vodafone)</span></div>
-        
-        <div class="copy-box">
-            <span style="font-size: 12px; color: #666;">Recipient Number:</span><br>
-            <span id="targetNum" style="font-size: 18px; font-weight: bold;">0202111485</span><br>
-            <button class="copy-btn" onclick="copyNumber()">Copy Number</button>
+    <!-- Bundles Container -->
+    <div class="container">
+        <!-- MTN Bundles -->
+        <div class="network" data-net="MTN">
+            <h2><i class="fas fa-signal" style="color:#ffcc00"></i> MTN Bundles</h2>
+            <div class="grid">
+                <div class="bundle" onclick="buyBundle('MTN','1GB','6')">
+                    <small class="stock">✓ In Stock</small>
+                    <strong>1GB</strong>
+                    <span>GHS 6</span>
+                    <div class="buy-btn">Buy Now</div>
+                </div>
+                <div class="bundle" onclick="buyBundle('MTN','2GB','11')">
+                    <small class="stock">✓ In Stock</small>
+                    <strong>2GB</strong>
+                    <span>GHS 11</span>
+                    <div class="buy-btn">Buy Now</div>
+                </div>
+                <div class="bundle" onclick="buyBundle('MTN','3GB','17')">
+                    <small class="stock">✓ In Stock</small>
+                    <strong>3GB</strong>
+                    <span>GHS 17</span>
+                    <div class="buy-btn">Buy Now</div>
+                </div>
+                <div class="bundle" onclick="buyBundle('MTN','5GB','27')">
+                    <small class="stock">✓ In Stock</small>
+                    <strong>5GB</strong>
+                    <span>GHS 27</span>
+                    <div class="buy-btn">Buy Now</div>
+                </div>
+            </div>
         </div>
 
-        <div class="instruction-step"><div class="step-num">5</div><span>Enter & Confirm <strong class="highlight-text">0202111485</strong></span></div>
-        <div class="instruction-step"><div class="step-num">6</div><span>Enter <strong>Amount</strong> & use your phone as <strong>Reference</strong></span></div>
-        <div class="instruction-step"><div class="step-num">7</div><span>Enter <strong>MoMo PIN</strong> to complete</span></div>
+        <!-- Telecel Bundles -->
+        <div class="network" data-net="Telecel">
+            <h2><i class="fas fa-wifi" style="color:#e51937"></i> Telecel Bundles</h2>
+            <div class="grid">
+                <div class="bundle" onclick="buyBundle('Telecel','5GB','28')">
+                    <small class="stock">✓ In Stock</small>
+                    <strong>5GB</strong>
+                    <span>GHS 28</span>
+                    <div class="buy-btn">Buy Now</div>
+                </div>
+                <div class="bundle" onclick="buyBundle('Telecel','10GB','46')">
+                    <small class="stock">✓ In Stock</small>
+                    <strong>10GB</strong>
+                    <span>GHS 46</span>
+                    <div class="buy-btn">Buy Now</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- AirtelTigo Bundles -->
+        <div class="network" data-net="AirtelTigo">
+            <h2><i class="fas fa-broadcast-tower" style="color:#0056b3"></i> AirtelTigo Bundles</h2>
+            <div class="grid">
+                <div class="bundle" onclick="buyBundle('AirtelTigo','1GB','6')">
+                    <small class="stock">✓ In Stock</small>
+                    <strong>1GB</strong>
+                    <span>GHS 6</span>
+                    <div class="buy-btn">Buy Now</div>
+                </div>
+                <div class="bundle" onclick="buyBundle('AirtelTigo','2GB','12')">
+                    <small class="stock">✓ In Stock</small>
+                    <strong>2GB</strong>
+                    <span>GHS 12</span>
+                    <div class="buy-btn">Buy Now</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Payment Section -->
+        <div class="payment-section">
+            <div class="payment-instruction">
+                <h3><i class="fas fa-mobile-alt"></i> PAYMENT DETAILS</h3>
+                <p>Send payment via Mobile Money to:</p>
+                <div class="payment-number">0202111485</div>
+                <p><small>(Telecel Money - Name: ABS Ventures)</small></p>
+            </div>
+            <div class="action-buttons">
+                <button class="action-btn copy" onclick="copyMoMo()">
+                    <i class="far fa-copy"></i> Copy Number
+                </button>
+                <button class="action-btn whatsapp" onclick="chatWhatsApp()">
+                    <i class="fab fa-whatsapp"></i> Chat on WhatsApp
+                </button>
+            </div>
+        </div>
+
+        <!-- Payment Guide Card -->
+        <div class="data-card">
+            <div class="card-header">
+                <h2 style="margin:0;"><i class="fas fa-credit-card"></i> PAYMENT METHOD</h2>
+                <p style="margin:5px 0 0; font-size: 1rem;">MTN MoMo Payment Guide (FOR MTN USERS ONLY)</p>
+            </div>
+            
+            <div class="card-body">
+                <div class="instruction-step">
+                    <div class="step-num">1</div>
+                    <span>Dial <strong>*170#</strong> on your phone</span>
+                </div>
+                <div class="instruction-step">
+                    <div class="step-num">2</div>
+                    <span>Select Option 1: <strong>'Transfer Money'</strong></span>
+                </div>
+                <div class="instruction-step">
+                    <div class="step-num">3</div>
+                    <span>Select 5: <strong>'Other Networks'</strong></span>
+                </div>
+                <div class="instruction-step">
+                    <div class="step-num">4</div>
+                    <span>Select <strong>'Telecel'</strong> (Vodafone Cash)</span>
+                </div>
+                
+                <div class="copy-box">
+                    <span style="font-size: 0.9rem; color: var(--light-gray);">Recipient Number:</span><br>
+                    <span id="targetNum" style="font-size: 1.8rem; font-weight: bold; color: var(--primary);">0202111485</span><br>
+                    <button class="copy-btn" onclick="copyNumber()">
+                        <i class="far fa-copy"></i> Copy Number
+                    </button>
+                </div>
+
+                <div class="instruction-step">
+                    <div class="step-num">5</div>
+                    <span>Enter & Confirm <strong style="color: var(--primary);">0202111485</strong></span>
+                </div>
+                <div class="instruction-step">
+                    <div class="step-num">6</div>
+                    <span>Enter <strong>Amount</strong> & use your phone number as <strong>Reference</strong></span>
+                </div>
+                <div class="instruction-step">
+                    <div class="step-num">7</div>
+                    <span>Enter your <strong>MoMo PIN</strong> to complete payment</span>
+                </div>
+                
+                <p style="font-size: 0.9rem; text-align: center; color: var(--light-gray); margin-top: 25px;">
+                    <i class="fas fa-info-circle"></i> You will receive a notification once the transfer is successful.
+                </p>
+            </div>
+        </div>
+
+        <!-- Testimonials -->
+        <div class="testimonials">
+            <h3><i class="fas fa-star"></i> What Our Clients Say</h3>
+            <div class="testimonial-grid">
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"The data is so cheap and delivery is very fast. Highly recommended! I've been buying for 3 months now."</p>
+                    <p class="testimonial-author">- Kwesi A. <i class="fas fa-check-circle" style="color:var(--success)"></i></p>
+                </div>
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"Legit plug! Saved me a lot on my MTN bundles this month. Customer service is top-notch."</p>
+                    <p class="testimonial-author">- Sarah O. <i class="fas fa-check-circle" style="color:var(--success)"></i></p>
+                </div>
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"Fast and reliable. The 5GB bundle for GHS 27 is the best deal I've found anywhere. Will definitely buy again!"</p>
+                    <p class="testimonial-author">- Michael T. <i class="fas fa-check-circle" style="color:var(--success)"></i></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-links">
+            <span onclick="openModal('privacyModal')"><i class="fas fa-shield-alt"></i> Privacy Policy</span> | 
+            <span onclick="openModal('termsModal')"><i class="fas fa-file-contract"></i> Terms & Conditions</span> |
+            <span onclick="chatWhatsApp()"><i class="fas fa-headset"></i> Contact Support</span>
+        </div>
+        <p>© 2026 ABS Ventures • Trusted Data Plug 🇬🇭 • All Rights Reserved</p>
+        <p><small><i class="fas fa-clock"></i> Delivery Time: 5-45 minutes after payment confirmation</small></p>
+    </footer>
+
+    <!-- Modals -->
+    <div id="privacyModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('privacyModal')">&times;</span>
+            <h2><i class="fas fa-shield-alt"></i> Privacy Policy</h2>
+            <p>At ABS Ventures, we value your privacy. We only collect the phone number you provide to facilitate data transfers. We do not sell your data to third parties. Your payment information is processed through secure mobile money channels. All transactions are encrypted and we maintain strict confidentiality of your personal information.</p>
+        </div>
+    </div>
+
+    <div id="termsModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('termsModal')">&times;</span>
+            <h2><i class="fas fa-file-contract"></i> Terms & Conditions</h2>
+            <p>1. Payments must be made before data is sent.<br>
+               2. Please ensure you provide the correct phone number. Data sent to a wrong number provided by the user cannot be reversed.<br>
+               3. Data delivery usually takes 5-45 minutes after payment verification.<br>
+               4. Refunds are only issued if we fail to deliver within 2 hours of payment confirmation.<br>
+               5. Prices are subject to change based on market rates.<br>
+               6. We reserve the right to refuse service to anyone violating our terms.</p>
+        </div>
+    </div>
+
+    <!-- Floating Action Button -->
+    <div class="fab-container">
+        <button class="fab" onclick="toggleFabMenu()">
+            <i class="fas fa-bolt"></i>
+        </button>
+        <div class="fab-menu" id="fabMenu">
+            <button class="fab-item" onclick="chatWhatsApp()">
+                <i class="fab fa-whatsapp"></i> WhatsApp Support
+            </button>
+            <button class="fab-item" onclick="copyMoMo()">
+                <i class="far fa-copy"></i> Copy MoMo Number
+            </button>
+            <button class="fab-item" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+                <i class="fas fa-arrow-up"></i> Back to Top
+            </button>
+            <button class="fab-item" onclick="toggleTheme()">
+                <i class="fas fa-moon"></i> Toggle Theme
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Theme Toggle
+        function toggleTheme() {
+            const isLight = document.body.classList.toggle("light");
+            localStorage.setItem("theme", isLight ? "light" : "dark");
+            
+            // Update theme toggle icon
+            const themeIcon = document.querySelector('.theme-toggle i');
+            themeIcon.className = isLight ? 'fas fa-sun' : 'fas fa-moon';
+        }
         
-        <p style="font-size: 11px; text-align: center; color: #888; margin-top: 15px;">
-            You will receive a notification once the transfer is successful.
-        </p>
-    </div>
-</div>
+        // Apply saved theme
+        if(localStorage.getItem("theme") === "light") {
+            document.body.classList.add("light");
+            document.querySelector('.theme-toggle i').className = 'fas fa-sun';
+        }
 
-<script>
-function copyNumber() {
-    navigator.clipboard.writeText("0202111485");
-    alert("Number copied: 0202111485");
-}
-</script>
+        // Bundle Functions
+        function buyBundle(network, size, price) {
+            const msg = `Hello ABS Ventures, I want to buy ${size} ${network} bundle for GHS ${price}`;
+            window.open(`https://wa.me/233202111485?text=${encodeURIComponent(msg)}`, "_blank");
+        }
 
+        function filterNetwork(net) {
+            document.querySelectorAll(".network").forEach(n => {
+                n.style.display = net === "all" || n.dataset.net === net ? "block" : "none";
+            });
+            document.querySelectorAll(".filters button").forEach(b => b.classList.remove("active"));
+            event.target.classList.add("active");
+        }
 
-<footer>
-  © 2026 ABS Ventures • Trusted Data Plug 🇬🇭
-</footer>
- <div class="testimonials">
-    <h3 style="text-align:center; color:#f5c400;">What Our Clients Say</h3>
-    <div class="testimonial-card">
-      <p class="testimonial-text">"The data is so cheap and delivery is very fast. Highly recommended!"</p>
-      <p class="testimonial-author">- Kwesi A.</p>
-    </div>
-    <div class="testimonial-card">
-      <p class="testimonial-text">"Legit plug! Saved me a lot on my MTN bundles this month."</p>
-      <p class="testimonial-author">- Sarah O.</p>
-    </div>
-  </div>
+        function searchBundles(val) {
+            val = val.toLowerCase();
+            document.querySelectorAll(".bundle").forEach(b => {
+                const text = b.innerText.toLowerCase();
+                b.style.display = text.includes(val) ? "block" : "none";
+            });
+        }
 
-</div>
+        // Countdown Timer
+        let time = 9900; // 2 hours 45 minutes in seconds
+        setInterval(() => {
+            if(time < 0) time = 9900; // Reset when reaches 0
+            let h = Math.floor(time / 3600);
+            let m = Math.floor((time % 3600) / 60);
+            let s = time % 60;
+            document.getElementById("countdown").innerText =
+                `${h.toString().padStart(2,0)}:${m.toString().padStart(2,0)}:${s.toString().padStart(2,0)}`;
+            time--;
+        }, 1000);
 
-<footer>
-  <div class="footer-links">
-    <span onclick="openModal('privacyModal')">Privacy Policy</span> | 
-    <span onclick="openModal('termsModal')">Terms & Conditions</span>
-  </div>
-  © 2026 ABS Ventures • Trusted Data Plug 🇬🇭
-</footer>
+        // Copy Functions
+        function copyMoMo() {
+            navigator.clipboard.writeText("0202111485").then(() => {
+                showNotification("MoMo number copied to clipboard!");
+            });
+        }
 
-<div id="privacyModal" class="modal">
-  <div class="modal-content">
-    <span class="close-btn" onclick="closeModal('privacyModal')">&times;</span>
-    <h2 style="color:#f5c400">Privacy Policy</h2>
-    <p>At ABS Ventures, we value your privacy. We only collect the phone number you provide to facilitate data transfers. We do not sell your data to third parties. Your payment information is processed through secure mobile money channels.</p>
-  </div>
-</div>
+        function copyNumber() {
+            navigator.clipboard.writeText("0202111485").then(() => {
+                showNotification("Payment number copied: 0202111485");
+            });
+        }
 
-<div id="termsModal" class="modal">
-  <div class="modal-content">
-    <span class="close-btn" onclick="closeModal('termsModal')">&times;</span>
-    <h2 style="color:#f5c400">Terms & Conditions</h2>
-    <p>1. Payments must be made before data is sent.<br>
-       2. Please ensure you provide the correct phone number. Data sent to a wrong number provided by the user cannot be reversed.<br>
-       3. Data delivery usually takes 5-45 minutes after payment verification.</p>
-  </div>
-</div>
+        // WhatsApp Function
+        function chatWhatsApp() {
+            const msg = "Hi ABS Ventures, I want to purchase your data bundle. Can you assist me?";
+            window.open(
+                "https://wa.me/233202111485?text=" + encodeURIComponent(msg),
+                "_blank"
+            );
+        }
 
+        // Modal Functions
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = "flex";
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = "none";
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = "none";
+            }
+        }
+
+        // Floating Action Button
+        function toggleFabMenu() {
+            document.getElementById('fabMenu').classList.toggle('show');
+        }
+
+        // Close FAB menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const fabMenu = document.getElementById('fabMenu');
+            const fabButton = document.querySelector('.fab');
+            
+            if (!fabButton.contains(event.target) && !fabMenu.contains(event.target)) {
+                fabMenu.classList.remove('show');
+            }
+        });
+
+        // Notification Function
+        function showNotification(message) {
+            // Remove existing notification
+            const existingNotif = document.querySelector('.notification');
+            if (existingNotif) existingNotif.remove();
+            
+            // Create notification
+            const notif = document.createElement('div');
+            notif.className = 'notification';
+            notif.innerHTML = `
+                <div style="position:fixed; bottom:30px; left:50%; transform:translateX(-50%); 
+                background:var(--primary); color:#000; padding:15px 25px; border-radius:10px; 
+                font-weight:bold; z-index:1002; box-shadow:0 5px 15px rgba(0,0,0,0.3); 
+                animation:fadeIn 0.3s ease;">
+                    <i class="fas fa-check-circle"></i> ${message}
+                </div>
+            `;
+            document.body.appendChild(notif);
+            
+            // Remove after 3 seconds
+            setTimeout(() => {
+                notif.remove();
+            }, 3000);
+        }
+
+        // Add CSS for notification animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fadeIn {
+                from { opacity: 0; transform: translate(-50%, 20px); }
+                to { opacity: 1; transform: translate(-50%, 0); }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
 </body>
 </html>

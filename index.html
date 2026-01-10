@@ -284,9 +284,46 @@ setInterval(() => {
 
 </div>
 
+<div class="testimonials">
+  <h3 style="text-align:center; color:#f5c400;">What Our Clients Say</h3>
+  <div class="testimonial-card">
+    <p>"Fast delivery and cheap bundles. Legit plug!"</p>
+    <p class="testimonial-author">— Kwesi A.</p>
+  </div>
+  <div class="testimonial-card">
+    <p>"Saved me a lot on MTN data. Highly recommended."</p>
+    <p class="testimonial-author">— Sarah O.</p>
+  </div>
+</div>
+
 <footer>
- © 2026 ABS Ventures • Trusted Data Plug 🇬🇭
+  <div class="footer-links">
+    <span onclick="openModal('privacyModal')">Privacy Policy</span> |
+    <span onclick="openModal('termsModal')">Terms & Conditions</span>
+  </div>
+  © 2026 ABS Ventures • Trusted Data Plug 🇬🇭
 </footer>
+
+<!-- Modals -->
+<div id="privacyModal" class="modal">
+  <div class="modal-content">
+    <span class="close-btn" onclick="closeModal('privacyModal')">&times;</span>
+    <h3 style="color:#f5c400">Privacy Policy</h3>
+    <p>Your info is used only to deliver data. No third-party sharing.</p>
+  </div>
+</div>
+
+<div id="termsModal" class="modal">
+  <div class="modal-content">
+    <span class="close-btn" onclick="closeModal('termsModal')">&times;</span>
+    <h3 style="color:#f5c400">Terms & Conditions</h3>
+    <p>
+      • Payment first<br>
+      • Wrong number = user responsibility<br>
+      • Delivery: 5–45 minutes
+    </p>
+  </div>
+</div>
 
 </body>
 </html>

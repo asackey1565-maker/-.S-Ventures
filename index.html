@@ -32,7 +32,6 @@
             transition: var(--transition);
             min-height: 100vh;
             position: relative;
-            padding-bottom: 100px;
         }
 
         body.light {
@@ -44,10 +43,40 @@
             background: #00cc55;
         }
 
-        /* Floating Theme Toggle */
+        /* Terms & Conditions Banner - Always Visible */
+        .terms-banner {
+            background: linear-gradient(90deg, #e51937, #ff3333);
+            color: white;
+            text-align: center;
+            padding: 15px 20px;
+            font-size: 0.9rem;
+            border-bottom: 2px solid var(--primary);
+            position: sticky;
+            top: 0;
+            z-index: 999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .terms-banner i {
+            font-size: 1.2rem;
+            animation: pulse 2s infinite;
+        }
+
+        .terms-banner a {
+            color: var(--primary);
+            font-weight: bold;
+            text-decoration: underline;
+            margin-left: 5px;
+            cursor: pointer;
+        }
+
+        /* Theme Toggle */
         .theme-toggle {
             position: fixed;
-            top: 20px;
+            top: 70px;
             right: 20px;
             background: var(--medium-gray);
             color: #fff;
@@ -82,6 +111,7 @@
             border-bottom: 3px solid var(--primary);
             position: relative;
             overflow: hidden;
+            margin-top: 0;
         }
 
         header::after {
@@ -135,6 +165,35 @@
             100% { opacity: 1; }
         }
 
+        /* Delivery Time Banner */
+        .delivery-banner {
+            background: linear-gradient(90deg, #1f1f1f, #2a2a2a);
+            text-align: center;
+            padding: 18px;
+            margin: 20px;
+            border-radius: 15px;
+            border: 2px solid var(--success);
+            font-size: 1.1rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .delivery-banner::before {
+            content: '⚡';
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.8rem;
+        }
+
+        .delivery-time {
+            color: var(--success);
+            font-weight: bold;
+            font-size: 1.3rem;
+            margin: 0 5px;
+        }
+
         /* Promo Banner */
         .promo {
             background: linear-gradient(90deg, #1f1f1f, #2a2a2a);
@@ -149,7 +208,7 @@
         }
 
         .promo::before {
-            content: '🔥';
+            content: '🎁';
             position: absolute;
             left: 15px;
             top: 50%;
@@ -363,243 +422,93 @@
             font-weight: 600;
         }
 
-        .bundle .buy-btn {
+        .buy-btn {
             margin-top: 15px;
-            padding: 10px 25px;
-            background: rgba(245, 196, 0, 0.1);
+            padding: 12px 25px;
+            background: rgba(245, 196, 0, 0.15);
             color: var(--primary);
-            border: 1px solid var(--primary);
+            border: 2px solid var(--primary);
             border-radius: 30px;
-            font-weight: 600;
+            font-weight: 700;
+            cursor: pointer;
             transition: var(--transition);
-            opacity: 0;
-            transform: translateY(10px);
+            font-size: 1rem;
+            width: 80%;
+            margin-left: auto;
+            margin-right: auto;
+            display: block;
         }
 
-        .bundle:hover .buy-btn {
-            opacity: 1;
-            transform: translateY(0);
+        .buy-btn:hover {
+            background: var(--primary);
+            color: #000;
+            transform: scale(1.05);
         }
 
-        /* Payment Section */
-        .payment-section {
+        /* Simple Payment Info */
+        .simple-payment {
             background: linear-gradient(145deg, #1a1a1a, #222);
             border-radius: 20px;
-            padding: 30px;
+            padding: 25px;
             margin: 40px 20px;
             max-width: 800px;
             margin-left: auto;
             margin-right: auto;
             border: 2px solid var(--primary);
-        }
-
-        .payment-instruction {
-            background: rgba(245, 196, 0, 0.15);
-            color: #fff;
-            padding: 25px;
-            border-radius: 15px;
-            text-align: center;
-            margin-bottom: 25px;
-            border: 2px dashed var(--primary);
-        }
-
-        .payment-instruction h3 {
-            color: var(--primary);
-            margin-bottom: 15px;
-            font-size: 1.5rem;
-        }
-
-        .payment-number {
-            font-size: 2.5rem;
-            font-weight: 800;
-            color: var(--primary);
-            letter-spacing: 2px;
-            margin: 15px 0;
-            font-family: 'Courier New', monospace;
-        }
-
-        .action-buttons {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .action-btn {
-            padding: 18px 35px;
-            border-radius: 15px;
-            border: none;
-            cursor: pointer;
-            font-weight: 700;
-            font-size: 1.1rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            transition: var(--transition);
-            min-width: 200px;
-        }
-
-        .action-btn.copy {
-            background: var(--medium-gray);
-            color: #fff;
-        }
-
-        .action-btn.copy:hover {
-            background: #333;
-            transform: translateY(-5px);
-        }
-
-        .action-btn.whatsapp {
-            background: var(--whatsapp);
-            color: #fff;
-        }
-
-        .action-btn.whatsapp:hover {
-            background: #1da851;
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(37, 211, 102, 0.3);
-        }
-
-        /* Payment Guide Card */
-        .data-card {
-            background: linear-gradient(145deg, #1a1a1a, #222);
-            max-width: 500px;
-            margin: 40px auto;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
-            border: 2px solid var(--secondary);
-        }
-
-        .card-header {
-            background: linear-gradient(90deg, var(--secondary), #c41430);
-            color: white;
-            padding: 25px;
             text-align: center;
         }
 
-        .card-body {
-            padding: 30px;
-        }
-
-        .instruction-step {
-            display: flex;
-            align-items: center;
+        .simple-payment h3 {
+            color: var(--primary);
             margin-bottom: 20px;
-            font-size: 1.05rem;
-            color: #fff;
-            background: rgba(255,255,255,0.05);
-            padding: 15px;
-            border-radius: 10px;
-            transition: var(--transition);
-        }
-
-        .instruction-step:hover {
-            background: rgba(255,255,255,0.1);
-            transform: translateX(5px);
-        }
-
-        .step-num {
-            background: var(--primary);
-            color: #000;
-            font-weight: 800;
-            min-width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 20px;
-            font-size: 1.1rem;
-        }
-
-        .copy-box {
-            background: rgba(0,0,0,0.3);
-            border: 2px dashed var(--primary);
-            padding: 20px;
-            text-align: center;
-            margin: 25px 0;
-            border-radius: 12px;
-        }
-
-        .copy-btn {
-            background: var(--primary);
-            color: #000;
-            border: none;
-            padding: 12px 25px;
-            border-radius: 30px;
-            cursor: pointer;
-            font-weight: 700;
-            margin-top: 15px;
-            transition: var(--transition);
+            font-size: 1.5rem;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 10px;
-            margin: 15px auto 0;
         }
 
-        .copy-btn:hover {
-            background: #ffd700;
-            transform: scale(1.05);
+        .payment-methods {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-top: 25px;
         }
 
-        /* Testimonials */
-        .testimonials {
-            margin: 50px 20px;
-        }
-
-        .testimonials h3 {
-            text-align: center;
-            color: var(--primary);
-            font-size: 2rem;
-            margin-bottom: 30px;
-            position: relative;
-            padding-bottom: 15px;
-        }
-
-        .testimonials h3::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100px;
-            height: 4px;
-            background: var(--primary);
-            border-radius: 2px;
-        }
-
-        .testimonial-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 25px;
-        }
-
-        .testimonial-card {
-            background: linear-gradient(145deg, #1a1a1a, #222);
-            padding: 25px;
+        .method {
+            background: rgba(255,255,255,0.05);
+            padding: 20px;
             border-radius: 15px;
-            border-left: 5px solid var(--primary);
+            min-width: 200px;
+            border: 1px solid #333;
             transition: var(--transition);
         }
 
-        .testimonial-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        .method:hover {
+            border-color: var(--primary);
+            transform: translateY(-5px);
         }
 
-        .testimonial-text {
-            font-style: italic;
-            margin-bottom: 15px;
-            color: var(--light-gray);
-        }
-
-        .testimonial-author {
-            font-weight: 700;
+        .method-name {
             color: var(--primary);
-            text-align: right;
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
+        .method-number {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #fff;
+            font-family: 'Courier New', monospace;
+            margin: 10px 0;
+        }
+
+        .method-desc {
+            font-size: 0.9rem;
+            color: var(--light-gray);
+            margin-top: 10px;
         }
 
         /* Footer */
@@ -775,12 +684,14 @@
                 grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
             }
             
-            .action-buttons {
+            .payment-methods {
                 flex-direction: column;
+                align-items: center;
             }
             
-            .action-btn {
+            .method {
                 width: 100%;
+                max-width: 300px;
             }
             
             .filters button {
@@ -792,8 +703,8 @@
                 font-size: 2.2rem;
             }
             
-            .payment-number {
-                font-size: 1.8rem;
+            .method-number {
+                font-size: 1.3rem;
             }
             
             .fab {
@@ -805,6 +716,11 @@
             .fab-container {
                 bottom: 20px;
                 right: 20px;
+            }
+            
+            .terms-banner {
+                font-size: 0.8rem;
+                padding: 12px 15px;
             }
         }
 
@@ -825,6 +741,12 @@
 </head>
 <body>
 
+    <!-- Terms & Conditions Banner - Always on Top -->
+    <div class="terms-banner">
+        <i class="fas fa-exclamation-triangle"></i>
+        <span><b>IMPORTANT:</b> By purchasing, you agree to our <a onclick="openModal('termsModal')">Terms & Conditions</a>. Delivery takes 5-45 minutes after payment confirmation.</span>
+    </div>
+
     <!-- Theme Toggle Button -->
     <button class="theme-toggle" onclick="toggleTheme()">
         <i class="fas fa-moon"></i>
@@ -839,6 +761,11 @@
             <span>Status: Online – Instant Delivery</span>
         </div>
     </header>
+
+    <!-- Delivery Time Banner -->
+    <div class="delivery-banner">
+        ⚡ <b>DELIVERY TIME:</b> <span class="delivery-time">5 to 45 minutes</span> after payment confirmation
+    </div>
 
     <!-- Promo Banner -->
     <div class="promo">
@@ -870,29 +797,37 @@
         <div class="network" data-net="MTN">
             <h2><i class="fas fa-signal" style="color:#ffcc00"></i> MTN Bundles</h2>
             <div class="grid">
-                <div class="bundle" onclick="buyBundle('MTN','1GB','6')">
+                <div class="bundle">
                     <small class="stock">✓ In Stock</small>
                     <strong>1GB</strong>
                     <span>GHS 6</span>
-                    <div class="buy-btn">Buy Now</div>
+                    <button class="buy-btn" onclick="openPaymentGuide('MTN', '1GB', '6')">
+                        <i class="fas fa-shopping-cart"></i> Buy Now
+                    </button>
                 </div>
-                <div class="bundle" onclick="buyBundle('MTN','2GB','11')">
+                <div class="bundle">
                     <small class="stock">✓ In Stock</small>
                     <strong>2GB</strong>
                     <span>GHS 11</span>
-                    <div class="buy-btn">Buy Now</div>
+                    <button class="buy-btn" onclick="openPaymentGuide('MTN', '2GB', '11')">
+                        <i class="fas fa-shopping-cart"></i> Buy Now
+                    </button>
                 </div>
-                <div class="bundle" onclick="buyBundle('MTN','3GB','17')">
+                <div class="bundle">
                     <small class="stock">✓ In Stock</small>
                     <strong>3GB</strong>
                     <span>GHS 17</span>
-                    <div class="buy-btn">Buy Now</div>
+                    <button class="buy-btn" onclick="openPaymentGuide('MTN', '3GB', '17')">
+                        <i class="fas fa-shopping-cart"></i> Buy Now
+                    </button>
                 </div>
-                <div class="bundle" onclick="buyBundle('MTN','5GB','27')">
+                <div class="bundle">
                     <small class="stock">✓ In Stock</small>
                     <strong>5GB</strong>
                     <span>GHS 27</span>
-                    <div class="buy-btn">Buy Now</div>
+                    <button class="buy-btn" onclick="openPaymentGuide('MTN', '5GB', '27')">
+                        <i class="fas fa-shopping-cart"></i> Buy Now
+                    </button>
                 </div>
             </div>
         </div>
@@ -901,17 +836,21 @@
         <div class="network" data-net="Telecel">
             <h2><i class="fas fa-wifi" style="color:#e51937"></i> Telecel Bundles</h2>
             <div class="grid">
-                <div class="bundle" onclick="buyBundle('Telecel','5GB','28')">
-                    <small class="stock">✓ Out of Stock</small>
+                <div class="bundle">
+                    <small class="stock">✓ In Stock</small>
                     <strong>5GB</strong>
                     <span>GHS 28</span>
-                    <div class="buy-btn">Buy Now</div>
+                    <button class="buy-btn" onclick="openPaymentGuide('Telecel', '5GB', '28')">
+                        <i class="fas fa-shopping-cart"></i> Buy Now
+                    </button>
                 </div>
-                <div class="bundle" onclick="buyBundle('Telecel','10GB','46')">
+                <div class="bundle">
                     <small class="stock">✓ In Stock</small>
                     <strong>10GB</strong>
                     <span>GHS 46</span>
-                    <div class="buy-btn">Buy Now</div>
+                    <button class="buy-btn" onclick="openPaymentGuide('Telecel', '10GB', '46')">
+                        <i class="fas fa-shopping-cart"></i> Buy Now
+                    </button>
                 </div>
             </div>
         </div>
@@ -920,109 +859,58 @@
         <div class="network" data-net="AirtelTigo">
             <h2><i class="fas fa-broadcast-tower" style="color:#0056b3"></i> AirtelTigo Bundles</h2>
             <div class="grid">
-                <div class="bundle" onclick="buyBundle('AirtelTigo','1GB','6')">
+                <div class="bundle">
                     <small class="stock">✓ In Stock</small>
                     <strong>1GB</strong>
                     <span>GHS 6</span>
-                    <div class="buy-btn">Buy Now</div>
+                    <button class="buy-btn" onclick="openPaymentGuide('AirtelTigo', '1GB', '6')">
+                        <i class="fas fa-shopping-cart"></i> Buy Now
+                    </button>
                 </div>
-                <div class="bundle" onclick="buyBundle('AirtelTigo','2GB','12')">
+                <div class="bundle">
                     <small class="stock">✓ In Stock</small>
                     <strong>2GB</strong>
                     <span>GHS 12</span>
-                    <div class="buy-btn">Buy Now</div>
+                    <button class="buy-btn" onclick="openPaymentGuide('AirtelTigo', '2GB', '12')">
+                        <i class="fas fa-shopping-cart"></i> Buy Now
+                    </button>
                 </div>
             </div>
         </div>
 
-        <!-- Payment Section -->
-        <div class="payment-section">
-            <div class="payment-instruction">
-                <h3><i class="fas fa-mobile-alt"></i> PAYMENT DETAILS</h3>
-                <p>Send payment via Mobile Money to:</p>
-                <div class="payment-number">0202111485</div>
-                <p><small>(Telecel Money - Name: SAMUEL Q. SACKEY)</small></p>
-            </div>
-            <div class="action-buttons">
-                <button class="action-btn copy" onclick="copyMoMo()">
-                    <i class="far fa-copy"></i> Copy Number
-                </button>
-                <button class="action-btn whatsapp" onclick="chatWhatsApp()">
-                    <i class="fab fa-whatsapp"></i> Chat on WhatsApp
-                </button>
-            </div>
-        </div>
-
-        <!-- Payment Guide Card -->
-        <div class="data-card">
-            <div class="card-header">
-                <h2 style="margin:0;"><i class="fas fa-credit-card"></i> PAYMENT METHOD</h2>
-                <p style="margin:5px 0 0; font-size: 1rem;">MTN MoMo Payment Guide (FOR MTN USERS ONLY)</p>
-            </div>
+        <!-- Simple Payment Information -->
+        <div class="simple-payment">
+            <h3><i class="fas fa-mobile-alt"></i> PAYMENT METHODS</h3>
+            <p>Choose your preferred payment method below:</p>
             
-            <div class="card-body">
-                <div class="instruction-step">
-                    <div class="step-num">1</div>
-                    <span>Dial <strong>*170#</strong> on your phone</span>
-                </div>
-                <div class="instruction-step">
-                    <div class="step-num">2</div>
-                    <span>Select Option 1: <strong>'Transfer Money'</strong></span>
-                </div>
-                <div class="instruction-step">
-                    <div class="step-num">3</div>
-                    <span>Select 5: <strong>'Other Networks'</strong></span>
-                </div>
-                <div class="instruction-step">
-                    <div class="step-num">4</div>
-                    <span>Select <strong>'Telecel'</strong> (Vodafone Cash)</span>
-                </div>
-                
-                <div class="copy-box">
-                    <span style="font-size: 0.9rem; color: var(--light-gray);">Recipient Number:</span><br>
-                    <span id="targetNum" style="font-size: 1.8rem; font-weight: bold; color: var(--primary);">0202111485</span><br>
-                    <button class="copy-btn" onclick="copyNumber()">
+            <div class="payment-methods">
+                <div class="method">
+                    <div class="method-name">Telecel Money</div>
+                    <div class="method-number">0202111485</div>
+                    <div class="method-desc">Name: <b>ABS Ventures</b></div>
+                    <button class="buy-btn" style="margin-top: 15px; padding: 8px 15px;" onclick="copyMoMo()">
                         <i class="far fa-copy"></i> Copy Number
                     </button>
                 </div>
-
-                <div class="instruction-step">
-                    <div class="step-num">5</div>
-                    <span>Enter & Confirm <strong style="color: var(--primary);">0202111485</strong></span>
-                </div>
-                <div class="instruction-step">
-                    <div class="step-num">6</div>
-                    <span>Enter <strong>Amount</strong> & use your phone number as <strong>Reference</strong></span>
-                </div>
-                <div class="instruction-step">
-                    <div class="step-num">7</div>
-                    <span>Enter your <strong>MoMo PIN</strong> to complete payment</span>
-                </div>
                 
-                <p style="font-size: 0.9rem; text-align: center; color: var(--light-gray); margin-top: 25px;">
-                    <i class="fas fa-info-circle"></i> You will receive a notification once the transfer is successful.
-                </p>
+                <div class="method">
+                    <div class="method-name">MTN MoMo</div>
+                    <div class="method-number">0244567890</div>
+                    <div class="method-desc">Name: <b>ABS Ventures</b></div>
+                    <button class="buy-btn" style="margin-top: 15px; padding: 8px 15px;" onclick="copyMTN()">
+                        <i class="far fa-copy"></i> Copy Number
+                    </button>
+                </div>
             </div>
+            
+            <p style="margin-top: 25px; color: var(--primary); font-weight: bold;">
+                <i class="fas fa-info-circle"></i> After payment, chat with us on WhatsApp for instant delivery
+            </p>
+            <button class="buy-btn" style="background: var(--whatsapp); border-color: var(--whatsapp); color: white; width: 250px;" onclick="chatWhatsApp()">
+                <i class="fab fa-whatsapp"></i> Chat on WhatsApp
+            </button>
         </div>
 
-        <!-- Testimonials -->
-        <div class="testimonials">
-            <h3><i class="fas fa-star"></i> What Our Clients Say</h3>
-            <div class="testimonial-grid">
-                <div class="testimonial-card">
-                    <p class="testimonial-text">"The data is so cheap and delivery is very fast. Highly recommended! I've been buying for 3 months now."</p>
-                    <p class="testimonial-author">- Kwesi A. <i class="fas fa-check-circle" style="color:var(--success)"></i></p>
-                </div>
-                <div class="testimonial-card">
-                    <p class="testimonial-text">"Legit plug! Saved me a lot on my MTN bundles this month. Customer service is top-notch."</p>
-                    <p class="testimonial-author">- Sarah O. <i class="fas fa-check-circle" style="color:var(--success)"></i></p>
-                </div>
-                <div class="testimonial-card">
-                    <p class="testimonial-text">"Fast and reliable. The 5GB bundle for GHS 27 is the best deal I've found anywhere. Will definitely buy again!"</p>
-                    <p class="testimonial-author">- Michael T. <i class="fas fa-check-circle" style="color:var(--success)"></i></p>
-                </div>
-            </div>
-        </div>
     </div>
 
     <!-- Footer -->
@@ -1049,12 +937,12 @@
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('termsModal')">&times;</span>
             <h2><i class="fas fa-file-contract"></i> Terms & Conditions</h2>
-            <p>1. Payments must be made before data is sent.<br>
-               2. Please ensure you provide the correct phone number. Data sent to a wrong number provided by the user cannot be reversed.<br>
-               3. Data delivery usually takes 5-45 minutes after payment verification.<br>
-               4. Refunds are only issued if we fail to deliver within 2 hours of payment confirmation.<br>
-               5. Prices are subject to change based on market rates.<br>
-               6. We reserve the right to refuse service to anyone violating our terms.</p>
+            <p><b>1. Payment:</b> All payments must be made before data is sent.<br><br>
+               <b>2. Delivery Time:</b> Data delivery takes 5 to 45 minutes after payment confirmation.<br><br>
+               <b>3. Correct Phone Number:</b> Ensure you provide the correct phone number. Data sent to a wrong number provided by the user cannot be reversed.<br><br>
+               <b>4. Refund Policy:</b> Refunds are only issued if we fail to deliver within 2 hours of payment confirmation.<br><br>
+               <b>5. Price Changes:</b> Prices are subject to change based on market rates.<br><br>
+               <b>6. Right to Refuse:</b> We reserve the right to refuse service to anyone violating our terms.</p>
         </div>
     </div>
 
@@ -1096,12 +984,215 @@
             document.querySelector('.theme-toggle i').className = 'fas fa-sun';
         }
 
-        // Bundle Functions
-        function buyBundle(network, size, price) {
-            const msg = `Hello ABS Ventures, I want to buy ${size} ${network} bundle for GHS ${price}`;
-            window.open(`https://wa.me/233202111485?text=${encodeURIComponent(msg)}`, "_blank");
+        // Open Payment Guide in New Tab
+        function openPaymentGuide(network, size, price) {
+            const paymentPage = `
+                <!DOCTYPE html>
+                <html lang="en">
+                <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <title>ABS Ventures - Payment Guide</title>
+                    <style>
+                        body {
+                            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                            background: #0d0d0d;
+                            color: white;
+                            padding: 20px;
+                            line-height: 1.6;
+                        }
+                        .container {
+                            max-width: 800px;
+                            margin: 0 auto;
+                            background: #1a1a1a;
+                            padding: 30px;
+                            border-radius: 20px;
+                            border: 3px solid #f5c400;
+                        }
+                        h1 {
+                            color: #f5c400;
+                            text-align: center;
+                            margin-bottom: 30px;
+                        }
+                        .order-summary {
+                            background: #222;
+                            padding: 20px;
+                            border-radius: 15px;
+                            margin-bottom: 30px;
+                            text-align: center;
+                            border: 2px dashed #f5c400;
+                        }
+                        .order-summary h2 {
+                            color: #f5c400;
+                            margin-bottom: 15px;
+                        }
+                        .payment-methods {
+                            display: flex;
+                            gap: 20px;
+                            justify-content: center;
+                            flex-wrap: wrap;
+                            margin: 30px 0;
+                        }
+                        .method {
+                            background: #222;
+                            padding: 20px;
+                            border-radius: 15px;
+                            text-align: center;
+                            min-width: 250px;
+                            border: 2px solid #333;
+                        }
+                        .method h3 {
+                            color: #f5c400;
+                            margin-bottom: 15px;
+                        }
+                        .number {
+                            font-size: 1.8rem;
+                            font-weight: bold;
+                            color: #fff;
+                            margin: 15px 0;
+                            font-family: 'Courier New', monospace;
+                        }
+                        .instructions {
+                            background: #222;
+                            padding: 25px;
+                            border-radius: 15px;
+                            margin: 30px 0;
+                        }
+                        .step {
+                            display: flex;
+                            align-items: flex-start;
+                            margin-bottom: 20px;
+                        }
+                        .step-num {
+                            background: #f5c400;
+                            color: #000;
+                            width: 30px;
+                            height: 30px;
+                            border-radius: 50%;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            font-weight: bold;
+                            margin-right: 15px;
+                            flex-shrink: 0;
+                        }
+                        .whatsapp-btn {
+                            background: #25d366;
+                            color: white;
+                            border: none;
+                            padding: 15px 30px;
+                            border-radius: 10px;
+                            font-size: 1.1rem;
+                            font-weight: bold;
+                            cursor: pointer;
+                            display: block;
+                            margin: 30px auto;
+                            text-align: center;
+                        }
+                        .copy-btn {
+                            background: #333;
+                            color: white;
+                            border: none;
+                            padding: 10px 20px;
+                            border-radius: 5px;
+                            cursor: pointer;
+                            margin-top: 10px;
+                        }
+                    </style>
+                </head>
+                <body>
+                    <div class="container">
+                        <h1>📱 ABS Ventures - Payment Guide</h1>
+                        
+                        <div class="order-summary">
+                            <h2>Your Order: ${size} ${network} Bundle</h2>
+                            <p style="font-size: 1.5rem; color: #f5c400; font-weight: bold;">Amount to Pay: GHS ${price}</p>
+                            <p><i>Delivery Time: 5 to 45 minutes after payment</i></p>
+                        </div>
+                        
+                        <div style="text-align: center; margin: 30px 0;">
+                            <h2 style="color: #f5c400;">Choose Payment Method</h2>
+                        </div>
+                        
+                        <div class="payment-methods">
+                            <div class="method">
+                                <h3>Telecel Money</h3>
+                                <div class="number">0202111485</div>
+                                <p>Name: <b>ABS Ventures</b></p>
+                                <button class="copy-btn" onclick="navigator.clipboard.writeText('0202111485').then(() => alert('Number copied!'))">
+                                    Copy Number
+                                </button>
+                            </div>
+                            
+                            <div class="method">
+                                <h3>MTN MoMo</h3>
+                                <div class="number">0244567890</div>
+                                <p>Name: <b>ABS Ventures</b></p>
+                                <button class="copy-btn" onclick="navigator.clipboard.writeText('0244567890').then(() => alert('Number copied!'))">
+                                    Copy Number
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="instructions">
+                            <h2 style="color: #f5c400; text-align: center;">MTN MoMo Payment Steps</h2>
+                            <div class="step">
+                                <div class="step-num">1</div>
+                                <div>Dial <strong>*170#</strong> on your phone</div>
+                            </div>
+                            <div class="step">
+                                <div class="step-num">2</div>
+                                <div>Select Option 1: <strong>'Transfer Money'</strong></div>
+                            </div>
+                            <div class="step">
+                                <div class="step-num">3</div>
+                                <div>Select 5: <strong>'Other Networks'</strong></div>
+                            </div>
+                            <div class="step">
+                                <div class="step-num">4</div>
+                                <div>Select <strong>'Telecel'</strong> (for Telecel Money)</div>
+                            </div>
+                            <div class="step">
+                                <div class="step-num">5</div>
+                                <div>Enter recipient number: <strong>0202111485</strong></div>
+                            </div>
+                            <div class="step">
+                                <div class="step-num">6</div>
+                                <div>Enter amount: <strong>GHS ${price}</strong></div>
+                            </div>
+                            <div class="step">
+                                <div class="step-num">7</div>
+                                <div>Enter your <strong>MoMo PIN</strong> to complete</div>
+                            </div>
+                        </div>
+                        
+                        <div style="background: rgba(245, 196, 0, 0.1); padding: 20px; border-radius: 15px; margin: 30px 0; border: 2px dashed #f5c400;">
+                            <h3 style="color: #f5c400; text-align: center;">⚠️ IMPORTANT TERMS & CONDITIONS</h3>
+                            <p>1. Payment must be completed before data is sent<br>
+                               2. Delivery takes 5-45 minutes after payment confirmation<br>
+                               3. Ensure correct phone number is provided<br>
+                               4. Data sent to wrong number cannot be reversed</p>
+                        </div>
+                        
+                        <button class="whatsapp-btn" onclick="window.open('https://wa.me/233202111485?text=Hi%20ABS%20Ventures,%20I%20have%20paid%20for%20${size}%20${network}%20bundle%20(GHS%20${price}).%20Please%20send%20to%20my%20number.', '_blank')">
+                            💬 CLICK HERE AFTER PAYMENT - Chat on WhatsApp
+                        </button>
+                        
+                        <p style="text-align: center; color: #ccc; margin-top: 30px;">
+                            After payment, click the WhatsApp button above to send us your payment details for instant delivery.
+                        </p>
+                    </div>
+                </body>
+                </html>
+            `;
+            
+            // Open payment guide in new tab
+            const newTab = window.open();
+            newTab.document.write(paymentPage);
+            newTab.document.close();
         }
 
+        // Filter and Search Functions
         function filterNetwork(net) {
             document.querySelectorAll(".network").forEach(n => {
                 n.style.display = net === "all" || n.dataset.net === net ? "block" : "none";
@@ -1133,13 +1224,13 @@
         // Copy Functions
         function copyMoMo() {
             navigator.clipboard.writeText("0202111485").then(() => {
-                showNotification("MoMo number copied to clipboard!");
+                showNotification("Telecel Money number copied: 0202111485");
             });
         }
 
-        function copyNumber() {
-            navigator.clipboard.writeText("0202111485").then(() => {
-                showNotification("Payment number copied: 0202111485");
+        function copyMTN() {
+            navigator.clipboard.writeText("0244567890").then(() => {
+                showNotification("MTN MoMo number copied: 0244567890");
             });
         }
 

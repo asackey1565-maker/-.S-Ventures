@@ -280,9 +280,22 @@ setInterval(() => {
     <div class="payment-instruction">
       Send payment to <br> 0202111485 (Telecel)
     </div>
-    <    <button class="copy" onclick="copyMoMo()">Copy MoMo Number</button>
-    <button class="whatsapp" onclick="buyNow()">Chat on WhatsApp</button>
-  </div>
+   <script>
+function copyMoMo() {
+  navigator.clipboard.writeText("0202111485").then(() => {
+    alert("Number copied!");
+  });
+}
+</script>
+<script>
+function chatWhatsApp() {
+  const msg = "Hi ABS, I want to purchase your data bundle.";
+  window.open(
+    "https://wa.me/233202111485?text=" + encodeURIComponent(msg),
+    "_blank"
+  );
+}
+</script>
 
 </div>
 

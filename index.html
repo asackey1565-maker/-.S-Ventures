@@ -34,6 +34,8 @@ header p {
 
 .container {
   padding: 20px;
+  max-width: 600px;
+  margin: auto;
 }
 
 .network {
@@ -82,12 +84,38 @@ header p {
   color: #ccc;
 }
 
+/* --- TESTIMONIALS SECTION --- */
+.testimonials {
+  margin-top: 40px;
+}
+
+.testimonial-card {
+  background: #151515;
+  border-left: 4px solid #f5c400;
+  padding: 15px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+}
+
+.testimonial-text {
+  font-style: italic;
+  font-size: 14px;
+  color: #eee;
+  margin-bottom: 5px;
+}
+
+.testimonial-author {
+  font-size: 12px;
+  font-weight: bold;
+  color: #f5c400;
+}
+
+/* --- BUTTONS & ACTIONS --- */
 .actions {
   margin-top: 30px;
   text-align: center;
 }
 
-/* New style for your payment instruction box */
 .payment-instruction {
   background: #f5c400;
   color: #000;
@@ -111,6 +139,7 @@ button {
   border: none;
   font-size: 16px;
   cursor: pointer;
+  display: block;
 }
 
 .copy {
@@ -125,11 +154,53 @@ button {
   font-weight: bold;
 }
 
+/* --- MODAL STYLE FOR PRIVACY/TERMS --- */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.9);
+  overflow-y: auto;
+}
+
+.modal-content {
+  background-color: #1a1a1a;
+  margin: 10% auto;
+  padding: 25px;
+  border: 1px solid #333;
+  width: 85%;
+  max-width: 500px;
+  border-radius: 15px;
+  line-height: 1.6;
+}
+
+.close-btn {
+  color: #f5c400;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
 footer {
   text-align: center;
-  padding: 20px;
+  padding: 40px 20px;
   font-size: 12px;
   color: #888;
+}
+
+.footer-links {
+  margin-bottom: 10px;
+}
+
+.footer-links span {
+  margin: 0 10px;
+  text-decoration: underline;
+  cursor: pointer;
 }
 </style>
 
@@ -141,6 +212,14 @@ function buyNow() {
 function copyMoMo() {
   navigator.clipboard.writeText("0202111485");
   alert("MoMo number copied!");
+}
+
+function openModal(id) {
+  document.getElementById(id).style.display = "block";
+}
+
+function closeModal(id) {
+  document.getElementById(id).style.display = "none";
 }
 </script>
 </head>
@@ -188,15 +267,49 @@ function copyMoMo() {
       to purchase
     </div>
     
-    <button class="copy" onclick="copyMoMo()">Copy MoMo Number</button>
-    <button class="whatsapp" onclick="buyNow()">Chat on WhatsApp</button>
+    <button class="copy" onclick="copyMoMo()">📋 Copy MoMo Number</button>
+    <button class="whatsapp" onclick="buyNow()">💬 Chat on WhatsApp</button>
+  </div>
+
+  <div class="testimonials">
+    <h3 style="text-align:center; color:#f5c400;">What Our Clients Say</h3>
+    <div class="testimonial-card">
+      <p class="testimonial-text">"The data is so cheap and delivery is very fast. Highly recommended!"</p>
+      <p class="testimonial-author">- Kwesi A.</p>
+    </div>
+    <div class="testimonial-card">
+      <p class="testimonial-text">"Legit plug! Saved me a lot on my MTN bundles this month."</p>
+      <p class="testimonial-author">- Sarah O.</p>
+    </div>
   </div>
 
 </div>
 
 <footer>
+  <div class="footer-links">
+    <span onclick="openModal('privacyModal')">Privacy Policy</span> | 
+    <span onclick="openModal('termsModal')">Terms & Conditions</span>
+  </div>
   © 2026 ABS Ventures • Trusted Data Plug 🇬🇭
 </footer>
+
+<div id="privacyModal" class="modal">
+  <div class="modal-content">
+    <span class="close-btn" onclick="closeModal('privacyModal')">&times;</span>
+    <h2 style="color:#f5c400">Privacy Policy</h2>
+    <p>At ABS Ventures, we value your privacy. We only collect the phone number you provide to facilitate data transfers. We do not sell your data to third parties. Your payment information is processed through secure mobile money channels.</p>
+  </div>
+</div>
+
+<div id="termsModal" class="modal">
+  <div class="modal-content">
+    <span class="close-btn" onclick="closeModal('termsModal')">&times;</span>
+    <h2 style="color:#f5c400">Terms & Conditions</h2>
+    <p>1. Payments must be made before data is sent.<br>
+       2. Please ensure you provide the correct phone number. Data sent to a wrong number provided by the user cannot be reversed.<br>
+       3. Data delivery usually takes 1-10 minutes after payment verification.</p>
+  </div>
+</div>
 
 </body>
 </html>

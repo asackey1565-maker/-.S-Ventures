@@ -280,50 +280,52 @@ setInterval(() => {
     <div class="payment-instruction">
       Send payment to <br> 0202111485 (Telecel)
     </div>
-    <button class="main copy">Copy MoMo Number</button>
-    <button class="main whatsapp">Chat on WhatsApp</button>
+    <    <button class="copy" onclick="copyMoMo()">Copy MoMo Number</button>
+    <button class="whatsapp" onclick="buyNow()">Chat on WhatsApp</button>
   </div>
 
 </div>
 
-<div class="testimonials">
-  <h3 style="text-align:center; color:#f5c400;">What Our Clients Say</h3>
-  <div class="testimonial-card">
-    <p>"Fast delivery and cheap bundles. Legit plug!"</p>
-    <p class="testimonial-author">— Kwesi A.</p>
+<footer>
+  © 2026 ABS Ventures • Trusted Data Plug 🇬🇭
+</footer>
+ <div class="testimonials">
+    <h3 style="text-align:center; color:#f5c400;">What Our Clients Say</h3>
+    <div class="testimonial-card">
+      <p class="testimonial-text">"The data is so cheap and delivery is very fast. Highly recommended!"</p>
+      <p class="testimonial-author">- Kwesi A.</p>
+    </div>
+    <div class="testimonial-card">
+      <p class="testimonial-text">"Legit plug! Saved me a lot on my MTN bundles this month."</p>
+      <p class="testimonial-author">- Sarah O.</p>
+    </div>
   </div>
-  <div class="testimonial-card">
-    <p>"Saved me a lot on MTN data. Highly recommended."</p>
-    <p class="testimonial-author">— Sarah O.</p>
-  </div>
+
 </div>
 
 <footer>
   <div class="footer-links">
-    <span onclick="openModal('privacyModal')">Privacy Policy</span> |
+    <span onclick="openModal('privacyModal')">Privacy Policy</span> | 
     <span onclick="openModal('termsModal')">Terms & Conditions</span>
   </div>
   © 2026 ABS Ventures • Trusted Data Plug 🇬🇭
 </footer>
 
-<!-- Modals -->
 <div id="privacyModal" class="modal">
   <div class="modal-content">
     <span class="close-btn" onclick="closeModal('privacyModal')">&times;</span>
-    <h3 style="color:#f5c400">Privacy Policy</h3>
-    <p>Your info is used only to deliver data. No third-party sharing.</p>
+    <h2 style="color:#f5c400">Privacy Policy</h2>
+    <p>At ABS Ventures, we value your privacy. We only collect the phone number you provide to facilitate data transfers. We do not sell your data to third parties. Your payment information is processed through secure mobile money channels.</p>
   </div>
 </div>
 
 <div id="termsModal" class="modal">
   <div class="modal-content">
     <span class="close-btn" onclick="closeModal('termsModal')">&times;</span>
-    <h3 style="color:#f5c400">Terms & Conditions</h3>
-    <p>
-      • Payment first<br>
-      • Wrong number = user responsibility<br>
-      • Delivery: 5–45 minutes
-    </p>
+    <h2 style="color:#f5c400">Terms & Conditions</h2>
+    <p>1. Payments must be made before data is sent.<br>
+       2. Please ensure you provide the correct phone number. Data sent to a wrong number provided by the user cannot be reversed.<br>
+       3. Data delivery usually takes 5-45 minutes after payment verification.</p>
   </div>
 </div>
 

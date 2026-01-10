@@ -261,7 +261,9 @@ setInterval(() => {
   </div>
 
   <div class="network" data-net="Telecel">
-    <h2>Telecel Bundles</h2>
+    <h2>Telecel Bundles</h2> /* Telecel Style: Red Text and Red Border */
+[data-net="Telecel"] h2 { color: #e51937 !important; }
+[data-net="Telecel"] .bundle { border: 2px solid #e51937 !important; color: #e51937; }
     <div class="grid">
       <div class="bundle" onclick="buyBundle('Telecel','5GB','28')"><strong>5GB</strong><span>GHS 28</span></div>
       <div class="bundle" onclick="buyBundle('Telecel','10GB','46')"><strong>10GB</strong><span>GHS 46</span></div>

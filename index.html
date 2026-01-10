@@ -30,6 +30,77 @@ header p {
   color: #ccc;
 }
 
+/* Status */
+.status {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-top: 6px;
+  font-size: 13px;
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  background: #00ff6a;
+  border-radius: 50%;
+}
+
+/* Promo */
+.promo {
+  background: #1f1f1f;
+  text-align: center;
+  padding: 15px;
+  margin: 15px;
+  border-radius: 12px;
+  border: 1px dashed #f5c400;
+  font-size: 14px;
+}
+
+/* Controls */
+.controls {
+  padding: 0 20px;
+}
+
+.search {
+  width: 100%;
+  padding: 12px;
+  border-radius: 10px;
+  border: none;
+  margin-bottom: 10px;
+}
+
+.filters {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.filters button {
+  padding: 8px 14px;
+  border-radius: 20px;
+  border: none;
+  cursor: pointer;
+  background: #222;
+  color: #fff;
+}
+
+.filters button.active {
+  background: #f5c400;
+  color: #000;
+}
+
+/* Countdown */
+.timer {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #f5c400;
+  font-weight: bold;
+}
+
+/* Bundles */
 .container {
   padding: 20px;
 }
@@ -39,12 +110,11 @@ header p {
   border-radius: 16px;
   padding: 20px;
   margin-bottom: 25px;
-  border: 1px solid #222;
 }
 
 .network h2 {
-  color: #f5c400;
   text-align: center;
+  color: #f5c400;
 }
 
 .grid {
@@ -55,8 +125,8 @@ header p {
 
 .bundle {
   background: #1f1f1f;
-  border-radius: 14px;
   padding: 18px;
+  border-radius: 14px;
   text-align: center;
   cursor: pointer;
   transition: 0.3s;
@@ -68,8 +138,8 @@ header p {
 }
 
 .bundle strong {
-  font-size: 20px;
   color: #f5c400;
+  font-size: 20px;
 }
 
 .bundle span {
@@ -80,7 +150,6 @@ header p {
 /* Actions */
 .actions {
   text-align: center;
-  margin-top: 30px;
 }
 
 .payment-instruction {
@@ -88,49 +157,23 @@ header p {
   color: #000;
   padding: 18px;
   border-radius: 12px;
-  font-weight: bold;
   max-width: 350px;
   margin: auto;
+  font-weight: bold;
 }
 
-button {
+button.main {
+  margin-top: 12px;
+  padding: 14px;
   width: 100%;
   max-width: 350px;
-  padding: 14px;
-  margin-top: 12px;
   border-radius: 12px;
   border: none;
   cursor: pointer;
 }
 
-.copy {
-  background: #222;
-  color: #fff;
-}
-
-.whatsapp {
-  background: #25d366;
-  font-weight: bold;
-}
-
-/* Testimonials */
-.testimonials {
-  padding: 30px 20px;
-}
-
-.testimonial-card {
-  background: #1f1f1f;
-  padding: 15px;
-  border-radius: 12px;
-  margin: 15px auto;
-  max-width: 400px;
-  border-left: 4px solid #f5c400;
-}
-
-.testimonial-author {
-  color: #f5c400;
-  text-align: right;
-}
+.copy { background: #222; color: #fff; }
+.whatsapp { background: #25d366; font-weight: bold; }
 
 /* Footer */
 footer {
@@ -138,34 +181,6 @@ footer {
   padding: 20px;
   font-size: 13px;
   color: #888;
-}
-
-.footer-links span {
-  cursor: pointer;
-  color: #f5c400;
-}
-
-/* Modal */
-.modal {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.8);
-}
-
-.modal-content {
-  background: #1a1a1a;
-  padding: 20px;
-  border-radius: 14px;
-  max-width: 400px;
-  margin: 10% auto;
-}
-
-.close-btn {
-  float: right;
-  font-size: 22px;
-  cursor: pointer;
-  color: #f5c400;
 }
 </style>
 
@@ -175,18 +190,31 @@ function buyBundle(network, size, price) {
   window.open(`https://wa.me/233202111485?text=${encodeURIComponent(msg)}`, "_blank");
 }
 
-function copyMoMo() {
-  navigator.clipboard.writeText("0202111485");
-  alert("MoMo number copied!");
+function filterNetwork(net) {
+  document.querySelectorAll(".network").forEach(n => {
+    n.style.display = net === "all" || n.dataset.net === net ? "block" : "none";
+  });
+  document.querySelectorAll(".filters button").forEach(b => b.classList.remove("active"));
+  event.target.classList.add("active");
 }
 
-function openModal(id) {
-  document.getElementById(id).style.display = "block";
+function searchBundles(val) {
+  val = val.toLowerCase();
+  document.querySelectorAll(".bundle").forEach(b => {
+    b.style.display = b.innerText.toLowerCase().includes(val) ? "block" : "none";
+  });
 }
 
-function closeModal(id) {
-  document.getElementById(id).style.display = "none";
-}
+/* Countdown */
+let time = 9900;
+setInterval(() => {
+  let h = Math.floor(time / 3600);
+  let m = Math.floor((time % 3600) / 60);
+  let s = time % 60;
+  document.getElementById("countdown").innerText =
+    `${h.toString().padStart(2,0)}:${m.toString().padStart(2,0)}:${s.toString().padStart(2,0)}`;
+  time--;
+}, 1000);
 </script>
 </head>
 
@@ -195,88 +223,68 @@ function closeModal(id) {
 <header>
   <h1>ABS Ventures</h1>
   <p>100% Legit • Instant Delivery • MoMo Accepted</p>
+  <div class="status">
+    <div class="status-dot"></div>
+    <span>Status: Online – Instant Delivery</span>
+  </div>
 </header>
+
+<div class="promo">
+ 🎁 Refer a friend & earn rewards <br>
+ Buy 5 times → Get <b>500MB FREE</b>
+</div>
+
+<div class="controls">
+  <input class="search" placeholder="Search bundles..." onkeyup="searchBundles(this.value)">
+  <div class="filters">
+    <button class="active" onclick="filterNetwork('all')">All</button>
+    <button onclick="filterNetwork('MTN')">MTN</button>
+    <button onclick="filterNetwork('Telecel')">Telecel</button>
+    <button onclick="filterNetwork('AirtelTigo')">AirtelTigo</button>
+  </div>
+</div>
+
+<div class="timer">
+ 🔥 Daily Deal Ends In: <span id="countdown">02:45:00</span>
+</div>
 
 <div class="container">
 
-  <div class="network">
+  <div class="network" data-net="MTN">
     <h2>MTN Bundles</h2>
     <div class="grid">
       <div class="bundle" onclick="buyBundle('MTN','1GB','6')"><strong>1GB</strong><span>GHS 6</span></div>
       <div class="bundle" onclick="buyBundle('MTN','2GB','11')"><strong>2GB</strong><span>GHS 11</span></div>
-      <div class="bundle" onclick="buyBundle('MTN','3GB','17')"><strong>3GB</strong><span>GHS 17</span></div>
-      <div class="bundle" onclick="buyBundle('MTN','4GB','23')"><strong>4GB</strong><span>GHS 23</span></div>
-      <div class="bundle" onclick="buyBundle('MTN','5GB','27')"><strong>5GB</strong><span>GHS 27</span></div>
     </div>
   </div>
 
-  <div class="network">
+  <div class="network" data-net="Telecel">
     <h2>Telecel Bundles</h2>
     <div class="grid">
       <div class="bundle" onclick="buyBundle('Telecel','5GB','28')"><strong>5GB</strong><span>GHS 28</span></div>
-      <div class="bundle" onclick="buyBundle('Telecel','10GB','46')"><strong>10GB</strong><span>GHS 46</span></div>
     </div>
   </div>
 
-  <div class="network">
+  <div class="network" data-net="AirtelTigo">
     <h2>AirtelTigo Bundles</h2>
     <div class="grid">
       <div class="bundle" onclick="buyBundle('AirtelTigo','1GB','6')"><strong>1GB</strong><span>GHS 6</span></div>
-      <div class="bundle" onclick="buyBundle('AirtelTigo','2GB','12')"><strong>2GB</strong><span>GHS 12</span></div>
     </div>
   </div>
 
   <div class="actions">
     <div class="payment-instruction">
-      Send payment to / Call<br>
-      0202111485 (Telecel)
+      Send payment to <br> 0202111485 (Telecel)
     </div>
-    <button class="copy" onclick="copyMoMo()">Copy MoMo Number</button>
-    <button class="whatsapp" onclick="buyBundle('','data bundle','')">Chat on WhatsApp</button>
+    <button class="main copy">Copy MoMo Number</button>
+    <button class="main whatsapp">Chat on WhatsApp</button>
   </div>
 
-</div>
-
-<div class="testimonials">
-  <h3 style="text-align:center; color:#f5c400;">What Our Clients Say</h3>
-  <div class="testimonial-card">
-    <p>"Fast delivery and cheap bundles. Legit plug!"</p>
-    <p class="testimonial-author">— Kwesi A.</p>
-  </div>
-  <div class="testimonial-card">
-    <p>"Saved me a lot on MTN data. Highly recommended."</p>
-    <p class="testimonial-author">— Sarah O.</p>
-  </div>
 </div>
 
 <footer>
-  <div class="footer-links">
-    <span onclick="openModal('privacyModal')">Privacy Policy</span> |
-    <span onclick="openModal('termsModal')">Terms & Conditions</span>
-  </div>
-  © 2026 ABS Ventures • Trusted Data Plug 🇬🇭
+ © 2026 ABS Ventures • Trusted Data Plug 🇬🇭
 </footer>
-
-<!-- Modals -->
-<div id="privacyModal" class="modal">
-  <div class="modal-content">
-    <span class="close-btn" onclick="closeModal('privacyModal')">&times;</span>
-    <h3 style="color:#f5c400">Privacy Policy</h3>
-    <p>Your info is used only to deliver data. No third-party sharing.</p>
-  </div>
-</div>
-
-<div id="termsModal" class="modal">
-  <div class="modal-content">
-    <span class="close-btn" onclick="closeModal('termsModal')">&times;</span>
-    <h3 style="color:#f5c400">Terms & Conditions</h3>
-    <p>
-      • Payment first<br>
-      • Wrong number = user responsibility<br>
-      • Delivery: 5–45 minutes
-    </p>
-  </div>
-</div>
 
 </body>
 </html>

@@ -302,6 +302,177 @@ function chatWhatsApp() {
 
 </div>
 
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+    .payment-container {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        max-width: 400px;
+        margin: 20px auto;
+        border: 2px solid #ffcc00;
+        border-radius: 15px;
+        padding: 25px;
+        background-color: #fff;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    .header {
+        text-align: center;
+        color: #e51937; /* Telecel Red */
+        margin-bottom: 20px;
+    }
+    .step-list {
+        padding-left: 20px;
+        line-height: 1.8;
+    }
+    .step-list li {
+        margin-bottom: 10px;
+        font-size: 15px;
+    }
+    .highlight {
+        font-weight: bold;
+        color: #000;
+        background-color: #ffcc00;
+        padding: 2px 5px;
+        border-radius: 4px;
+    }
+    .footer-note {
+        font-size: 12px;
+        color: #666;
+        text-align: center;
+        margin-top: 20px;
+        border-top: 1px solid #eee;
+        padding-top: 10px;
+    }
+</style>
+</head>
+<body>
+
+<div class="payment-container">
+    <h2 class="header">Buy Telecel Data</h2>
+    <p>Follow these steps to pay via <strong>MTN Mobile Money</strong>:</p>
+    
+    <ol class="step-list">
+        <li>Dial <span class="highlight">*170#</span></li>
+        <li>Select Option 1 to <strong>'Transfer Money'</strong></li>
+        <li>Select 5 for <strong>'Other Networks'</strong></li>
+        <li>Select <strong>'Telecel'</strong> (or Vodafone)</li>
+        <li>Enter Mobile Number: <span class="highlight">0202111485</span></li>
+        <li>Confirm Mobile Number: <span class="highlight">0202111485</span></li>
+        <li>Enter <strong>'Amount'</strong> for your bundle</li>
+        <li>Enter <strong>'Reference ID'</strong> (Use your phone number)</li>
+        <li>Enter <strong>'Mobile Money Pin Code'</strong></li>
+        <li>Wait for the successful transfer notification</li>
+    </ol>
+
+    <div class="footer-note">
+        Once payment is confirmed, your data bundle will be sent to the reference number provided.
+    </div>
+</div>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+    .data-card {
+        font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        max-width: 380px;
+        margin: 20px auto;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        background: #fff;
+    }
+    .card-header {
+        background: #e51937; /* Telecel Red */
+        color: white;
+        padding: 20px;
+        text-align: center;
+    }
+    .card-body {
+        padding: 20px;
+    }
+    .instruction-step {
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: 12px;
+        font-size: 14px;
+        color: #333;
+    }
+    .step-num {
+        background: #ffcc00;
+        color: #000;
+        font-weight: bold;
+        min-width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 12px;
+        font-size: 12px;
+    }
+    .copy-box {
+        background: #f4f4f4;
+        border: 1px dashed #ccc;
+        padding: 10px;
+        text-align: center;
+        margin: 15px 0;
+        border-radius: 8px;
+    }
+    .copy-btn {
+        background: #000;
+        color: #fff;
+        border: none;
+        padding: 8px 15px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: bold;
+        margin-top: 5px;
+    }
+    .highlight-text { font-weight: bold; color: #e51937; }
+</style>
+</head>
+<body>
+
+<div class="data-card">
+    <div class="card-header">
+        <h2 style="margin:0;">Telecel Data Bundle</h2>
+        <p style="margin:5px 0 0; font-size: 14px;">MTN MoMo Payment Guide</p>
+    </div>
+    
+    <div class="card-body">
+        <div class="instruction-step"><div class="step-num">1</div><span>Dial <strong>*170#</strong></span></div>
+        <div class="instruction-step"><div class="step-num">2</div><span>Select Option 1: <strong>'Transfer Money'</strong></span></div>
+        <div class="instruction-step"><div class="step-num">3</div><span>Select 5: <strong>'Other Networks'</strong></span></div>
+        <div class="instruction-step"><div class="step-num">4</div><span>Select <strong>'Telecel'</strong> (Vodafone)</span></div>
+        
+        <div class="copy-box">
+            <span style="font-size: 12px; color: #666;">Recipient Number:</span><br>
+            <span id="targetNum" style="font-size: 18px; font-weight: bold;">0202111485</span><br>
+            <button class="copy-btn" onclick="copyNumber()">Copy Number</button>
+        </div>
+
+        <div class="instruction-step"><div class="step-num">5</div><span>Enter & Confirm <strong class="highlight-text">0202111485</strong></span></div>
+        <div class="instruction-step"><div class="step-num">6</div><span>Enter <strong>Amount</strong> & use your phone as <strong>Reference</strong></span></div>
+        <div class="instruction-step"><div class="step-num">7</div><span>Enter <strong>MoMo PIN</strong> to complete</span></div>
+        
+        <p style="font-size: 11px; text-align: center; color: #888; margin-top: 15px;">
+            You will receive a notification once the transfer is successful.
+        </p>
+    </div>
+</div>
+
+<script>
+function copyNumber() {
+    navigator.clipboard.writeText("0202111485");
+    alert("Number copied: 0202111485");
+}
+</script>
+
+
 <footer>
   © 2026 ABS Ventures • Trusted Data Plug 🇬🇭
 </footer>

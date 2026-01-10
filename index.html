@@ -17,7 +17,15 @@ if(localStorage.getItem("theme")==="light"){
 }
 </script>
 
-<style> 
+<style .stock{
+  display:inline-block;
+  background:#00c853;
+  color:#fff;
+  font-size:11px;
+  padding:3px 8px;
+  border-radius:12px;
+  margin-bottom:6px;
+}
 
 body {<body>
 
@@ -281,10 +289,10 @@ if(localStorage.getItem("theme")==="light"){
   <div class="network" data-net="MTN">
     <h2>MTN Bundles</h2>
     <div class="grid">
-      <div class="bundle" onclick="buyBundle('MTN','1GB','6')"><strong>1GB</strong><span>GHS 6</span></div>
-      <div class="bundle" onclick="buyBundle('MTN','2GB','11')"><strong>2GB</strong><span>GHS 11</span></div>
-      <div class="bundle" onclick="buyBundle('MTN','3GB','17')"><strong>3GB</strong><span>GHS 17</span></div>
-      <div class="bundle" onclick="buyBundle('MTN','5GB','27')"><strong>5GB</strong><span>GHS 27</span></div>
+      <div class="bundle" onclick="buyBundle('MTN','1GB','6')"><small class="stock">In Stock</small><strong>1GB</strong><span>GHS 6</span></div>
+      <div class="bundle" onclick="buyBundle('MTN','2GB','11')"><small class="stock">In Stock</small><strong>2GB</strong><span>GHS 11</span></div>
+      <div class="bundle" onclick="buyBundle('MTN','3GB','17')"><small class="stock">In Stock</small><strong>3GB</strong><span>GHS 17</span></div>
+      <div class="bundle" onclick="buyBundle('MTN','5GB','27')"><strong>5GB</strong><small class="stock">In Stock</small><span>GHS 27</span></div>
     </div>
   </div>
 

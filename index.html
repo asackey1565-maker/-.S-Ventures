@@ -7,6 +7,16 @@
 
 <button onclick="toggleTheme()" style="background:#222;color:#fff;border:none;padding:8px 14px;border-radius:20px;cursor:pointer">🌙 / ☀️</button>
 
+<script>
+function toggleTheme(){
+  const dark = document.body.classList.toggle("light");
+  localStorage.setItem("theme", dark ? "light" : "dark");
+}
+if(localStorage.getItem("theme")==="light"){
+  document.body.classList.add("light");
+}
+</script>
+
 <style> 
 
 body {<body>

@@ -7,33 +7,8 @@
 
 <button onclick="toggleTheme()" style="background:#222;color:#fff;border:none;padding:8px 14px;border-radius:20px;cursor:pointer">🌙 / ☀️</button>
 
-<script>
-function toggleTheme(){
-  const dark = document.body.classList.toggle("light");
-  localStorage.setItem("theme", dark ? "light" : "dark");
-}
-if(localStorage.getItem("theme")==="light"){
-  document.body.classList.add("light");
-}
-</script>
-
-<style .stock{
-  display:inline-block;
-  background:#00c853;
-  color:#fff;
-  font-size:11px;
-  padding:3px 8px;
-  border-radius:12px;
-  margin-bottom:6px;
-}
-
-body {<body>
-
-<div style="position:fixed;top:15px;right:15px;z-index:9999;">
-  <button onclick="toggleTheme()" style="background:#222;color:#fff;border:none;padding:8px 14px;border-radius:20px;cursor:pointer">
-    🌙 / ☀️
-  </button>
-</div>
+<style>
+body {
   margin: 0;
   font-family: Arial, Helvetica, sans-serif;
   background: #0d0d0d;
@@ -292,15 +267,15 @@ if(localStorage.getItem("theme")==="light"){
       <div class="bundle" onclick="buyBundle('MTN','1GB','6')"><small class="stock">In Stock</small><strong>1GB</strong><span>GHS 6</span></div>
       <div class="bundle" onclick="buyBundle('MTN','2GB','11')"><small class="stock">In Stock</small><strong>2GB</strong><span>GHS 11</span></div>
       <div class="bundle" onclick="buyBundle('MTN','3GB','17')"><small class="stock">In Stock</small><strong>3GB</strong><span>GHS 17</span></div>
-      <div class="bundle" onclick="buyBundle('MTN','5GB','27')"><strong>5GB</strong><small class="stock">In Stock</small><span>GHS 27</span></div>
+      <div class="bundle" onclick="buyBundle('MTN','5GB','27')"><small class="stock">In Stock</small><strong>5GB</strong><span>GHS 27</span></div>
     </div>
   </div>
 
   <div class="network" data-net="Telecel"> <h2 style="color: #e51937;">Telecel Bundles</h2>
 
     <div class="grid">
-      <div class="bundle" onclick="buyBundle('Telecel','5GB','28')"><strong>5GB</strong><span>GHS 28</span></div>
-      <div class="bundle" onclick="buyBundle('Telecel','10GB','46')"><strong>10GB</strong><span>GHS 46</span></div>
+      <div class="bundle" onclick="buyBundle('Telecel','5GB','28')"><small class="stock">In Stock</small><strong>5GB</strong><span>GHS 28</span></div>
+      <div class="bundle" onclick="buyBundle('Telecel','10GB','46')"><small class="stock">In Stock</small><strong>10GB</strong><span>GHS 46</span></div>
     </div>
   </div>
 
@@ -308,8 +283,8 @@ if(localStorage.getItem("theme")==="light"){
     <h2><span style="color: #e51937;">Airtel</span><span style="color: #0056b3;">Tigo</span> Bundles</h2>
 
     <div class="grid">
-      <div class="bundle" onclick="buyBundle('AirtelTigo','1GB','6')"><strong>1GB</strong><span>GHS 6</span></div>
-      <div class="bundle" onclick="buyBundle('AirtelTigo','2GB','12')"><strong>2GB</strong><span>GHS 12</span></div>
+      <div class="bundle" onclick="buyBundle('AirtelTigo','1GB','6')"><small class="stock">In Stock</small><strong>1GB</strong><span>GHS 6</span></div>
+      <div class="bundle" onclick="buyBundle('AirtelTigo','2GB','12')"><small class="stock">In Stock</small><strong>2GB</strong><span>GHS 12</span></div>
     </div>
   </div>
 

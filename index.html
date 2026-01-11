@@ -3,471 +3,134 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Samuel's Data Bundles | Best Mobile Data Deals</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Samuel's Data Hub</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
-        }
-
         :root {
-            --primary: #007AFF;
-            --secondary: #5856D6;
-            --success: #34C759;
-            --dark: #1D1D1F;
-            --light: #F5F5F7;
-            --glass: rgba(255, 255, 255, 0.1);
-            --glass-border: rgba(255, 255, 255, 0.2);
-            --shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            --glass-bg: rgba(255, 255, 255, 0.08);
+            --liquid-border: rgba(255, 255, 255, 0.2);
+            --mtn-yellow: #FFCC00;
+            --telecel-red: #E60000;
+            --at-blue: #00AEEF;
         }
 
         body {
-            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, sans-serif;
+            background: linear-gradient(135deg, #0f0f0f, #1a1a2e, #0f0f0f);
             color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             min-height: 100vh;
-            padding-bottom: 40px;
-            overflow-x: hidden;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        /* Header Styles */
-        header {
-            padding: 30px 0;
-            text-align: center;
-            position: relative;
-        }
-
-        .logo {
-            font-size: 2.8rem;
-            font-weight: 800;
-            background: linear-gradient(90deg, #007AFF, #34C759);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 10px;
-            letter-spacing: -0.5px;
-        }
-
-        .tagline {
-            font-size: 1.1rem;
-            opacity: 0.9;
-            margin-bottom: 25px;
-            font-weight: 300;
-        }
-
-        /* Liquid Glass Card */
-        .glass-card {
-            background: var(--glass);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border-radius: 24px;
-            border: 1px solid var(--glass-border);
-            padding: 30px;
-            box-shadow: var(--shadow);
-            margin-bottom: 30px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .glass-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
-        }
-
-        .contact-info {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 30px;
-            flex-wrap: wrap;
-            margin-top: 20px;
-        }
-
-        .contact-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 1.1rem;
-        }
-
-        .contact-icon {
-            background: rgba(255, 255, 255, 0.15);
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.3rem;
-        }
-
-        /* Bundle Section Styles */
-        .section-title {
-            font-size: 2rem;
-            margin-bottom: 25px;
-            text-align: center;
-            position: relative;
-            padding-bottom: 15px;
-        }
-
-        .section-title:after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 4px;
-            background: linear-gradient(90deg, #007AFF, #34C759);
-            border-radius: 2px;
-        }
-
-        .bundles-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 25px;
-            margin-top: 20px;
-        }
-
-        .bundle-card {
-            background: rgba(255, 255, 255, 0.08);
-            border-radius: 20px;
-            padding: 25px;
-            text-align: center;
-            transition: all 0.3s ease;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .bundle-card:before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, var(--primary), var(--success));
-        }
-
-        .bundle-card:hover {
-            background: rgba(255, 255, 255, 0.12);
-            transform: translateY(-8px);
-        }
-
-        .network-logo {
-            font-size: 2.2rem;
-            margin-bottom: 15px;
-            font-weight: 700;
-        }
-
-        .mtn-logo {
-            color: #FFCC00;
-        }
-
-        .telecel-logo {
-            color: #00A859;
-        }
-
-        .airteltigo-logo {
-            color: #E21A23;
-        }
-
-        .bundle-size {
-            font-size: 1.8rem;
-            font-weight: 700;
-            margin-bottom: 5px;
-        }
-
-        .bundle-price {
-            font-size: 2.2rem;
-            font-weight: 800;
-            margin: 15px 0;
-            background: linear-gradient(90deg, #fff, #e0e0e0);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .bundle-note {
-            font-size: 0.9rem;
-            opacity: 0.8;
-            margin-top: 10px;
-            font-style: italic;
-        }
-
-        .buy-btn {
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-            color: white;
-            border: none;
-            padding: 14px 28px;
-            border-radius: 50px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
-            margin-top: 15px;
-            transition: all 0.3s ease;
-            width: 100%;
-            letter-spacing: 0.5px;
-        }
-
-        .buy-btn:hover {
-            transform: scale(1.03);
-            box-shadow: 0 10px 25px rgba(0, 122, 255, 0.3);
-        }
-
-        /* Footer */
-        footer {
-            text-align: center;
-            margin-top: 50px;
             padding: 20px;
-            opacity: 0.8;
-            font-size: 0.9rem;
         }
 
-        .whatsapp-notice {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            background: rgba(37, 211, 102, 0.15);
-            padding: 12px 20px;
-            border-radius: 50px;
-            margin-top: 20px;
+        h1 { margin-bottom: 5px; font-weight: 700; }
+        .subtitle { color: #aaa; margin-bottom: 30px; }
+
+        /* iOS 26 Liquid Glass Effect */
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid var(--liquid-border);
+            border-radius: 24px;
+            padding: 25px;
+            width: 100%;
+            max-width: 400px;
+            margin-bottom: 25px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            /* Specular highlight simulation */
+            background-image: radial-gradient(circle at top left, rgba(255,255,255,0.15) 0%, transparent 40%);
         }
 
-        .whatsapp-icon {
-            color: #25D366;
+        .category-title {
             font-size: 1.5rem;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 20px;
         }
 
-        /* Animation */
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
         }
 
-        .floating {
-            animation: float 5s ease-in-out infinite;
+        .bundle-btn {
+            background: rgba(40, 40, 40, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.2s, background 0.3s;
+            text-decoration: none;
+            color: white;
         }
 
-        /* Responsive */
-        @media (max-width: 768px) {
-            .bundles-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .contact-info {
-                flex-direction: column;
-                gap: 20px;
-            }
-            
-            .logo {
-                font-size: 2.2rem;
-            }
-        }
+        .bundle-btn:active { transform: scale(0.95); }
+
+        .gb-text { font-size: 1.2rem; font-weight: 800; display: block; }
+        .price-text { font-size: 0.85rem; color: #ccc; }
+
+        .mtn-text { color: var(--mtn-yellow); }
+        .telecel-text { color: var(--telecel-red); }
+        .at-text { color: var(--at-blue); }
+
+        .footer { margin-top: 20px; text-align: center; font-size: 0.9rem; color: #777; }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1 class="logo">DataHub GH</h1>
-            <p class="tagline">Instant Data Bundles • Best Prices • 24/7 Service</p>
-            
-            <div class="glass-card floating">
-                <h2>Samuel Sackey</h2>
-                <p>Your trusted data bundle provider</p>
-                
-                <div class="contact-info">
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-phone"></i>
-                        </div>
-                        <div>
-                            <div>Call/WhatsApp</div>
-                            <div style="font-weight: 700; font-size: 1.2rem;">020 211 1485</div>
-                        </div>
-                    </div>
-                    
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-bolt"></i>
-                        </div>
-                        <div>
-                            <div>Delivery Speed</div>
-                            <div style="font-weight: 700; font-size: 1.2rem;">Instant</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </header>
 
-        <main>
-            <!-- MTN Bundles -->
-            <section class="bundles-section">
-                <h2 class="section-title">MTN Data Bundles</h2>
-                <div class="bundles-grid">
-                    <div class="bundle-card">
-                        <div class="network-logo mtn-logo">MTN</div>
-                        <div class="bundle-size">1GB</div>
-                        <div class="bundle-price">GHS 6</div>
-                        <p>Valid for 30 days</p>
-                        <button class="buy-btn" onclick="orderBundle('MTN 1GB', 6)">Buy Now</button>
-                    </div>
-                    
-                    <div class="bundle-card">
-                        <div class="network-logo mtn-logo">MTN</div>
-                        <div class="bundle-size">2GB</div>
-                        <div class="bundle-price">GHS 11</div>
-                        <p>Valid for 30 days</p>
-                        <button class="buy-btn" onclick="orderBundle('MTN 2GB', 11)">Buy Now</button>
-                    </div>
-                    
-                    <div class="bundle-card">
-                        <div class="network-logo mtn-logo">MTN</div>
-                        <div class="bundle-size">3GB</div>
-                        <div class="bundle-price">GHS 17</div>
-                        <p>Valid for 30 days</p>
-                        <button class="buy-btn" onclick="orderBundle('MTN 3GB', 17)">Buy Now</button>
-                    </div>
-                    
-                    <div class="bundle-card">
-                        <div class="network-logo mtn-logo">MTN</div>
-                        <div class="bundle-size">5GB</div>
-                        <div class="bundle-price">GHS 27</div>
-                        <p>Valid for 30 days</p>
-                        <button class="buy-btn" onclick="orderBundle('MTN 5GB', 27)">Buy Now</button>
-                    </div>
-                </div>
-            </section>
+    <h1>Samuel Sackey</h1>
+    <p class="subtitle">Premium Data Bundles (WhatsApp: 0202111485)</p>
 
-            <!-- Telecel Bundles -->
-            <section class="bundles-section">
-                <h2 class="section-title">Telecel Data Bundles</h2>
-                <div class="bundles-grid">
-                    <div class="bundle-card">
-                        <div class="network-logo telecel-logo">TELECEL</div>
-                        <div class="bundle-size">5GB</div>
-                        <div class="bundle-price">GHS 28</div>
-                        <p>Valid for 30 days</p>
-                        <button class="buy-btn" onclick="orderBundle('Telecel 5GB', 28)">Buy Now</button>
-                    </div>
-                    
-                    <div class="bundle-card">
-                        <div class="network-logo telecel-logo">TELECEL</div>
-                        <div class="bundle-size">10GB</div>
-                        <div class="bundle-price">GHS 46</div>
-                        <p>Valid for 30 days</p>
-                        <button class="buy-btn" onclick="orderBundle('Telecel 10GB', 46)">Buy Now</button>
-                    </div>
-                </div>
-            </section>
-
-            <!-- AirtelTigo Bundles -->
-            <section class="bundles-section">
-                <h2 class="section-title">AirtelTigo Data Bundles</h2>
-                <div class="bundles-grid">
-                    <div class="bundle-card">
-                        <div class="network-logo airteltigo-logo">AIRTELTIGO</div>
-                        <div class="bundle-size">1GB</div>
-                        <div class="bundle-price">GHS 6</div>
-                        <p>Valid for 30 days</p>
-                        <button class="buy-btn" onclick="orderBundle('AirtelTigo 1GB', 6)">Buy Now</button>
-                    </div>
-                    
-                    <div class="bundle-card">
-                        <div class="network-logo airteltigo-logo">AIRTELTIGO</div>
-                        <div class="bundle-size">2GB</div>
-                        <div class="bundle-price">GHS 12</div>
-                        <p>Valid for 30 days</p>
-                        <button class="buy-btn" onclick="orderBundle('AirtelTigo 2GB', 12)">Buy Now</button>
-                    </div>
-                </div>
-            </section>
-
-            <!-- How to Order -->
-            <section>
-                <div class="glass-card">
-                    <h2 class="section-title">How to Order</h2>
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 25px; margin-top: 20px;">
-                        <div style="text-align: center;">
-                            <div style="font-size: 2.5rem; margin-bottom: 15px; color: var(--primary);">1</div>
-                            <h3 style="margin-bottom: 10px;">Select Bundle</h3>
-                            <p>Choose your preferred network and data size from the options above.</p>
-                        </div>
-                        
-                        <div style="text-align: center;">
-                            <div style="font-size: 2.5rem; margin-bottom: 15px; color: var(--secondary);">2</div>
-                            <h3 style="margin-bottom: 10px;">Contact Samuel</h3>
-                            <p>Send a WhatsApp message to <strong>020 211 1485</strong> with your selection.</p>
-                        </div>
-                        
-                        <div style="text-align: center;">
-                            <div style="font-size: 2.5rem; margin-bottom: 15px; color: var(--success);">3</div>
-                            <h3 style="margin-bottom: 10px;">Receive Data</h3>
-                            <p>Make payment and receive your data bundle instantly!</p>
-                        </div>
-                    </div>
-                    
-                    <div class="whatsapp-notice">
-                        <i class="fab fa-whatsapp whatsapp-icon"></i>
-                        <div>
-                            <strong>Preferred Contact Method:</strong> WhatsApp for fastest response!
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </main>
-
-        <footer>
-            <p>&copy; 2023 Samuel Sackey - DataHub GH. All rights reserved.</p>
-            <p>Best data bundle deals in Ghana • 020 211 1485</p>
-            <p style="margin-top: 10px; font-size: 0.8rem; opacity: 0.7;">Prices are subject to change without prior notice.</p>
-        </footer>
+    <div class="glass-card">
+        <div class="category-title mtn-text">MTN Bundles</div>
+        <div class="grid">
+            <a href="https://wa.me/233202111485?text=Hi%20Samuel,%20I%20want%20MTN%201GB" class="bundle-btn">
+                <span class="gb-text mtn-text">1GB</span> <span class="price-text">GHS 6</span>
+            </a>
+            <a href="https://wa.me/233202111485?text=Hi%20Samuel,%20I%20want%20MTN%202GB" class="bundle-btn">
+                <span class="gb-text mtn-text">2GB</span> <span class="price-text">GHS 11</span>
+            </a>
+            <a href="https://wa.me/233202111485?text=Hi%20Samuel,%20I%20want%20MTN%203GB" class="bundle-btn">
+                <span class="gb-text mtn-text">3GB</span> <span class="price-text">GHS 17</span>
+            </a>
+            <a href="https://wa.me/233202111485?text=Hi%20Samuel,%20I%20want%20MTN%205GB" class="bundle-btn">
+                <span class="gb-text mtn-text">5GB</span> <span class="price-text">GHS 27</span>
+            </a>
+        </div>
     </div>
 
-    <script>
-        function orderBundle(bundleName, price) {
-            // WhatsApp message template
-            const phoneNumber = "0202111485";
-            const message = `Hello Samuel! I'd like to purchase the ${bundleName} for GHS ${price}. Please assist me.`;
-            
-            // Encode the message for URL
-            const encodedMessage = encodeURIComponent(message);
-            
-            // Open WhatsApp with the pre-filled message
-            window.open(`https://wa.me/${phoneNumber}?text=${encodedMessage}`, '_blank');
-            
-            // Optional: Show a confirmation on the page
-            alert(`You've selected ${bundleName} for GHS ${price}. You'll now be directed to WhatsApp to complete your order.`);
-        }
+    <div class="glass-card">
+        <div class="category-title telecel-text">Telecel Bundles</div>
+        <div class="grid">
+            <a href="https://wa.me/233202111485?text=Hi%20Samuel,%20I%20want%20Telecel%205GB" class="bundle-btn">
+                <span class="gb-text telecel-text">5GB</span> <span class="price-text">GHS 28</span>
+            </a>
+            <a href="https://wa.me/233202111485?text=Hi%20Samuel,%20I%20want%20Telecel%2010GB" class="bundle-btn">
+                <span class="gb-text telecel-text">10GB</span> <span class="price-text">GHS 46</span>
+            </a>
+        </div>
+    </div>
 
-        // Add some interactive effects
-        document.addEventListener('DOMContentLoaded', function() {
-            const cards = document.querySelectorAll('.bundle-card');
-            
-            cards.forEach(card => {
-                card.addEventListener('mouseenter', function() {
-                    this.style.transform = 'translateY(-8px) scale(1.02)';
-                });
-                
-                card.addEventListener('mouseleave', function() {
-                    this.style.transform = 'translateY(0) scale(1)';
-                });
-            });
-            
-            // Add floating animation to some elements
-            const floatingElements = document.querySelectorAll('.floating');
-            floatingElements.forEach((el, index) => {
-                el.style.animationDelay = `${index * 0.5}s`;
-            });
-        });
-    </script>
+    <div class="glass-card">
+        <div class="category-title"><span class="telecel-text">Airtel</span><span class="at-text">Tigo</span> Bundles</div>
+        <div class="grid">
+            <a href="https://wa.me/233202111485?text=Hi%20Samuel,%20I%20want%20AT%201GB" class="bundle-btn">
+                <span class="gb-text at-text">1GB</span> <span class="price-text">GHS 6</span>
+            </a>
+            <a href="https://wa.me/233202111485?text=Hi%20Samuel,%20I%20want%20AT%202GB" class="bundle-btn">
+                <span class="gb-text at-text">2GB</span> <span class="price-text">GHS 12</span>
+            </a>
+        </div>
+    </div>
+
+    <div class="footer">
+        © 2026 Samuel Sackey. Built with iOS 26 Liquid Glass Design.
+    </div>
+
 </body>
 </html>

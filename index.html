@@ -33,6 +33,9 @@
             --radius-xl: 32px;
             --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
             --transition-fast: all 0.2s ease;
+            --glass-bg: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
         }
 
         * {
@@ -73,6 +76,28 @@
             font-family: 'Poppins', sans-serif;
             font-weight: 700;
             line-height: 1.2;
+        }
+
+        /* ===== LIQUID GLASS EFFECTS ===== */
+        .glass-effect {
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--glass-shadow);
+            border-radius: var(--radius-lg);
+        }
+
+        .liquid-glass {
+            background: linear-gradient(135deg, 
+                rgba(255, 255, 255, 0.1) 0%, 
+                rgba(255, 255, 255, 0.05) 100%);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
         }
 
         /* ===== Custom Scrollbar ===== */
@@ -264,6 +289,134 @@
             100% { transform: translate(-50%, -50%) scale(1.5); opacity: 0; }
         }
 
+        /* ===== SIDE MENU (Like JoelData) ===== */
+        #sideMenu {
+            position: fixed;
+            top: 0;
+            right: -350px;
+            width: 320px;
+            height: 100%;
+            background: linear-gradient(135deg, 
+                rgba(19, 19, 31, 0.95) 0%,
+                rgba(26, 26, 46, 0.95) 100%);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            z-index: 12000;
+            transition: var(--transition);
+            box-shadow: -10px 0 40px rgba(0, 0, 0, 0.5);
+            padding: 50px 25px;
+            border-left: 2px solid var(--primary);
+            overflow-y: auto;
+        }
+
+        #sideMenu.active {
+            right: 0;
+        }
+
+        .menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+            z-index: 11500;
+            display: none;
+        }
+
+        .menu-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .menu-header h3 {
+            font-size: 1.8rem;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .menu-item {
+            padding: 18px 20px;
+            margin-bottom: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+            border: 1px solid rgba(255, 215, 0, 0.1);
+        }
+
+        .menu-item:hover {
+            background: var(--primary);
+            color: var(--dark);
+            transform: translateX(-5px);
+            border-color: var(--primary);
+        }
+
+        .menu-item i {
+            font-size: 1.2rem;
+            width: 24px;
+            text-align: center;
+        }
+
+        .menu-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 215, 0, 0.1);
+            border: 2px solid var(--primary);
+            border-radius: 50%;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .menu-close:hover {
+            background: var(--primary);
+            color: var(--dark);
+            transform: rotate(90deg);
+        }
+
+        /* ===== SHARE BUTTON ===== */
+        .share-button-container {
+            position: fixed;
+            top: 90px;
+            left: 30px;
+            z-index: 1000;
+        }
+
+        .share-btn {
+            width: 56px;
+            height: 56px;
+            background: var(--dark-card);
+            border: 2px solid rgba(37, 211, 102, 0.2);
+            border-radius: 50%;
+            color: var(--whatsapp);
+            font-size: 1.3rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow-md);
+        }
+
+        .share-btn:hover {
+            transform: rotate(30deg) scale(1.1);
+            border-color: var(--whatsapp);
+            background: rgba(37, 211, 102, 0.1);
+            box-shadow: 0 0 20px rgba(37, 211, 102, 0.3);
+        }
+
         /* ===== Theme Toggle ===== */
         .theme-toggle {
             position: fixed;
@@ -303,7 +456,9 @@
         }
 
         .hero-card {
-            background: var(--gradient-card);
+            background: linear-gradient(135deg, 
+                rgba(19, 19, 31, 0.8) 0%,
+                rgba(28, 28, 46, 0.8) 100%);
             border-radius: var(--radius-lg);
             padding: 30px;
             border: 1px solid rgba(255, 215, 0, 0.1);
@@ -311,6 +466,7 @@
             position: relative;
             overflow: hidden;
             box-shadow: var(--shadow-md);
+            backdrop-filter: blur(10px);
         }
 
         .hero-card::before {
@@ -393,13 +549,14 @@
         .search-input {
             width: 100%;
             padding: 20px 60px 20px 30px;
-            background: var(--dark-card);
+            background: rgba(19, 19, 31, 0.8);
             border: 2px solid rgba(255, 255, 255, 0.1);
             border-radius: var(--radius-xl);
             color: var(--white);
             font-size: 1rem;
             transition: var(--transition);
             box-shadow: var(--shadow-sm);
+            backdrop-filter: blur(10px);
         }
 
         .search-input:focus {
@@ -433,7 +590,7 @@
 
         .filter-btn {
             padding: 15px 30px;
-            background: var(--dark-card);
+            background: rgba(19, 19, 31, 0.8);
             border: 2px solid rgba(255, 215, 0, 0.1);
             border-radius: 50px;
             color: var(--light-gray);
@@ -444,6 +601,7 @@
             align-items: center;
             gap: 10px;
             box-shadow: var(--shadow-sm);
+            backdrop-filter: blur(10px);
         }
 
         .filter-btn:hover {
@@ -467,7 +625,9 @@
         }
 
         .countdown-card {
-            background: var(--gradient-card);
+            background: linear-gradient(135deg, 
+                rgba(19, 19, 31, 0.8) 0%,
+                rgba(28, 28, 46, 0.8) 100%);
             border-radius: var(--radius-lg);
             padding: 35px;
             border: 1px solid rgba(229, 25, 55, 0.2);
@@ -475,6 +635,7 @@
             position: relative;
             overflow: hidden;
             box-shadow: 0 0 40px rgba(229, 25, 55, 0.2);
+            backdrop-filter: blur(10px);
         }
 
         .countdown-card::before {
@@ -539,7 +700,7 @@
             letter-spacing: 1px;
         }
 
-        /* ===== Bundles Grid ===== */
+        /* ===== Bundles Grid - 2 PER LINE ===== */
         .network-section {
             margin-bottom: 70px;
             opacity: 0;
@@ -565,7 +726,9 @@
         .network-icon {
             width: 70px;
             height: 70px;
-            background: var(--gradient-card);
+            background: linear-gradient(135deg, 
+                rgba(19, 19, 31, 0.8) 0%,
+                rgba(28, 28, 46, 0.8) 100%);
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -573,6 +736,7 @@
             font-size: 2rem;
             box-shadow: var(--shadow-md);
             border: 3px solid rgba(255, 215, 0, 0.2);
+            backdrop-filter: blur(10px);
         }
 
         .network-icon.mtn {
@@ -595,22 +759,32 @@
             color: var(--white);
         }
 
+        /* UPDATED: 2 bundles per line grid */
         .bundles-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 25px;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .bundles-grid {
+                grid-template-columns: 1fr;
+            }
         }
 
         .bundle-card {
-            background: var(--gradient-card);
+            background: linear-gradient(135deg, 
+                rgba(19, 19, 31, 0.8) 0%,
+                rgba(28, 28, 46, 0.8) 100%);
             border-radius: var(--radius-lg);
-            padding: 30px;
+            padding: 25px;
             border: 2px solid rgba(255, 255, 255, 0.05);
             transition: var(--transition);
             position: relative;
             overflow: hidden;
             cursor: pointer;
             box-shadow: var(--shadow-md);
+            backdrop-filter: blur(10px);
         }
 
         .bundle-card:hover {
@@ -635,21 +809,33 @@
             transform: scaleX(1);
         }
 
+        /* Stock Badge - Like JoelData */
         .stock-badge {
             display: inline-block;
-            background: rgba(0, 255, 136, 0.1);
-            color: var(--success);
-            padding: 8px 18px;
+            padding: 6px 15px;
             border-radius: 50px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            margin-bottom: 20px;
-            border: 1px solid rgba(0, 255, 136, 0.3);
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
             backdrop-filter: blur(10px);
         }
 
+        .in-stock {
+            background: rgba(0, 255, 136, 0.1);
+            color: var(--success);
+            border: 1px solid rgba(0, 255, 136, 0.3);
+        }
+
+        .low-stock {
+            background: rgba(255, 215, 0, 0.1);
+            color: var(--primary);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+        }
+
         .bundle-size {
-            font-size: 2.8rem;
+            font-size: 2.5rem;
             font-weight: 800;
             color: var(--primary);
             margin: 15px 0;
@@ -684,6 +870,7 @@
             justify-content: center;
             gap: 10px;
             letter-spacing: 0.5px;
+            backdrop-filter: blur(10px);
         }
 
         .buy-btn:hover {
@@ -699,13 +886,16 @@
         }
 
         .payment-card {
-            background: var(--gradient-card);
+            background: linear-gradient(135deg, 
+                rgba(19, 19, 31, 0.8) 0%,
+                rgba(28, 28, 46, 0.8) 100%);
             border-radius: var(--radius-xl);
             padding: 50px;
             border: 2px solid rgba(255, 215, 0, 0.1);
             position: relative;
             overflow: hidden;
             box-shadow: var(--shadow-lg);
+            backdrop-filter: blur(20px);
         }
 
         .payment-card::before {
@@ -805,6 +995,7 @@
             justify-content: center;
             gap: 10px;
             margin-top: 15px;
+            backdrop-filter: blur(10px);
         }
 
         .copy-btn:hover {
@@ -839,6 +1030,39 @@
         .whatsapp-btn:hover {
             transform: translateY(-5px) scale(1.05);
             box-shadow: 0 15px 40px rgba(37, 211, 102, 0.4);
+        }
+
+        /* ===== NOTIFICATION TOAST ===== */
+        #notification-toast {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%) translateY(-100px);
+            background: linear-gradient(135deg, 
+                rgba(19, 19, 31, 0.95) 0%,
+                rgba(28, 28, 46, 0.95) 100%);
+            border: 1px solid var(--primary);
+            color: var(--white);
+            padding: 15px 25px;
+            border-radius: 50px;
+            font-size: 13px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            z-index: 11000;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            backdrop-filter: blur(20px);
+        }
+
+        #notification-toast.show {
+            transform: translateX(-50%) translateY(0);
+        }
+
+        #notification-toast i {
+            color: var(--primary);
+            font-size: 16px;
         }
 
         /* ===== Floating Action Button ===== */
@@ -891,7 +1115,7 @@
 
         .fab-item {
             padding: 15px 25px;
-            background: var(--dark-card);
+            background: rgba(19, 19, 31, 0.95);
             border-radius: 50px;
             color: var(--white);
             font-weight: 600;
@@ -905,6 +1129,7 @@
             border: 2px solid rgba(255, 215, 0, 0.1);
             transform: translateX(20px);
             opacity: 0;
+            backdrop-filter: blur(10px);
         }
 
         .fab-menu.active .fab-item {
@@ -926,10 +1151,13 @@
 
         /* ===== Footer ===== */
         footer {
-            background: var(--dark-card);
+            background: linear-gradient(135deg, 
+                rgba(19, 19, 31, 0.95) 0%,
+                rgba(28, 28, 46, 0.95) 100%);
             padding: 60px 0 30px;
             margin-top: 100px;
             border-top: 2px solid rgba(255, 215, 0, 0.1);
+            backdrop-filter: blur(10px);
         }
 
         .footer-content {
@@ -998,7 +1226,9 @@
         }
 
         .modal-content {
-            background: var(--gradient-card);
+            background: linear-gradient(135deg, 
+                rgba(19, 19, 31, 0.95) 0%,
+                rgba(28, 28, 46, 0.95) 100%);
             border-radius: var(--radius-xl);
             padding: 50px;
             max-width: 600px;
@@ -1009,6 +1239,7 @@
             border: 2px solid var(--primary);
             box-shadow: var(--shadow-lg), var(--shadow-gold);
             animation: slideUp 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            backdrop-filter: blur(20px);
         }
 
         @keyframes slideUp {
@@ -1062,10 +1293,12 @@
             .filter-btn { padding: 12px 25px; }
             .countdown-timer { gap: 10px; }
             .time-value { font-size: 2.2rem; min-width: 60px; }
-            .bundles-grid { grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); }
+            .bundles-grid { grid-template-columns: 1fr; }
             .payment-methods { grid-template-columns: 1fr; }
             .fab-container { bottom: 20px; right: 20px; }
-            .theme-toggle { top: 70px; right: 20px; }
+            .theme-toggle, .share-button-container { top: 70px; }
+            .theme-toggle { right: 20px; }
+            .share-button-container { left: 20px; }
             .modal-content { padding: 40px 25px; }
         }
 
@@ -1078,6 +1311,7 @@
             .time-value { font-size: 1.8rem; min-width: 50px; }
             .bundle-size { font-size: 2.2rem; }
             .terms-content { font-size: 0.8rem; }
+            .bundles-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -1091,6 +1325,64 @@
                 <span><strong>IMPORTANT:</strong> By purchasing, you agree to our <a href="#" class="terms-link" onclick="openModal('termsModal'); return false;">Terms & Conditions</a>. Delivery: 5-45 minutes after payment confirmation.</span>
             </div>
         </div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div id="notification-toast">
+        <i class="fas fa-shopping-bag"></i>
+        <span id="notif-text">Someone in Accra just bought 5GB</span>
+    </div>
+
+    <!-- Side Menu Overlay -->
+    <div class="menu-overlay" id="menuOverlay" onclick="toggleMenu()"></div>
+
+    <!-- Side Menu -->
+    <div id="sideMenu">
+        <button class="menu-close" onclick="toggleMenu()">
+            <i class="fas fa-times"></i>
+        </button>
+        
+        <div class="menu-header">
+            <h3>ABS Ventures Menu</h3>
+            <p style="color: var(--light-gray); font-size: 0.9rem;">Manage your account & transactions</p>
+        </div>
+        
+        <div class="menu-item" onclick="viewTransactionHistory()">
+            <i class="fas fa-history"></i>
+            <span>Transaction History</span>
+        </div>
+        
+        <div class="menu-item" onclick="viewLastReceipt()">
+            <i class="fas fa-file-invoice"></i>
+            <span>View Last Receipt</span>
+        </div>
+        
+        <div class="menu-item" onclick="toggleTheme(); toggleMenu();">
+            <i class="fas fa-palette"></i>
+            <span>Switch Theme (Light/Dark)</span>
+        </div>
+        
+        <div class="menu-item" onclick="shareApp()">
+            <i class="fas fa-share-alt"></i>
+            <span>Share This App</span>
+        </div>
+        
+        <div class="menu-item" onclick="location.reload()">
+            <i class="fas fa-home"></i>
+            <span>Home / Refresh</span>
+        </div>
+        
+        <div class="menu-item" style="margin-top: 40px; background: rgba(229, 25, 55, 0.1); border-color: rgba(229, 25, 55, 0.3);" onclick="toggleMenu()">
+            <i class="fas fa-times"></i>
+            <span>Close Menu</span>
+        </div>
+    </div>
+
+    <!-- Share Button -->
+    <div class="share-button-container">
+        <button class="share-btn" onclick="shareApp()">
+            <i class="fas fa-share-alt"></i>
+        </button>
     </div>
 
     <!-- Theme Toggle -->
@@ -1203,8 +1495,9 @@
             </div>
             
             <div class="bundles-grid">
+                <!-- 1GB -->
                 <div class="bundle-card" onclick="openPaymentGuide('MTN', '1GB', '6')">
-                    <div class="stock-badge">
+                    <div class="stock-badge in-stock">
                         <i class="fas fa-check-circle"></i> IN STOCK
                     </div>
                     <div class="bundle-size">1GB</div>
@@ -1216,8 +1509,9 @@
                     </button>
                 </div>
                 
+                <!-- 2GB -->
                 <div class="bundle-card" onclick="openPaymentGuide('MTN', '2GB', '11')">
-                    <div class="stock-badge">
+                    <div class="stock-badge in-stock">
                         <i class="fas fa-check-circle"></i> IN STOCK
                     </div>
                     <div class="bundle-size">2GB</div>
@@ -1229,8 +1523,9 @@
                     </button>
                 </div>
                 
+                <!-- 3GB -->
                 <div class="bundle-card" onclick="openPaymentGuide('MTN', '3GB', '17')">
-                    <div class="stock-badge">
+                    <div class="stock-badge in-stock">
                         <i class="fas fa-check-circle"></i> IN STOCK
                     </div>
                     <div class="bundle-size">3GB</div>
@@ -1242,9 +1537,10 @@
                     </button>
                 </div>
                 
+                <!-- 5GB -->
                 <div class="bundle-card" onclick="openPaymentGuide('MTN', '5GB', '27')">
-                    <div class="stock-badge">
-                        <i class="fas fa-check-circle"></i> IN STOCK
+                    <div class="stock-badge low-stock">
+                        <i class="fas fa-exclamation-triangle"></i> LOW STOCK
                     </div>
                     <div class="bundle-size">5GB</div>
                     <div class="bundle-price">
@@ -1267,8 +1563,9 @@
             </div>
             
             <div class="bundles-grid">
+                <!-- 5GB -->
                 <div class="bundle-card" onclick="openPaymentGuide('Telecel', '5GB', '28')">
-                    <div class="stock-badge">
+                    <div class="stock-badge in-stock">
                         <i class="fas fa-check-circle"></i> IN STOCK
                     </div>
                     <div class="bundle-size">5GB</div>
@@ -1280,9 +1577,10 @@
                     </button>
                 </div>
                 
+                <!-- 10GB -->
                 <div class="bundle-card" onclick="openPaymentGuide('Telecel', '10GB', '46')">
-                    <div class="stock-badge">
-                        <i class="fas fa-check-circle"></i> IN STOCK
+                    <div class="stock-badge low-stock">
+                        <i class="fas fa-exclamation-triangle"></i> LOW STOCK
                     </div>
                     <div class="bundle-size">10GB</div>
                     <div class="bundle-price">
@@ -1305,8 +1603,9 @@
             </div>
             
             <div class="bundles-grid">
+                <!-- 1GB -->
                 <div class="bundle-card" onclick="openPaymentGuide('AirtelTigo', '1GB', '6')">
-                    <div class="stock-badge">
+                    <div class="stock-badge in-stock">
                         <i class="fas fa-check-circle"></i> IN STOCK
                     </div>
                     <div class="bundle-size">1GB</div>
@@ -1318,8 +1617,9 @@
                     </button>
                 </div>
                 
+                <!-- 2GB -->
                 <div class="bundle-card" onclick="openPaymentGuide('AirtelTigo', '2GB', '12')">
-                    <div class="stock-badge">
+                    <div class="stock-badge in-stock">
                         <i class="fas fa-check-circle"></i> IN STOCK
                     </div>
                     <div class="bundle-size">2GB</div>
@@ -1356,6 +1656,7 @@
                             <i class="far fa-copy"></i> COPY NUMBER
                         </button>
                     </div>
+                </div>
                 
                 <div class="whatsapp-section">
                     <p style="margin-bottom: 25px; font-size: 1.1rem;">After payment, contact us on WhatsApp for instant delivery</p>
@@ -1413,11 +1714,11 @@
             <div class="fab-item" onclick="copyToClipboard('0202111485', 'Telecel Money')">
                 <i class="far fa-copy"></i> Copy MoMo Number
             </div>
+            <div class="fab-item" onclick="toggleMenu()">
+                <i class="fas fa-bars"></i> Open Menu
+            </div>
             <div class="fab-item" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
                 <i class="fas fa-arrow-up"></i> Back to Top
-            </div>
-            <div class="fab-item" onclick="toggleTheme()">
-                <i class="fas fa-palette"></i> Toggle Theme
             </div>
         </div>
     </div>
@@ -1473,6 +1774,181 @@
     <script>
         // ===== Professional JavaScript Implementation =====
         
+        // ===== NEW FEATURES =====
+        
+        // 1. Side Menu Functions
+        function toggleMenu() {
+            const menu = document.getElementById('sideMenu');
+            const overlay = document.getElementById('menuOverlay');
+            const isActive = menu.classList.toggle('active');
+            overlay.style.display = isActive ? 'block' : 'none';
+        }
+
+        // 2. Notification System (Like JoelData)
+        const cities = ["Accra", "Kumasi", "Takoradi", "Tamale", "Tema", "Cape Coast", "Koforidua", "Ho", "Sunyani"];
+        const bundles = ["1GB", "2GB", "3GB", "5GB", "6GB", "10GB"];
+        
+        function showNotification() {
+            const city = cities[Math.floor(Math.random() * cities.length)];
+            const bundle = bundles[Math.floor(Math.random() * bundles.length)];
+            const toast = document.getElementById('notification-toast');
+            document.getElementById('notif-text').innerText = `Someone in ${city} just bought ${bundle}`;
+            
+            toast.classList.add('show');
+            setTimeout(() => { toast.classList.remove('show'); }, 4000);
+        }
+
+        // 3. Share Function (Like JoelData)
+        function shareApp() {
+            const shareData = {
+                title: 'ABS Ventures - Premium Data Bundles',
+                text: 'I just got cheap data from ABS Ventures! Check it out:',
+                url: window.location.href
+            };
+            
+            if (navigator.share) {
+                navigator.share(shareData)
+                    .then(() => showToast('Website shared successfully!'))
+                    .catch(err => console.log('Sharing cancelled:', err));
+            } else {
+                // Fallback for desktop
+                window.location.href = `https://wa.me/?text=${encodeURIComponent(shareData.text + " " + shareData.url)}`;
+            }
+        }
+
+        // 4. Transaction History System
+        let transactions = JSON.parse(localStorage.getItem('abs_transactions') || '[]');
+        
+        function addTransaction(network, size, price, phone) {
+            const transaction = {
+                id: Date.now(),
+                date: new Date().toISOString(),
+                network,
+                size,
+                price,
+                phone,
+                status: 'pending'
+            };
+            
+            transactions.push(transaction);
+            localStorage.setItem('abs_transactions', JSON.stringify(transactions));
+            return transaction;
+        }
+
+        function viewTransactionHistory() {
+            if (transactions.length === 0) {
+                alert('No transactions found yet. Make a purchase first!');
+                return;
+            }
+            
+            let historyHTML = `
+                <div style="text-align: center; margin-bottom: 30px;">
+                    <h3 style="color: var(--primary);">Transaction History</h3>
+                    <p>${transactions.length} transaction(s) found</p>
+                </div>
+            `;
+            
+            transactions.slice().reverse().forEach(tx => {
+                historyHTML += `
+                    <div style="background: rgba(255,255,255,0.05); padding: 15px; border-radius: 10px; margin-bottom: 10px; border-left: 4px solid var(--primary);">
+                        <div style="display: flex; justify-content: space-between;">
+                            <span style="font-weight: bold;">${tx.network} ${tx.size}</span>
+                            <span style="color: var(--primary);">GHS ${tx.price}</span>
+                        </div>
+                        <div style="font-size: 0.9rem; color: var(--light-gray); margin-top: 5px;">
+                            ${new Date(tx.date).toLocaleString()} • ${tx.phone}
+                        </div>
+                        <div style="display: flex; justify-content: space-between; margin-top: 10px;">
+                            <span style="font-size: 0.8rem; padding: 3px 10px; background: ${tx.status === 'completed' ? 'rgba(0,255,136,0.1)' : 'rgba(255,215,0,0.1)'}; border-radius: 10px; color: ${tx.status === 'completed' ? 'var(--success)' : 'var(--primary)'};">${tx.status}</span>
+                            <button onclick="printReceipt(${tx.id})" style="background: none; border: 1px solid var(--primary); color: var(--primary); padding: 3px 10px; border-radius: 10px; font-size: 0.8rem; cursor: pointer;">Receipt</button>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            alertWithHTML('Transaction History', historyHTML);
+        }
+
+        function viewLastReceipt() {
+            if (transactions.length === 0) {
+                alert('No receipts found yet. Make a purchase first!');
+                return;
+            }
+            
+            const lastTx = transactions[transactions.length - 1];
+            printReceipt(lastTx.id);
+        }
+
+        function printReceipt(transactionId) {
+            const tx = transactions.find(t => t.id === transactionId);
+            if (!tx) return;
+            
+            const receiptHTML = `
+                <div style="background: white; color: black; padding: 30px; border-radius: 15px; max-width: 400px; margin: 0 auto;">
+                    <div style="text-align: center; margin-bottom: 30px;">
+                        <h2 style="color: #FFD700;">ABS VENTURES</h2>
+                        <p>Official Receipt</p>
+                    </div>
+                    
+                    <div style="border-bottom: 2px dashed #ccc; padding-bottom: 20px; margin-bottom: 20px;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                            <span>Receipt #:</span>
+                            <span><strong>ABS${tx.id}</strong></span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                            <span>Date:</span>
+                            <span>${new Date(tx.date).toLocaleString()}</span>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-bottom: 30px;">
+                        <div style="display: flex; justify-content: space-between; font-size: 1.2rem; margin-bottom: 15px;">
+                            <span><strong>${tx.network}</strong></span>
+                            <span><strong>${tx.size}</strong></span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                            <span>Phone:</span>
+                            <span>${tx.phone}</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                            <span>Status:</span>
+                            <span style="color: ${tx.status === 'completed' ? 'green' : 'orange'};">${tx.status}</span>
+                        </div>
+                    </div>
+                    
+                    <div style="border-top: 2px solid #FFD700; padding-top: 20px; text-align: center;">
+                        <div style="font-size: 2rem; color: #FFD700; font-weight: bold; margin-bottom: 10px;">
+                            GHS ${tx.price}
+                        </div>
+                        <p style="color: #666; font-size: 0.9rem;">Thank you for choosing ABS Ventures!</p>
+                    </div>
+                </div>
+            `;
+            
+            alertWithHTML('Your Receipt', receiptHTML);
+        }
+
+        function alertWithHTML(title, html) {
+            const modal = document.createElement('div');
+            modal.className = 'modal';
+            modal.style.display = 'flex';
+            modal.innerHTML = `
+                <div class="modal-content" style="max-width: 500px;">
+                    <button class="modal-close" onclick="this.parentElement.parentElement.remove()">
+                        <i class="fas fa-times"></i>
+                    </button>
+                    <h2 class="text-gradient">${title}</h2>
+                    <div style="max-height: 400px; overflow-y: auto; padding-right: 10px;">
+                        ${html}
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(modal);
+            document.body.style.overflow = 'hidden';
+        }
+
+        // ===== EXISTING FUNCTIONS (UPDATED) =====
+        
         // Theme Management
         function toggleTheme() {
             document.body.classList.toggle('light-mode');
@@ -1512,7 +1988,7 @@
                 } else {
                     // Reset timer when it reaches 0
                     time = 2 * 3600 + 45 * 60;
-                    showNotification('New daily deals available! Refresh for latest offers.');
+                    showToast('New daily deals available! Refresh for latest offers.');
                 }
             }
             
@@ -1520,8 +1996,18 @@
             setInterval(updateTimer, 1000);
         }
         
-        // Open Payment Guide - FIXED VERSION
+        // Open Payment Guide - ENHANCED WITH TRANSACTION TRACKING
         function openPaymentGuide(network, size, price) {
+            // Prompt for phone number
+            const phone = prompt(`Enter phone number to receive ${size} ${network} data:`);
+            if (!phone || phone.length < 10) {
+                alert('Please enter a valid 10-digit phone number');
+                return;
+            }
+            
+            // Add transaction
+            const transaction = addTransaction(network, size, price, phone);
+            
             const paymentPageContent = `
                 <!DOCTYPE html>
                 <html lang="en">
@@ -1556,6 +2042,7 @@
                             box-shadow: 0 20px 60px rgba(0,0,0,0.3), 0 0 40px rgba(255, 215, 0, 0.2);
                             position: relative;
                             overflow: hidden;
+                            backdrop-filter: blur(20px);
                         }
                         
                         .payment-container::before {
@@ -1589,6 +2076,7 @@
                             margin-bottom: 40px;
                             border: 2px dashed #FFD700;
                             text-align: center;
+                            backdrop-filter: blur(10px);
                         }
                         
                         .order-summary h2 {
@@ -1613,6 +2101,7 @@
                             border-radius: 16px;
                             margin-bottom: 25px;
                             border: 2px solid rgba(255, 215, 0, 0.3);
+                            backdrop-filter: blur(10px);
                         }
                         
                         .method-header {
@@ -1675,6 +2164,7 @@
                             justify-content: center;
                             gap: 12px;
                             transition: all 0.3s ease;
+                            backdrop-filter: blur(10px);
                         }
                         
                         .copy-btn:hover {
@@ -1754,7 +2244,7 @@
                             transform: translateY(-5px);
                             box-shadow: 0 15px 40px rgba(37, 211, 102, 0.4);
                         }
-                        
+
                         .notification {
                             position: fixed;
                             top: 20px;
@@ -1792,6 +2282,7 @@
                             <h2>Your Order Details</h2>
                             <p><strong>Network:</strong> ${network}</p>
                             <p><strong>Bundle Size:</strong> ${size}</p>
+                            <p><strong>Recipient:</strong> ${phone}</p>
                             <div class="order-amount">GHS ${price}</div>
                             <p><i class="fas fa-clock"></i> Delivery Time: 5-45 minutes after payment confirmation</p>
                         </div>
@@ -1818,6 +2309,7 @@
                                     <i class="far fa-copy"></i> COPY TELEcel NUMBER
                                 </button>
                             </div>
+                        </div>
                         
                         <div class="payment-steps">
                             <h2 style="color: #FFD700; margin-bottom: 30px; text-align: center;">
@@ -1939,7 +2431,7 @@
                         
                         // WhatsApp button functionality
                         document.getElementById('whatsappBtn').addEventListener('click', function() {
-                            const message = \`Hi ABS Ventures, I have paid for \${'${size}'} \${'${network}'} bundle (GHS \${'${price}'}). Please send to my number.\`;
+                            const message = \`Hi ABS Ventures, I have paid for \${'${size}'} \${'${network}'} bundle (GHS \${'${price}'}). Please send to ${phone}.\`;
                             const whatsappUrl = \`https://wa.me/233202111485?text=\${encodeURIComponent(message)}\`;
                             window.open(whatsappUrl, '_blank');
                         });
@@ -1993,7 +2485,7 @@
         // Clipboard Functions
         function copyToClipboard(text, type) {
             navigator.clipboard.writeText(text).then(() => {
-                showNotification(`${type} number copied: ${text}`);
+                showToast(`${type} number copied: ${text}`);
             }).catch(err => {
                 // Fallback for older browsers
                 const textArea = document.createElement('textarea');
@@ -2002,7 +2494,7 @@
                 textArea.select();
                 document.execCommand('copy');
                 document.body.removeChild(textArea);
-                showNotification(`${type} number copied: ${text}`);
+                showToast(`${type} number copied: ${text}`);
             });
         }
         
@@ -2047,17 +2539,17 @@
             }
         });
         
-        // Notification System
-        function showNotification(message) {
+        // Toast Notification System
+        function showToast(message) {
             // Remove existing notification
-            const existingNotif = document.querySelector('.notification');
+            const existingNotif = document.querySelector('.custom-toast');
             if (existingNotif) existingNotif.remove();
             
             // Create notification
             const notif = document.createElement('div');
-            notif.className = 'notification';
+            notif.className = 'custom-toast';
             notif.innerHTML = `
-                <div style="position:fixed; bottom:100px; right:40px; background:linear-gradient(135deg, #FFD700, #FFAA00); color:#0A0A0F; padding:18px 30px; border-radius:16px; font-weight:600; z-index:2000; display:flex; align-items:center; gap:12px; box-shadow:0 10px 30px rgba(255, 215, 0, 0.4); animation:slideIn 0.3s ease, fadeOut 0.3s ease 2.7s forwards; max-width:350px;">
+                <div style="position:fixed; bottom:100px; right:40px; background:linear-gradient(135deg, #FFD700, #FFAA00); color:#0A0A0F; padding:18px 30px; border-radius:16px; font-weight:600; z-index:2000; display:flex; align-items:center; gap:12px; box-shadow:0 10px 30px rgba(255, 215, 0, 0.4); animation:slideIn 0.3s ease, fadeOut 0.3s ease 2.7s forwards; max-width:350px; backdrop-filter: blur(10px); border: 1px solid rgba(255, 215, 0, 0.3);">
                     <i class="fas fa-check-circle"></i>
                     <span>${message}</span>
                 </div>
@@ -2065,9 +2557,9 @@
             document.body.appendChild(notif);
             
             // Add animation styles if not already present
-            if (!document.querySelector('#notification-styles')) {
+            if (!document.querySelector('#toast-styles')) {
                 const style = document.createElement('style');
-                style.id = 'notification-styles';
+                style.id = 'toast-styles';
                 style.textContent = `
                     @keyframes slideIn {
                         from { transform: translateX(100%); opacity: 0; }
@@ -2092,6 +2584,10 @@
         document.addEventListener('DOMContentLoaded', function() {
             startCountdown();
             
+            // Start notification system
+            setTimeout(showNotification, 3000);
+            setInterval(showNotification, 12000);
+            
             // Add light mode styles if needed
             if (!document.querySelector('#light-mode-styles')) {
                 const lightStyles = document.createElement('style');
@@ -2111,25 +2607,47 @@
                         background: linear-gradient(90deg, #E51937, #FF3366);
                     }
                     body.light-mode .hero-card {
-                        background: white;
-                        border: 1px solid #E0E0E0;
+                        background: rgba(255, 255, 255, 0.9);
+                        border: 1px solid rgba(224, 224, 224, 0.8);
+                        color: #333;
                     }
                     body.light-mode .search-input {
-                        background: white;
-                        border-color: #DDD;
+                        background: rgba(255, 255, 255, 0.9);
+                        border-color: rgba(221, 221, 221, 0.8);
                         color: #333;
                     }
                     body.light-mode .bundle-card {
-                        background: white;
-                        border: 1px solid #E0E0E0;
+                        background: rgba(255, 255, 255, 0.9);
+                        border: 1px solid rgba(224, 224, 224, 0.8);
+                        color: #333;
                     }
                     body.light-mode .payment-card {
-                        background: white;
-                        border: 1px solid #E0E0E0;
+                        background: rgba(255, 255, 255, 0.9);
+                        border: 1px solid rgba(224, 224, 224, 0.8);
+                        color: #333;
                     }
                     body.light-mode footer {
-                        background: #FFF;
-                        border-top: 1px solid #E0E0E0;
+                        background: rgba(255, 255, 255, 0.9);
+                        border-top: 1px solid rgba(224, 224, 224, 0.8);
+                        color: #333;
+                    }
+                    body.light-mode .footer-links a {
+                        color: #666;
+                    }
+                    body.light-mode .footer-links a:hover {
+                        color: #FFD700;
+                    }
+                    body.light-mode #sideMenu {
+                        background: rgba(255, 255, 255, 0.95);
+                        color: #333;
+                    }
+                    body.light-mode .menu-item {
+                        background: rgba(0, 0, 0, 0.05);
+                        color: #333;
+                    }
+                    body.light-mode .menu-item:hover {
+                        background: #FFD700;
+                        color: #000;
                     }
                 `;
                 document.head.appendChild(lightStyles);
@@ -2167,6 +2685,7 @@
                     modal.style.display = 'none';
                     document.body.style.overflow = 'auto';
                 });
+                toggleMenu(); // Also close side menu
             }
             
             // Ctrl/Cmd + F focuses search
@@ -2179,6 +2698,18 @@
             if ((e.ctrlKey || e.metaKey) && e.key === '/') {
                 e.preventDefault();
                 openWhatsApp();
+            }
+            
+            // Ctrl/Cmd + M opens menu
+            if ((e.ctrlKey || e.metaKey) && e.key === 'm') {
+                e.preventDefault();
+                toggleMenu();
+            }
+            
+            // Ctrl/Cmd + S shares
+            if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+                e.preventDefault();
+                shareApp();
             }
         });
     </script>

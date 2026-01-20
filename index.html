@@ -1,1 +1,110 @@
-<!DOCTYPE html><html><head><title>UnderCover</title><style>body{font-family:Arial;margin:0;background:#f0f2f5}.navbar{background:#1877f2;color:white;padding:15px;font-size:24px;font-weight:bold}.container{max-width:500px;margin:50px auto;padding:30px;background:white;border-radius:10px;box-shadow:0 2px 10px rgba(0,0,0,0.1)}input,textarea{width:100%;padding:10px;margin:10px 0;border:1px solid #ddd;border-radius:5px}button{width:100%;padding:12px;background:#1877f2;color:white;border:none;border-radius:5px;cursor:pointer}.post{margin:20px 0;padding:20px;background:white;border-radius:5px;box-shadow:0 1px 3px rgba(0,0,0,0.1)}</style></head><body><div id="app"></div><script>let users=[],posts=[],currentUser=null;function render(){document.getElementById('app').innerHTML=currentUser?`<div class="navbar">UnderCover</div><div class="container"><h2>Welcome ${currentUser}!</h2><textarea id="newPost" placeholder="What's on your mind?"></textarea><button onclick="createPost()">Post</button>${posts.map((p,i)=>`<div class="post"><strong>${p.user}:</strong> ${p.text}<br><small>${p.time}</small></div>`).join('')}<button onclick="logout()" style="background:red;margin-top:20px">Logout</button></div>`:`<div class="navbar">UnderCover</div><div class="container"><h2>Login to UnderCover</h2><input id="username" placeholder="Username"><button onclick="login()">Login</button><button onclick="register()" style="background:#42b72a;margin-top:10px">Register</button></div>`;}function login(){const user=document.getElementById('username').value;if(user){currentUser=user;users.push(user);posts=[{user:'System',text:'Welcome to UnderCover!',time:new Date().toLocaleTimeString()}];render();}}function logout(){currentUser=null;render();}function createPost(){const text=document.getElementById('newPost').value;if(text){posts.unshift({user:currentUser,text,time:new Date().toLocaleTimeString()});document.getElementById('newPost').value='';render();}}function register(){const user=prompt('Enter username:');if(user){alert('Registered as '+user);login();}}render();</script></body></html>
+<!DOCTYPE html>
+<html>
+<head>
+<title>UnderCover</title>
+<style>
+body{font-family:Arial;margin:0;background:#f0f2f5}
+.navbar{background:#1877f2;color:white;padding:15px;font-size:24px;font-weight:bold;text-align:center}
+.container{max-width:500px;margin:40px auto;padding:25px;background:white;border-radius:10px;box-shadow:0 2px 10px rgba(0,0,0,.1)}
+input,textarea{width:100%;padding:10px;margin:10px 0;border:1px solid #ddd;border-radius:5px}
+button{width:100%;padding:12px;background:#1877f2;color:white;border:none;border-radius:5px;cursor:pointer;font-weight:bold}
+button.alt{background:#42b72a}
+button.danger{background:#e74c3c}
+.post{margin:15px 0;padding:15px;background:#f9f9f9;border-radius:5px}
+small{color:gray}
+</style>
+</head>
+
+<body>
+<div id="app"></div>
+
+<script>
+/* ---------- STORAGE ---------- */
+let users = JSON.parse(localStorage.getItem("uc_users")) || [];
+let posts = JSON.parse(localStorage.getItem("uc_posts")) || [];
+let currentUser = localStorage.getItem("uc_currentUser");
+
+/* ---------- SAVE ---------- */
+function save(){
+  localStorage.setItem("uc_users", JSON.stringify(users));
+  localStorage.setItem("uc_posts", JSON.stringify(posts));
+  localStorage.setItem("uc_currentUser", currentUser || "");
+}
+
+/* ---------- RENDER ---------- */
+function render(){
+  const app = document.getElementById("app");
+  if(currentUser){
+    app.innerHTML = `
+    <div class="navbar">UnderCover</div>
+    <div class="container">
+      <h3>Welcome, ${currentUser} 👋</h3>
+      <textarea id="newPost" placeholder="What's on your mind?"></textarea>
+      <button onclick="createPost()">Post</button>
+      ${posts.map(p=>`
+        <div class="post">
+          <strong>@${p.user}</strong><br>
+          ${p.text}<br>
+          <small>${p.time}</small>
+        </div>
+      `).join("")}
+      <button class="danger" onclick="logout()">Logout</button>
+    </div>`;
+  } else {
+    app.innerHTML = `
+    <div class="navbar">UnderCover</div>
+    <div class="container">
+      <h3>Login</h3>
+      <input id="username" placeholder="Username">
+      <input id="password" type="password" placeholder="Password">
+      <button onclick="login()">Login</button>
+      <button class="alt" onclick="register()">Register</button>
+    </div>`;
+  }
+}
+
+/* ---------- AUTH ---------- */
+function register(){
+  const u = document.getElementById("username").value;
+  const p = document.getElementById("password").value;
+  if(!u || !p) return alert("Fill everything");
+  if(users.find(x=>x.user===u)) return alert("Username taken");
+  users.push({user:u,pass:p});
+  currentUser = u;
+  save();
+  render();
+}
+
+function login(){
+  const u = document.getElementById("username").value;
+  const p = document.getElementById("password").value;
+  const found = users.find(x=>x.user===u && x.pass===p);
+  if(!found) return alert("Wrong username or password");
+  currentUser = u;
+  save();
+  render();
+}
+
+function logout(){
+  currentUser = null;
+  save();
+  render();
+}
+
+/* ---------- POSTS ---------- */
+function createPost(){
+  const text = document.getElementById("newPost").value;
+  if(!text) return;
+  posts.unshift({
+    user: currentUser,
+    text,
+    time: new Date().toLocaleString()
+  });
+  save();
+  render();
+}
+
+render();
+</script>
+</body>
+</html>
